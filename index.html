@@ -2653,7 +2653,12 @@ function admRenTKList(){const el=document.getElementById('adm-tks-list');if(!el)
 // Add/Edit track
 let _admEditId=null;
 function admInitAT(){if(!_admEditId)admResetAT();}
-function admResetAT(){_admEditId=null;document.getElementById('adm-at-title').textContent='➕ افزودن ترک';['adm-t-title','adm-t-artist','adm-t-artistid','adm-t-audio','adm-t-cover','adm-t-video','adm-t-etext','adm-t-blabel'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('adm-t-emoji').value='🎵';document.getElementById('adm-t-color').value='#1a0a3d';document.getElementById('adm-t-color-txt').value='#1a0a3d';document.getElementById('adm-t-dur').value='';document.getElementById('adm-t-reward').value='10';document.getElementById('adm-t-vreward').value='20';document.getElementById('adm-t-genre').value='Rap';document.getElementById('adm-t-etype').value='normal';document.getElementById('adm-t-hasvid').checked=false;document.getElementById('adm-links-con').innerHTML='';admAddLR();}
+function admResetAT(){_admEditId=null;document.getElementById('adm-at-title').textContent='➕ افزودن ترک';['adm-t-title','adm-t-artist','adm-t-artistid','adm-t-audio','adm-t-cover','adm-t-video','adm-t-etext','adm-t-blabel'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('adm-t-emoji').value='🎵';document.getElementById('adm-t-color').value='#1a0a3d';document.getElementById('adm-t-color-txt').value='#1a0a3d';document.getElementById('adm-t-dur').value='';document.getElementById('adm-t-reward').value='10';document.getElementById('adm-t-vreward').value='20';document.getElementById('adm-t-genre').value='Rap';document.getElementById('adm-t-etype').value='normal';document.getElementById('adm-t-hasvid').checked=false;document.getElementById('adm-links-con').innerHTML='';admAddLR();
+  // reset audio file state
+  const fn=document.getElementById('adm-audio-fname');if(fn){fn.textContent='انتخاب فایل MP3 / WAV / FLAC';fn.style.color='';}
+  const st=document.getElementById('adm-audio-status');if(st)st.style.display='none';
+  localStorage.removeItem('adm_audio_pending');
+}
 function admEditTK(id){const t=ATK.find(x=>x.id===id);if(!t)return;_admEditId=id;document.getElementById('adm-at-title').textContent='✏️ ویرایش: '+t.title;document.getElementById('adm-t-title').value=t.title;document.getElementById('adm-t-artist').value=t.artist;document.getElementById('adm-t-artistid').value=t.artistId||'';document.getElementById('adm-t-genre').value=t.genre||'Rap';document.getElementById('adm-t-emoji').value=t.emoji||'🎵';document.getElementById('adm-t-color').value=t.color||'#1a0a3d';document.getElementById('adm-t-color-txt').value=t.color||'#1a0a3d';document.getElementById('adm-t-dur').value=t.duration||'';document.getElementById('adm-t-reward').value=t.reward||10;document.getElementById('adm-t-vreward').value=t.videoReward||20;document.getElementById('adm-t-audio').value=t.audioUrl||'';document.getElementById('adm-t-cover').value=t.coverUrl||'';document.getElementById('adm-t-video').value=t.videoUrl||'';document.getElementById('adm-t-etype').value=t.earnType||'normal';document.getElementById('adm-t-blabel').value=t.badgeLabel||'';document.getElementById('adm-t-etext').value=t.earnText||'';document.getElementById('adm-t-hasvid').checked=!!t.hasVideo;document.getElementById('adm-links-con').innerHTML='';(t.links||[]).forEach(l=>admAddLR(l));admShowPage('adm-add-track');}
 function admSaveTK(){const ti=document.getElementById('adm-t-title').value.trim(),ar=document.getElementById('adm-t-artist').value.trim();if(!ti||!ar){admToast('⚠️ عنوان و آرتیست الزامیه');return;}const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);const em={normal:'hot',early:'new',sponsored:'sp',hot:'hot'};const ety=document.getElementById('adm-t-etype').value;
   const audioUrl=document.getElementById('adm-t-audio').value.trim();
@@ -2941,6 +2946,91 @@ function admSetServerUrl(){
   const cur=getServerUrl();
   const url=prompt('آدرس سرور backend:\n(خالی بذار برای غیرفعال کردن)',cur||'https://');
   if(url!==null){localStorage.setItem('vibe_server_url',url.trim());admToast(url.trim()?'✅ سرور تنظیم شد':'⚠️ سرور غیرفعال شد','s');}
+}
+
+// ─── Audio Source Switch ──────────────────────────
+let _audioSrc='file';
+function admSwitchAudioSrc(mode){
+  _audioSrc=mode;
+  const fw=document.getElementById('adm-src-file-wrap'),uw=document.getElementById('adm-src-url-wrap');
+  const fb=document.getElementById('adm-src-file-btn'),ub=document.getElementById('adm-src-url-btn');
+  if(mode==='file'){
+    if(fw)fw.style.display='';if(uw)uw.style.display='none';
+    if(fb){fb.style.background='var(--pu2)';fb.style.color='#fff';}
+    if(ub){ub.style.background='var(--bg3)';ub.style.color='var(--mu2)';}
+    const ui=document.getElementById('adm-t-audio');if(ui&&!ui.value.startsWith('blob:'))ui.value='';
+  }else{
+    if(fw)fw.style.display='none';if(uw)uw.style.display='';
+    if(ub){ub.style.background='var(--pu2)';ub.style.color='#fff';}
+    if(fb){fb.style.background='var(--bg3)';fb.style.color='var(--mu2)';}
+    const ui=document.getElementById('adm-t-audio');if(ui&&ui.value.startsWith('blob:'))ui.value='';
+    localStorage.removeItem('adm_audio_pending');
+  }
+}
+function admOnUrlInput(inp){
+  const url=inp.value.trim();
+  const prev=document.getElementById('adm-url-preview');if(!prev)return;
+  if(!url){prev.style.display='none';return;}
+  let p='🔗 لینک';
+  if(url.includes('soundcloud.com'))p='☁️ SoundCloud';
+  else if(url.includes('spotify.com'))p='🎵 Spotify';
+  else if(url.includes('youtube.com')||url.includes('youtu.be'))p='▶️ YouTube';
+  else if(url.match(/\.(mp3|wav|flac|ogg|m4a)$/i))p='🎵 فایل صوتی مستقیم';
+  else if(url.includes('raw.githubusercontent.com'))p='📦 GitHub Raw';
+  prev.style.display='block';prev.textContent=p+' — شناسایی شد ✓';
+}
+function admOnCoverInput(inp){
+  const url=inp.value.trim();
+  const prev=document.getElementById('adm-cover-preview');if(!prev)return;
+  if(!url){prev.style.display='none';return;}
+  prev.style.display='block';
+  const img=prev.querySelector('img');if(img){img.src=url;img.onerror=()=>{prev.style.display='none'};}
+}
+
+// ─── admSaveTK — validation کامل + feedback ───────
+function admSaveTK(){
+  const btn=document.getElementById('adm-save-tk-btn');
+  const result=document.getElementById('adm-save-result');
+  function showErr(msg){
+    if(result){result.style.display='block';result.style.background='rgba(248,113,113,.1)';result.style.border='.5px solid rgba(248,113,113,.25)';result.style.color='var(--re)';result.innerHTML='<i class="ti ti-alert-circle"></i> '+msg;}
+    if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}
+  }
+  function showOk(msg){
+    if(result){result.style.display='block';result.style.background='rgba(52,211,153,.08)';result.style.border='.5px solid rgba(52,211,153,.25)';result.style.color='var(--gr)';result.innerHTML='<i class="ti ti-check"></i> '+msg;}
+  }
+  if(result)result.style.display='none';
+  if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> ذخیره...';}
+  const ti=document.getElementById('adm-t-title').value.trim();
+  const ar=document.getElementById('adm-t-artist').value.trim();
+  if(!ti){showErr('عنوان ترک خالیه');document.getElementById('adm-t-title').focus();return;}
+  if(!ar){showErr('نام آرتیست خالیه');document.getElementById('adm-t-artist').focus();return;}
+  const audioUrl=document.getElementById('adm-t-audio').value.trim();
+  const hasFile=audioUrl.startsWith('blob:');
+  const hasUrl=audioUrl&&!hasFile;
+  if(!hasFile&&!hasUrl){showErr('موزیک رو مشخص کن — فایل آپلود کن یا لینک بزار');return;}
+  const isBlob=audioUrl.startsWith('blob:');
+  const finalAudioUrl=isBlob?'__local__':audioUrl;
+  const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);
+  const em={normal:'hot',early:'new',sponsored:'sp',hot:'hot'};
+  const ety=document.getElementById('adm-t-etype').value;
+  const existingTrack=_admEditId?ATK.find(x=>x.id===_admEditId):null;
+  const tk={id:_admEditId||'t'+Date.now(),title:ti,artist:ar,artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),genre:document.getElementById('adm-t-genre').value,emoji:document.getElementById('adm-t-emoji').value||'🎵',color:document.getElementById('adm-t-color').value||'#1a0a3d',duration:parseInt(document.getElementById('adm-t-dur').value)||180,reward:parseInt(document.getElementById('adm-t-reward').value)||10,videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,audioUrl:finalAudioUrl,coverUrl:document.getElementById('adm-t-cover').value.trim(),videoUrl:document.getElementById('adm-t-video').value.trim(),hasVideo:document.getElementById('adm-t-hasvid').checked,earnType:ety,badge:em[ety]||'hot',badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',links,addedAt:existingTrack?.addedAt||Date.now()};
+  if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;}else ATK.push(tk);
+  if(isBlob)admPersistAudio(tk.id);
+  admMD();admSaveAll();
+  const isEdit=!!_admEditId;_admEditId=null;
+  showOk(isEdit?`ترک "${ti}" ویرایش شد`:`ترک "${ti}" اضافه شد ✅`);
+  if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}
+  setTimeout(()=>{admResetAT();if(result)result.style.display='none';},2500);
+}
+
+// ─── admResetAT — reset audio source switch هم بشه ─
+const _origAdmResetAT=admResetAT;
+function admResetAT(){
+  _origAdmResetAT();
+  admSwitchAudioSrc('file');
+  const prev=document.getElementById('adm-url-preview');if(prev)prev.style.display='none';
+  const cprev=document.getElementById('adm-cover-preview');if(cprev)cprev.style.display='none';
 }
 
 // ذخیره فایل صوتی در IndexedDB و بازگشت blob URL
@@ -3347,35 +3437,48 @@ document.addEventListener('keydown',e=>{
         </div></div>
         <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-link" style="color:var(--bl)"></i><b>موزیک</b></div><div class="adm-card-body">
           <div class="adm-fg">
-            <!-- آپلود فایل مستقیم -->
+            <!-- انتخاب نوع ورودی صدا -->
             <div>
-              <div class="adm-lbl" style="margin-bottom:6px">آپلود فایل از کامپیوتر</div>
+              <div class="adm-lbl" style="margin-bottom:8px">منبع صدا</div>
+              <div style="display:flex;gap:0;border:.5px solid var(--b2);border-radius:var(--r);overflow:hidden;margin-bottom:12px">
+                <button id="adm-src-file-btn" onclick="admSwitchAudioSrc('file')" style="flex:1;padding:9px;border:none;background:var(--pu2);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ti ti-file-music"></i>آپلود فایل</button>
+                <button id="adm-src-url-btn" onclick="admSwitchAudioSrc('url')" style="flex:1;padding:9px;border:none;background:var(--bg3);color:var(--mu2);font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:5px"><i class="ti ti-link"></i>لینک URL</button>
+              </div>
+            </div>
+            <!-- حالت فایل -->
+            <div id="adm-src-file-wrap">
               <label style="display:flex;align-items:center;gap:10px;padding:13px;border:1.5px dashed var(--b2);border-radius:var(--r);cursor:pointer;transition:border-color .15s;background:var(--bg3)" id="adm-audio-drop" onmouseover="this.style.borderColor='var(--pu)'" onmouseout="this.style.borderColor='var(--b2)'">
                 <i class="ti ti-music-plus" style="font-size:24px;color:var(--mu);flex-shrink:0"></i>
                 <div style="flex:1">
                   <div style="font-size:13px;font-weight:500" id="adm-audio-fname">انتخاب فایل MP3 / WAV / FLAC</div>
-                  <div style="font-size:11px;color:var(--mu);margin-top:2px">فایل رو بکش اینجا یا کلیک کن</div>
+                  <div style="font-size:11px;color:var(--mu);margin-top:2px">فایل رو بکش اینجا یا کلیک کن — حداکثر ۵۰MB</div>
                 </div>
                 <input type="file" id="adm-audio-file" accept="audio/*" style="display:none" onchange="admHandleAudio(this)">
               </label>
               <div id="adm-audio-status" style="font-size:11px;margin-top:5px;display:none"></div>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;color:var(--mu);font-size:12px">
-              <div style="flex:1;height:.5px;background:var(--b1)"></div>
-              یا با لینک
-              <div style="flex:1;height:.5px;background:var(--b1)"></div>
-            </div>
-            <div class="adm-field"><div class="adm-lbl">Audio URL</div><input class="adm-inp" id="adm-t-audio" type="url" dir="ltr" placeholder="https://raw.githubusercontent.com/.../track.mp3" onchange="admMD()"><div style="font-size:10px;color:var(--mu);margin-top:3px">SoundCloud · Spotify · YouTube · MP3 مستقیم · GitHub Raw</div></div>
-            <div class="adm-field"><div class="adm-lbl">Cover URL یا فایل</div>
-              <div style="display:flex;gap:8px">
-                <input class="adm-inp" id="adm-t-cover" type="url" dir="ltr" placeholder="https://...cover.jpg" onchange="admMD()" style="flex:1">
-                <label style="padding:9px 12px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);cursor:pointer;white-space:nowrap;font-size:12px;color:var(--mu2);display:flex;align-items:center;gap:5px">
-                  <i class="ti ti-photo"></i>آپلود
-                  <input type="file" accept="image/*" style="display:none" onchange="admHandleCover(this)">
-                </label>
+            <!-- حالت URL -->
+            <div id="adm-src-url-wrap" style="display:none">
+              <div class="adm-field">
+                <input class="adm-inp" id="adm-t-audio" type="url" dir="ltr" placeholder="https://soundcloud.com/... یا لینک MP3 مستقیم" oninput="admMD();admOnUrlInput(this)">
+                <div style="font-size:10px;color:var(--mu);margin-top:4px">SoundCloud · Spotify · YouTube · GitHub Raw · MP3 مستقیم</div>
+                <div id="adm-url-preview" style="display:none;margin-top:6px;padding:8px 10px;border-radius:var(--r);background:rgba(52,211,153,.06);border:.5px solid rgba(52,211,153,.2);font-size:11px;color:var(--gr)"></div>
               </div>
             </div>
-            <div class="adm-field"><div class="adm-lbl">Video URL (MV)</div><input class="adm-inp" id="adm-t-video" type="url" dir="ltr" placeholder="YouTube یا لینک مستقیم MP4" onchange="admMD()"></div>
+            <!-- Cover -->
+            <div class="adm-field">
+              <div class="adm-lbl">Cover تصویر <span style="color:var(--mu);font-weight:400">(اختیاری)</span></div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input class="adm-inp" id="adm-t-cover" type="url" dir="ltr" placeholder="https://...cover.jpg" oninput="admMD();admOnCoverInput(this)" style="flex:1">
+                <label style="padding:9px 12px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);cursor:pointer;white-space:nowrap;font-size:12px;color:var(--mu2);display:flex;align-items:center;gap:5px;flex-shrink:0">
+                  <i class="ti ti-photo"></i>فایل
+                  <input type="file" accept="image/*" style="display:none" onchange="admHandleCover(this)">
+                </label>
+                <div id="adm-cover-preview" style="width:36px;height:36px;border-radius:7px;flex-shrink:0;overflow:hidden;display:none;background:var(--bg3)"><img style="width:100%;height:100%;object-fit:cover"></div>
+              </div>
+            </div>
+            <!-- Video URL -->
+            <div class="adm-field"><div class="adm-lbl">Video URL (MV) <span style="color:var(--mu);font-weight:400">(اختیاری)</span></div><input class="adm-inp" id="adm-t-video" type="url" dir="ltr" placeholder="YouTube یا لینک مستقیم MP4" onchange="admMD()"></div>
           </div>
           <div class="adm-div"></div>
           <div class="adm-tgl-row"><div style="font-size:13px">این ترک موزیک ویدیو داره</div><label class="adm-tgl"><input type="checkbox" id="adm-t-hasvid" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
@@ -3388,10 +3491,12 @@ document.addEventListener('keydown',e=>{
             <div class="adm-field"><div class="adm-lbl">متن Earn</div><input class="adm-inp" id="adm-t-etext" type="text" placeholder="گوش بده Coin بگیر" onchange="admMD()"></div>
           </div>
         </div></div>
-        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-brand-spotify" style="color:var(--gr)"></i><b>لینک‌های آرتیست</b><button class="adm-btn su" onclick="admAddLR()" style="margin-right:auto"><i class="ti ti-plus"></i>لینک</button></div><div class="adm-card-body"><div id="adm-links-con"></div></div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-brand-spotify" style="color:var(--gr)"></i><b>لینک‌های پلتفرم آرتیست</b><div style="font-size:11px;color:var(--mu2);margin-right:auto">Spotify، SoundCloud، Instagram و...</div><button class="adm-btn su" onclick="admAddLR()" style="flex-shrink:0"><i class="ti ti-plus"></i>لینک</button></div><div class="adm-card-body"><div id="adm-links-con"></div></div></div>
+        <!-- Save Button + Result -->
+        <div id="adm-save-result" style="display:none;padding:12px 14px;border-radius:var(--r);margin-bottom:12px;font-size:13px"></div>
         <div style="display:flex;gap:9px">
-          <button class="adm-btn pu" onclick="admSaveTK()" style="padding:10px 20px;font-size:13px"><i class="ti ti-check"></i>ذخیره</button>
-          <button class="adm-btn su" onclick="admCancelEdit()" style="padding:10px 14px">انصراف</button>
+          <button class="adm-btn pu" id="adm-save-tk-btn" onclick="admSaveTK()" style="padding:11px 22px;font-size:13px;flex:1;justify-content:center"><i class="ti ti-check"></i>ذخیره ترک</button>
+          <button class="adm-btn su" onclick="admCancelEdit()" style="padding:11px 16px">انصراف</button>
         </div>
       </div>
 
