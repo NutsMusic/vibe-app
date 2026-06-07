@@ -308,6 +308,10 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 /* MINI PLAYER - fixed above nav */
 .mini{position:fixed;bottom:56px;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:29;background:var(--bg2);border-top:.5px solid var(--b2);display:none}
 .mini.show{display:block}
+.mtime-row{display:flex;justify-content:space-between;padding:1px 14px 0;font-size:9px;color:var(--mu)}
+.mini-ctrl-bar{display:flex;align-items:center;justify-content:space-between;padding:2px 10px 8px}
+.mini-ctrl-bar .mxbtn{font-size:11px;padding:4px 8px}
+.mini-ctrl-bar .mplay{width:38px;height:38px}
 .mprog{height:3px;background:var(--bg3);cursor:pointer}
 .mpfill{height:100%;background:var(--pu);width:0%;transition:width .3s}
 .mpfill.loc{background:var(--am)}
@@ -1158,21 +1162,30 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 
 <!-- MINI PLAYER - fixed above nav -->
 <div class="mini" id="mini">
-  <div class="mprog" id="mpwrap" onclick="seekMini(event)"><div class="mpfill" id="mpfill"></div></div>
-  <div class="mbody">
+  <!-- Progress bar با زمان -->
+  <div class="mprog" id="mpwrap" onclick="seekMini(event)">
+    <div class="mpfill" id="mpfill"></div>
+  </div>
+  <div class="mtime-row"><span id="mp-cur">0:00</span><span id="mp-dur">0:00</span></div>
+  <!-- Main body - swipeable -->
+  <div class="mbody" id="mini-swipe">
     <div class="mcov" id="mcov">🎵</div>
-    <div class="minf"><div class="mt4" id="mtitle">—</div><div class="ma4" id="msub">—</div><span class="mbdg online" id="mbdg">online</span></div>
-    <div class="mctrl">
-      <button class="mcbtn" onclick="prevTr()"><i class="ti ti-player-skip-back"></i></button>
-      <button class="mplay" id="mplaybtn" onclick="togglePlay()"><i class="ti ti-player-pause"></i></button>
-      <button class="mcbtn" onclick="nextTr()"><i class="ti ti-player-skip-forward"></i></button>
-      <button class="mcbtn" onclick="closeMiniPlayer()" style="color:var(--re);opacity:.7;font-size:18px" title="بستن"><i class="ti ti-x"></i></button>
+    <div class="minf" style="flex:1;min-width:0;cursor:pointer" onclick="navPage('queue')">
+      <div class="mt4" id="mtitle">—</div>
+      <div class="ma4" id="msub"><span id="mini-artist">—</span><span class="mbdg online" id="mbdg" style="margin-right:6px">online</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:4px">
+      <button class="mcbtn" id="mini-like-btn" onclick="miniDoLike()" title="لایک"><i class="ti ti-heart"></i></button>
+      <button class="mcbtn" id="mini-mv-btn" onclick="miniOpenVideo()" title="موزیک ویدیو" style="display:none;color:var(--re)"><i class="ti ti-player-play-filled" style="font-size:14px"></i></button>
+      <button class="mcbtn" onclick="closeMiniPlayer()" style="color:var(--re);opacity:.6" title="بستن"><i class="ti ti-x" style="font-size:16px"></i></button>
     </div>
   </div>
-  <div class="mextra">
-    <button class="mxbtn" id="shfl-btn" onclick="toggleShuffle(this)"><i class="ti ti-arrows-shuffle"></i>Shuffle</button>
-    <button class="mxbtn" id="rpt-btn" onclick="toggleRepeat(this)"><i class="ti ti-repeat"></i>Repeat</button>
-    <button class="mxbtn" onclick="navPage('queue')"><i class="ti ti-list"></i>Queue</button>
+  <!-- Controls bar -->
+  <div class="mini-ctrl-bar">
+    <button class="mxbtn" id="mini-mode-btn" onclick="cyclePlayMode()" title="حالت پخش"><i class="ti ti-repeat" id="mini-mode-ico"></i><span id="mini-mode-txt" style="font-size:10px">معمولی</span></button>
+    <button class="mcbtn" onclick="prevTr()" style="font-size:20px"><i class="ti ti-player-skip-back"></i></button>
+    <button class="mplay" id="mplaybtn" onclick="togglePlay()"><i class="ti ti-player-pause"></i></button>
+    <button class="mcbtn" onclick="nextTr()" style="font-size:20px"><i class="ti ti-player-skip-forward"></i></button>
     <button class="mxbtn" id="sleep-btn" onclick="openOv('ov-sleep')"><i class="ti ti-clock"></i><span id="sleep-label">Sleep</span></button>
   </div>
 </div>
@@ -1188,7 +1201,12 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 
 <!-- VIDEO PLAYER -->
 <div class="vov" id="vov">
-  <div class="vhdr"><button class="vback" onclick="closeVideo()"><i class="ti ti-arrow-left"></i></button><div class="vtitle" id="vtitle">—</div><div class="vcbdg" id="vcbdg">+0 🪙</div></div>
+  <div class="vhdr">
+    <button class="vback" onclick="closeVideo()"><i class="ti ti-arrow-left"></i></button>
+    <div class="vtitle" id="vtitle">—</div>
+    <button id="vid-to-track-btn" onclick="videoGoToTrack()" style="display:none;background:rgba(167,139,250,.15);border:.5px solid rgba(167,139,250,.25);border-radius:20px;color:var(--pu);padding:5px 11px;font-size:11px;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:4px"><i class="ti ti-music" style="font-size:12px"></i>ترک</button>
+    <div class="vcbdg" id="vcbdg">+0 🪙</div>
+  </div>
   <div class="vscreen" id="vscreen" onclick="toggleVidPlay()">
     <video id="vid-el" playsinline></video>
     <canvas id="viz-canvas"></canvas>
@@ -3079,10 +3097,14 @@ function admSaveTK(){
     coverUrl:document.getElementById('adm-t-cover').value.trim(),
     videoUrl:document.getElementById('adm-t-video').value.trim(),
     hasVideo:document.getElementById('adm-t-hasvid').checked,
+    allowDownload:document.getElementById('adm-t-allowdl')?.checked||false,
+    videoId:document.getElementById('adm-t-videoid')?.value.trim()||'',
     earnType:ety,badge:em[ety]||'hot',
     badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',
     earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',
     links,addedAt:existingTrack?.addedAt||Date.now(),
+    releaseAt:(()=>{const v=document.getElementById('adm-t-releaseat')?.value;return v?new Date(v).getTime():0;})(),
+    status:(()=>{const v=document.getElementById('adm-t-releaseat')?.value;return v&&new Date(v).getTime()>Date.now()?'scheduled':'published';})(),
   };
 
   if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;else ATK.push(tk);}
@@ -3502,6 +3524,93 @@ function admOnCoverInput(inp){
 }
 
 // ذخیره فایل صوتی در IndexedDB و بازگشت blob URL
+// ═══ PLAY MODE ═══════════════════════════════════
+let PLAY_MODE=parseInt(localStorage.getItem('vibe_pmode')||'0');
+const PM_DATA=[
+  {ico:'ti-repeat',txt:'معمولی',col:'var(--mu)'},
+  {ico:'ti-repeat',txt:'تکرار همه',col:'var(--pu)'},
+  {ico:'ti-repeat-once',txt:'تکرار یکی',col:'var(--pu)'},
+  {ico:'ti-arrows-shuffle',txt:'Shuffle',col:'var(--gr)'},
+];
+function cyclePlayMode(){
+  PLAY_MODE=(PLAY_MODE+1)%4;
+  localStorage.setItem('vibe_pmode',PLAY_MODE);
+  updatePlayModeUI();
+  toast(PM_DATA[PLAY_MODE].txt);
+}
+function updatePlayModeUI(){
+  const pm=PM_DATA[PLAY_MODE];
+  const ico=document.getElementById('mini-mode-ico'),txt=document.getElementById('mini-mode-txt'),btn=document.getElementById('mini-mode-btn');
+  if(ico)ico.className='ti '+pm.ico;if(txt)txt.textContent=pm.txt;if(btn)btn.style.color=pm.col;
+}
+// intercept nextTr for repeat/shuffle
+const _origNextTr=nextTr;
+function nextTr(){
+  if(PLAY_MODE===2){aud.currentTime=0;aud.play().catch(()=>{});return;}
+  if(PLAY_MODE===3){const idx=Math.floor(Math.random()*OT.length);if(OT[idx])playOnline(idx);return;}
+  _origNextTr();
+}
+
+// ═══ MINI PLAYER ENHANCEMENTS ════════════════════
+function updMiniTime(c,d){
+  const cc=document.getElementById('mp-cur'),cd=document.getElementById('mp-dur');
+  if(cc)cc.textContent=fmtT(Math.floor(c));if(cd)cd.textContent=fmtT(Math.floor(d||0));
+}
+aud.addEventListener('timeupdate',()=>updMiniTime(aud.currentTime,aud.duration||0));
+
+function miniDoLike(){if(!CUR.id)return;const idx=OT.findIndex(t=>t.id===CUR.id);if(idx>=0)doLike(document.getElementById('lb-'+CUR.id),CUR.id);updMiniLikeBtn();}
+function updMiniLikeBtn(){
+  const btn=document.getElementById('mini-like-btn');if(!btn)return;
+  const liked=LIKED.some(t=>t.id===CUR.id);
+  btn.innerHTML=liked?'<i class="ti ti-heart-filled" style="color:var(--re)"></i>':'<i class="ti ti-heart"></i>';
+}
+function miniOpenVideo(){const t=OT.find(x=>x.id===CUR.id);if(t)openVideo(t.id);}
+function updMiniMVBtn(){
+  const btn=document.getElementById('mini-mv-btn');if(!btn)return;
+  const t=OT.find(x=>x.id===CUR.id);
+  btn.style.display=(t?.hasVideo||t?.videoUrl)?'flex':'none';
+}
+// Swipe prev/next
+let _swipeX=0;
+document.addEventListener('touchstart',e=>{const z=document.getElementById('mini-swipe');if(z?.contains(e.target))_swipeX=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const z=document.getElementById('mini-swipe');if(!z?.contains(e.target))return;
+  const dx=e.changedTouches[0].clientX-_swipeX;
+  if(Math.abs(dx)>55){dx>0?prevTr():nextTr();}
+});
+
+// setMini update
+const _origSetMini=setMini;
+function setMini(emoji,color,title,artist,type){
+  _origSetMini(emoji,color,title,artist,type);
+  const mart=document.getElementById('mini-artist');if(mart)mart.textContent=artist;
+  updMiniLikeBtn();updMiniMVBtn();updatePlayModeUI();
+}
+
+// ═══ VIDEO PLAYER: track link ════════════════════
+let _vidTrackId=null;
+function videoGoToTrack(){if(!_vidTrackId)return;closeVideo();setTimeout(()=>playById(_vidTrackId),300);}
+
+// ═══ RELEASE DATE SCHEDULING ═════════════════════
+function checkScheduledReleases(){
+  const now=Date.now(),ATK2=_ATK();let changed=false;
+  ATK2.forEach(t=>{
+    if(t.releaseAt&&t.releaseAt>0&&t.releaseAt<=now&&t.status==='scheduled'){
+      t.status='published';changed=true;
+      ANT=_ANT();
+      ANT.unshift({id:'n'+Date.now(),type:'artist',title:'🎵 '+t.title+' منتشر شد',sub:t.artist,ts:now,read:false,action:'feed'});
+      localStorage.setItem('vaNT',JSON.stringify(ANT));
+    }
+  });
+  if(changed){
+    localStorage.setItem('vaTK',JSON.stringify(ATK2));
+    OT=ATK2.filter(t=>(!t.releaseAt||t.releaseAt<=now)&&t.status!=='scheduled');
+    if(ONLINE)buildFeed();
+    NOTIFS=ANT.map(n=>({...n,ts:n.ts||Date.now()}));saveNotifs();updateNotifBadge();
+  }
+}
+setInterval(checkScheduledReleases,60000);
+
 const ADM_AUDIO_KEY = 'adm_audio_pending';
 
 async function admHandleAudio(input){
@@ -3928,6 +4037,19 @@ document.addEventListener('keydown',e=>{
           <div class="adm-tgl-row"><div style="font-size:13px">این ترک موزیک ویدیو داره</div><label class="adm-tgl"><input type="checkbox" id="adm-t-hasvid" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
           <div class="adm-div"></div>
           <div class="adm-tgl-row"><div><div style="font-size:13px">اجازه دانلود</div><div style="font-size:11px;color:var(--mu2)">کاربرها میتونن این ترک رو دانلود کنن</div></div><label class="adm-tgl"><input type="checkbox" id="adm-t-allowdl" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
+          <div class="adm-div"></div>
+          <div class="adm-fg c2">
+            <div class="adm-field">
+              <div class="adm-lbl">🔗 لینک Music Video (ID ترک ویدیو)</div>
+              <input class="adm-inp" id="adm-t-videoid" type="text" dir="ltr" placeholder="ID ویدیوی مرتبط" onchange="admMD()">
+              <div style="font-size:10px;color:var(--mu);margin-top:3px">ترک و ویدیو رو به هم وصل میکنه</div>
+            </div>
+            <div class="adm-field">
+              <div class="adm-lbl">📅 تاریخ انتشار (اختیاری)</div>
+              <input class="adm-inp" id="adm-t-releaseat" type="datetime-local" dir="ltr" onchange="admMD()">
+              <div style="font-size:10px;color:var(--mu);margin-top:3px">خالی = همین الان منتشر میشه</div>
+            </div>
+          </div>
         </div></div>
         <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-coin" style="color:var(--am)"></i><b>Reward و Badge</b></div><div class="adm-card-body">
           <div class="adm-fg c2">
