@@ -525,44 +525,51 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 <!-- ONBOARDING -->
 <div class="ob-screen" id="ob-screen">
   <div class="ob-logo">vi<em>be</em></div>
-  <div style="font-size:13px;color:var(--mu);margin-bottom:28px;text-align:center">گوش بده — Earn کن — رشد کن</div>
-  <div class="ob-dots"><div class="ob-dot on" id="ob-d0"></div><div class="ob-dot" id="ob-d1"></div><div class="ob-dot" id="ob-d2"></div></div>
-  <!-- Step 0: Name -->
-  <div class="ob-step on" id="ob-s0" style="max-width:340px">
-    <div class="ob-title">اسمت چیه؟ 👋</div>
-    <div class="ob-sub">اسمی که بقیه کاربرها میبینن</div>
-    <input class="ob-inp" id="ob-name" type="text" placeholder="مثلاً: علی یا Nuts" maxlength="30">
-    <input class="ob-inp" id="ob-handle" type="text" dir="ltr" placeholder="@username (انگلیسی)" maxlength="20">
-    <button class="ob-btn" onclick="obNext(1)">ادامه →</button>
+  <div style="font-size:13px;color:var(--mu);margin-bottom:32px;text-align:center">گوش بده — Earn کن — رشد کن</div>
+
+  <!-- Tab: ثبت‌نام / ورود -->
+  <div style="display:flex;border:.5px solid var(--b2);border-radius:var(--r2);overflow:hidden;margin-bottom:24px;width:100%;max-width:340px">
+    <button id="ob-tab-reg" onclick="obSwitchTab('reg')" style="flex:1;padding:10px;border:none;background:var(--pu2);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif">ثبت‌نام</button>
+    <button id="ob-tab-login" onclick="obSwitchTab('login')" style="flex:1;padding:10px;border:none;background:var(--bg3);color:var(--mu2);font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif">ورود با Username</button>
   </div>
-  <!-- Step 1: Avatar -->
-  <div class="ob-step" id="ob-s1" style="max-width:340px">
-    <div class="ob-title">آواتارت رو انتخاب کن 🎨</div>
-    <div class="ob-sub">این آیکون روی پروفایلت نشون داده میشه</div>
-    <div class="ob-emoji-grid" id="ob-emoji-grid"></div>
-    <button class="ob-btn" onclick="obNext(2)">ادامه →</button>
-  </div>
-  <!-- Step 2: Role -->
-  <div class="ob-step" id="ob-s2" style="max-width:360px">
-    <div class="ob-title">چطور میخوای استفاده کنی؟</div>
-    <div class="ob-sub">بعداً هم میتونی تغییر بدی</div>
-    <div class="ob-role-cards">
+
+  <!-- ثبت‌نام -->
+  <div id="ob-reg-form" style="width:100%;max-width:340px">
+    <div style="position:relative;margin-bottom:12px">
+      <input class="ob-inp" id="ob-handle" type="text" dir="ltr" placeholder="@username (انگلیسی، یکتا)" maxlength="20" oninput="obCheckHandle(this)" style="margin-bottom:0;padding-left:40px">
+      <span id="ob-handle-status" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px">⬜</span>
+    </div>
+    <div id="ob-handle-msg" style="font-size:11px;margin:-8px 0 10px;padding:0 4px"></div>
+    <input class="ob-inp" id="ob-name" type="text" placeholder="نام نمایشی (فارسی یا انگلیسی)" maxlength="30">
+    <div style="margin-bottom:12px">
+      <div style="font-size:11px;color:var(--mu2);margin-bottom:8px;text-align:center">آواتار</div>
+      <div id="ob-emoji-grid" class="ob-emoji-grid"></div>
+    </div>
+    <div class="ob-role-cards" style="margin-bottom:16px">
       <div class="ob-role sel" id="ob-role-listener" onclick="obSelectRole('listener')">
         <span class="ob-role-ico">🎧</span>
         <div class="ob-role-name">شنونده</div>
-        <div class="ob-role-desc">موزیک گوش بده، Coin جمع کن، پلی‌لیست بساز و Share کن</div>
+        <div class="ob-role-desc">موزیک گوش بده و Coin جمع کن</div>
       </div>
       <div class="ob-role" id="ob-role-artist" onclick="obSelectRole('artist')">
         <span class="ob-role-ico">🎤</span>
         <div class="ob-role-name">آرتیست</div>
-        <div class="ob-role-desc">ترک آپلود کن، کمپین بران، آمار و Coin بگیر</div>
+        <div class="ob-role-desc">ترک آپلود کن، آمار ببین</div>
       </div>
     </div>
-    <div id="ob-artist-note" style="display:none;background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.2);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--am);margin-bottom:14px;line-height:1.7">
-      <i class="ti ti-info-circle"></i> حساب آرتیست نیاز به تأیید ادمین داره.
+    <div id="ob-artist-note" style="display:none;background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.2);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--am);margin-bottom:12px;line-height:1.7"><i class="ti ti-info-circle"></i> حساب آرتیست نیاز به تأیید ادمین داره.</div>
+    <button class="ob-btn" id="ob-reg-btn" onclick="obFinish()">ساخت حساب 🚀</button>
+    <div style="text-align:center;font-size:11px;color:var(--mu)">با ادامه، <a href="#" style="color:var(--pu);text-decoration:none">قوانین</a> رو قبول میکنی</div>
+  </div>
+
+  <!-- ورود -->
+  <div id="ob-login-form" style="display:none;width:100%;max-width:340px">
+    <div style="background:rgba(96,165,250,.07);border:.5px solid rgba(96,165,250,.2);border-radius:var(--r);padding:12px;font-size:12px;color:var(--bl);margin-bottom:16px;line-height:1.7">
+      <i class="ti ti-info-circle"></i> اگه قبلاً ثبت‌نام کردی، username‌ات رو وارد کن تا پروفایلت لود بشه.
     </div>
-    <button class="ob-btn" onclick="obFinish()">شروع کن 🚀</button>
-    <div style="text-align:center;font-size:11px;color:var(--mu);margin-top:-4px">با ادامه دادن، <a href="#" style="color:var(--pu);text-decoration:none">قوانین استفاده</a> رو قبول میکنی</div>
+    <input class="ob-inp" id="ob-login-handle" type="text" dir="ltr" placeholder="@username">
+    <div id="ob-login-msg" style="font-size:11px;color:var(--re);min-height:18px;margin:-8px 0 10px;padding:0 4px"></div>
+    <button class="ob-btn" onclick="obDoLogin()">ورود</button>
   </div>
 </div>
 
@@ -2504,75 +2511,133 @@ function runInit(id){
   }
 }
 
+
 // ══════════════════════════════════════════════════
-//  ROLE SYSTEM + ONBOARDING
+//  IDENTITY & AUTH SYSTEM
 // ══════════════════════════════════════════════════
 const ROLE_KEY='vibe_role';
 const OB_KEY='vibe_ob_done';
+const UID_KEY='vibe_uid';
+const USERS_KEY='vibe_users';
 const AVATARS=['🎧','🎵','🎤','🎸','🎹','🎺','🎻','🥁','🎼','🎶','🔥','⚡','🌊','🌿','💎','🏆','👑','🌙','⭐','🎯','🎭','🎨','🚀','💜'];
-let _obRole='listener',_obEmoji='🎧';
+let _obRole='listener',_obEmoji='🎧',_obHandleOk=false;
 
 function getRole(){return localStorage.getItem(ROLE_KEY)||'listener';}
 function isArtistRole(){const r=getRole();return r==='artist'||r==='artist_pending';}
+function getMyArtistId(){return(S.handle||'').replace('@','').toLowerCase();}
+function getMyHandle(){return S.handle||'@user';}
 
+// ─── User Registry (local) ────────────────────────
+function getAllUsers(){try{return JSON.parse(localStorage.getItem(USERS_KEY)||'{}');}catch{return{};}}
+function saveAllUsers(u){try{localStorage.setItem(USERS_KEY,JSON.stringify(u));}catch{}}
+
+function isHandleAvailable(handle){
+  const clean=handle.replace('@','').toLowerCase();
+  const all=getAllUsers();
+  const myUid=localStorage.getItem(UID_KEY);
+  return!all[clean]||all[clean].uid===myUid;
+}
+function registerUser(handle,name,avatar,role){
+  const clean=handle.replace('@','').toLowerCase();
+  let uid=localStorage.getItem(UID_KEY);
+  if(!uid){uid='u'+Date.now()+Math.random().toString(36).slice(2,5);localStorage.setItem(UID_KEY,uid);}
+  const user={uid,handle:'@'+clean,name,avatar,role,createdAt:Date.now()};
+  const all=getAllUsers();all[clean]=user;saveAllUsers(all);
+  S.username=name;S.handle='@'+clean;S.avatar=avatar;S.uid=uid;save();
+  queueSync('register',user);
+  return user;
+}
+function loginUser(handle){
+  const clean=handle.replace('@','').toLowerCase();
+  const user=getAllUsers()[clean];
+  if(!user)return null;
+  localStorage.setItem(UID_KEY,user.uid);
+  S.username=user.name;S.handle=user.handle;S.avatar=user.avatar;S.uid=user.uid;
+  if(user.role)localStorage.setItem(ROLE_KEY,user.role);
+  save();return user;
+}
+
+// ─── Onboarding UI ────────────────────────────────
 function showOnboarding(){
   const grid=document.getElementById('ob-emoji-grid');
   if(grid)grid.innerHTML=AVATARS.map(e=>`<button class="ob-emoji-btn${e===_obEmoji?' sel':''}" onclick="obPickEmoji('${e}',this)">${e}</button>`).join('');
   document.getElementById('ob-screen').classList.add('on');
+  // اگه قبلاً username داشت tab ورود رو نشون بده
+  if(S.handle&&S.handle!=='@user')obSwitchTab('login');
 }
-
-function obNext(step){
-  if(step===1){
-    const n=document.getElementById('ob-name').value.trim();
-    if(!n){toast('⚠️ اسمت رو وارد کن');return;}
-    const h=document.getElementById('ob-handle').value.trim();
-    S.username=n;
-    S.handle=h?(h.startsWith('@')?h:'@'+h):'@'+n.toLowerCase().replace(/\s+/g,'').replace(/[^a-z0-9_]/g,'');
-    S.avatar=_obEmoji;save();
+function obSwitchTab(tab){
+  const isReg=tab==='reg';
+  const rf=document.getElementById('ob-reg-form'),lf=document.getElementById('ob-login-form');
+  const rt=document.getElementById('ob-tab-reg'),lt=document.getElementById('ob-tab-login');
+  if(rf)rf.style.display=isReg?'':'none';if(lf)lf.style.display=isReg?'none':'';
+  if(rt){rt.style.background=isReg?'var(--pu2)':'var(--bg3)';rt.style.color=isReg?'#fff':'var(--mu2)';}
+  if(lt){lt.style.background=isReg?'var(--bg3)':'var(--pu2)';lt.style.color=isReg?'var(--mu2)':'#fff';}
+}
+let _obCheckTimer=null;
+function obCheckHandle(inp){
+  clearTimeout(_obCheckTimer);
+  const val=inp.value.trim().replace('@','').toLowerCase();
+  const st=document.getElementById('ob-handle-status'),msg=document.getElementById('ob-handle-msg');
+  if(!val){if(st)st.textContent='⬜';if(msg){msg.textContent='';}_obHandleOk=false;return;}
+  if(!/^[a-z0-9_]{3,20}$/.test(val)){
+    if(st)st.textContent='❌';if(msg){msg.textContent='فقط حروف انگلیسی، عدد و _ — حداقل ۳ کاراکتر';msg.style.color='var(--re)';}
+    _obHandleOk=false;return;
   }
-  document.querySelectorAll('.ob-step').forEach(s=>s.classList.remove('on'));
-  document.getElementById('ob-s'+step)?.classList.add('on');
-  document.querySelectorAll('.ob-dot').forEach((d,i)=>d.classList.toggle('on',i<=step));
+  if(st)st.textContent='⏳';
+  _obCheckTimer=setTimeout(()=>{
+    const avail=isHandleAvailable('@'+val);
+    if(st)st.textContent=avail?'✅':'❌';
+    if(msg){msg.textContent=avail?'✓ موجوده':'❌ قبلاً گرفته شده';msg.style.color=avail?'var(--gr)':'var(--re)';}
+    _obHandleOk=avail;
+  },400);
 }
-
-function obPickEmoji(e,btn){
-  _obEmoji=e;
-  document.querySelectorAll('.ob-emoji-btn').forEach(b=>b.classList.remove('sel'));
-  btn.classList.add('sel');
-  S.avatar=e;save();
-}
-
-function obSelectRole(role){
-  _obRole=role;
-  document.querySelectorAll('.ob-role').forEach(r=>r.classList.remove('sel'));
-  document.getElementById('ob-role-'+role)?.classList.add('sel');
-  const note=document.getElementById('ob-artist-note');
-  if(note)note.style.display=role==='artist'?'block':'none';
-}
+function obPickEmoji(e,btn){_obEmoji=e;document.querySelectorAll('.ob-emoji-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function obSelectRole(role){_obRole=role;document.querySelectorAll('.ob-role').forEach(r=>r.classList.remove('sel'));document.getElementById('ob-role-'+role)?.classList.add('sel');const note=document.getElementById('ob-artist-note');if(note)note.style.display=role==='artist'?'block':'none';}
 
 function obFinish(){
-  const n=document.getElementById('ob-name')?.value.trim()||S.username||'کاربر';
-  S.username=n;
-  const h=document.getElementById('ob-handle')?.value.trim()||'';
-  S.handle=h?(h.startsWith('@')?h:'@'+h):'@'+n.toLowerCase().replace(/\s+/g,'').replace(/[^a-z0-9_]/g,'')||'@user'+Date.now().toString().slice(-4);
-  S.avatar=_obEmoji||'🎧';
+  const handleRaw=(document.getElementById('ob-handle')?.value||'').trim();
+  const name=(document.getElementById('ob-name')?.value||'').trim();
+  const msg=document.getElementById('ob-handle-msg'),btn=document.getElementById('ob-reg-btn');
+  if(!handleRaw||!/^[@]?[a-z0-9_]{3,20}$/i.test(handleRaw)){if(msg){msg.textContent='⚠️ username معتبر وارد کن';msg.style.color='var(--re)';}return;}
+  if(!name){toast('⚠️ نام نمایشی رو وارد کن');return;}
+  if(!isHandleAvailable(handleRaw)){if(msg){msg.textContent='❌ این username قبلاً گرفته شده';msg.style.color='var(--re)';}return;}
+  if(btn){btn.disabled=true;btn.textContent='در حال ثبت...';}
   const finalRole=_obRole==='artist'?'artist_pending':'listener';
-  localStorage.setItem(ROLE_KEY,finalRole);
-  localStorage.setItem(OB_KEY,'1');
-  save();
-  document.getElementById('ob-screen').classList.remove('on');
+  registerUser(handleRaw,name,_obEmoji,finalRole);
+  localStorage.setItem(ROLE_KEY,finalRole);localStorage.setItem(OB_KEY,'1');
   if(_obRole==='artist'){
     const reqs=JSON.parse(localStorage.getItem('vibe_artist_reqs')||'[]');
-    if(!reqs.find(r=>r.handle===S.handle))
-      reqs.push({id:'ar'+Date.now(),username:S.username,handle:S.handle,avatar:S.avatar,ts:Date.now(),status:'pending'});
+    if(!reqs.find(r=>r.handle===S.handle))reqs.push({id:'ar'+Date.now(),username:name,handle:S.handle,avatar:_obEmoji,ts:Date.now(),status:'pending'});
     localStorage.setItem('vibe_artist_reqs',JSON.stringify(reqs));
-    toast('🎤 درخواست آرتیست ارسال شد');
-    setTimeout(()=>navPage('artist-dash'),600);
-  }else{
-    toast('🎧 خوش اومدی '+S.username+'!');
-    setTimeout(()=>navTo('feed',document.querySelectorAll('.nb')[0]),400);
   }
-  updProfile();updHdr();updHdrAvatar();updProfileForRole();
+  document.getElementById('ob-screen').classList.remove('on');
+  updHdr();updProfile();updProfileForRole();updHdrAvatar();
+  if(_obRole==='artist'){toast('🎤 حساب آرتیست ساخته شد');setTimeout(()=>navPage('artist-dash'),600);}
+  else{toast('🎧 خوش اومدی '+name+'!');setTimeout(()=>navTo('feed',document.querySelectorAll('.nb')[0]),400);}
+}
+
+function obDoLogin(){
+  const handle=(document.getElementById('ob-login-handle')?.value||'').trim();
+  const msg=document.getElementById('ob-login-msg');
+  if(!handle){if(msg)msg.textContent='⚠️ username رو وارد کن';return;}
+  const user=loginUser(handle);
+  if(!user){if(msg)msg.textContent='❌ این username پیدا نشد — اول ثبت‌نام کن';return;}
+  localStorage.setItem(OB_KEY,'1');
+  document.getElementById('ob-screen').classList.remove('on');
+  updHdr();updProfile();updProfileForRole();updHdrAvatar();
+  toast('✅ خوش اومدی '+user.name+'!');
+  const role=getRole();
+  if(role.includes('artist'))setTimeout(()=>navPage('artist-dash'),600);
+  else setTimeout(()=>navTo('feed',document.querySelectorAll('.nb')[0]),400);
+}
+
+// ─── Artist Submit: auto-fill از session ──────────
+function initArtistSubmitForm(){
+  const ai=document.getElementById('sub-artist');
+  if(ai&&S.username&&S.username!=='کاربر جدید'&&!ai.value){
+    ai.value=S.username;
+    if(isArtistRole()){ai.readOnly=true;ai.style.opacity='.6';ai.title='از حساب شما';}
+  }
 }
 
 // ── Artist Dashboard ───────────────────────────────
