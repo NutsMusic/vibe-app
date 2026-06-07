@@ -2617,13 +2617,14 @@ function admSaveAll(){
   _adminDirty=false;
   document.getElementById('adm-udot').classList.remove('on');
   document.getElementById('adm-save-st').textContent='';
-  // sync به اپ
   OT=[...ATK];if(!OT.length)OT=getFallbackTracks();
   REMOTE_CONFIG=ACF;applyRemoteConfig();
   if(ONLINE)buildFeed();
   admUpdDS();
   admToast('✅ ذخیره شد','s');
   document.getElementById('adm-last-save').textContent=new Date().toLocaleTimeString('fa-IR');
+  // auto-push به GitHub اگه فعاله
+  if(ghCfg().auto) setTimeout(()=>ghPushAll(true),500);
 }
 function admMD(){_adminDirty=true;document.getElementById('adm-udot').classList.add('on');document.getElementById('adm-save-st').textContent='● ذخیره نشده';}
 
@@ -2653,34 +2654,36 @@ function admRenTKList(){const el=document.getElementById('adm-tks-list');if(!el)
 // Add/Edit track
 let _admEditId=null;
 function admInitAT(){if(!_admEditId)admResetAT();}
-function admResetAT(){_admEditId=null;document.getElementById('adm-at-title').textContent='➕ افزودن ترک';['adm-t-title','adm-t-artist','adm-t-artistid','adm-t-audio','adm-t-cover','adm-t-video','adm-t-etext','adm-t-blabel'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});document.getElementById('adm-t-emoji').value='🎵';document.getElementById('adm-t-color').value='#1a0a3d';document.getElementById('adm-t-color-txt').value='#1a0a3d';document.getElementById('adm-t-dur').value='';document.getElementById('adm-t-reward').value='10';document.getElementById('adm-t-vreward').value='20';document.getElementById('adm-t-genre').value='Rap';document.getElementById('adm-t-etype').value='normal';document.getElementById('adm-t-hasvid').checked=false;document.getElementById('adm-links-con').innerHTML='';admAddLR();
-  // reset audio file state
+function admResetAT(){
+  _admEditId=null;
+  document.getElementById('adm-at-title').textContent='➕ افزودن ترک';
+  ['adm-t-title','adm-t-artist','adm-t-artistid','adm-t-audio','adm-t-cover','adm-t-video','adm-t-etext','adm-t-blabel'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
+  document.getElementById('adm-t-emoji').value='🎵';
+  document.getElementById('adm-t-color').value='#1a0a3d';
+  document.getElementById('adm-t-color-txt').value='#1a0a3d';
+  document.getElementById('adm-t-dur').value='';
+  document.getElementById('adm-t-reward').value='10';
+  document.getElementById('adm-t-vreward').value='20';
+  document.getElementById('adm-t-genre').value='Rap';
+  document.getElementById('adm-t-etype').value='normal';
+  document.getElementById('adm-t-hasvid').checked=false;
+  document.getElementById('adm-links-con').innerHTML='';
+  admAddLR();
+  // reset audio
   const fn=document.getElementById('adm-audio-fname');if(fn){fn.textContent='انتخاب فایل MP3 / WAV / FLAC';fn.style.color='';}
   const st=document.getElementById('adm-audio-status');if(st)st.style.display='none';
   localStorage.removeItem('adm_audio_pending');
+  // reset audio src switch
+  admSwitchAudioSrc('file');
+  const up=document.getElementById('adm-url-preview');if(up)up.style.display='none';
+  const cp=document.getElementById('adm-cover-preview');if(cp)cp.style.display='none';
 }
-function admEditTK(id){const t=ATK.find(x=>x.id===id);if(!t)return;_admEditId=id;document.getElementById('adm-at-title').textContent='✏️ ویرایش: '+t.title;document.getElementById('adm-t-title').value=t.title;document.getElementById('adm-t-artist').value=t.artist;document.getElementById('adm-t-artistid').value=t.artistId||'';document.getElementById('adm-t-genre').value=t.genre||'Rap';document.getElementById('adm-t-emoji').value=t.emoji||'🎵';document.getElementById('adm-t-color').value=t.color||'#1a0a3d';document.getElementById('adm-t-color-txt').value=t.color||'#1a0a3d';document.getElementById('adm-t-dur').value=t.duration||'';document.getElementById('adm-t-reward').value=t.reward||10;document.getElementById('adm-t-vreward').value=t.videoReward||20;document.getElementById('adm-t-audio').value=t.audioUrl||'';document.getElementById('adm-t-cover').value=t.coverUrl||'';document.getElementById('adm-t-video').value=t.videoUrl||'';document.getElementById('adm-t-etype').value=t.earnType||'normal';document.getElementById('adm-t-blabel').value=t.badgeLabel||'';document.getElementById('adm-t-etext').value=t.earnText||'';document.getElementById('adm-t-hasvid').checked=!!t.hasVideo;document.getElementById('adm-links-con').innerHTML='';(t.links||[]).forEach(l=>admAddLR(l));admShowPage('adm-add-track');}
-function admSaveTK(){const ti=document.getElementById('adm-t-title').value.trim(),ar=document.getElementById('adm-t-artist').value.trim();if(!ti||!ar){admToast('⚠️ عنوان و آرتیست الزامیه');return;}const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);const em={normal:'hot',early:'new',sponsored:'sp',hot:'hot'};const ety=document.getElementById('adm-t-etype').value;
-  const audioUrl=document.getElementById('adm-t-audio').value.trim();
-  // اگه blob URL بود، نشونه اینه که فایل local هست — ذخیره میکنیم
-  const isBlob=audioUrl.startsWith('blob:');
-  const finalAudioUrl=isBlob?'__local__':audioUrl;
-  const existingTrack=_admEditId?ATK.find(x=>x.id===_admEditId):null;
-  const tk={id:_admEditId||'t'+Date.now(),title:ti,artist:ar,artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),genre:document.getElementById('adm-t-genre').value,emoji:document.getElementById('adm-t-emoji').value||'🎵',color:document.getElementById('adm-t-color').value||'#1a0a3d',duration:parseInt(document.getElementById('adm-t-dur').value)||180,reward:parseInt(document.getElementById('adm-t-reward').value)||10,videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,audioUrl:finalAudioUrl,coverUrl:document.getElementById('adm-t-cover').value.trim(),videoUrl:document.getElementById('adm-t-video').value.trim(),hasVideo:document.getElementById('adm-t-hasvid').checked,earnType:ety,badge:em[ety]||'hot',badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',links,
-    addedAt:existingTrack?.addedAt||Date.now()};
-  if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;}else ATK.push(tk);
-  // persist audio file اگه blob بود
-  if(isBlob) admPersistAudio(tk.id);
-  admMD();admSaveAll();_admEditId=null;admShowPage('adm-tracks');
-  // reset فایل
-  const fn=document.getElementById('adm-audio-fname');if(fn){fn.textContent='انتخاب فایل MP3 / WAV / FLAC';fn.style.color='';}
-  const st=document.getElementById('adm-audio-status');if(st)st.style.display='none';
-}
-function admDelTK(id){if(!confirm('ترک حذف بشه؟'))return;ATK=ATK.filter(t=>t.id!==id);admMD();admSaveAll();admRenTKList();admRenDTK();}
+function admEditTK(id){const t=ATK.find(x=>x.id===id);if(!t)return;_admEditId=id;document.getElementById('adm-at-title').textContent='✏️ ویرایش: '+t.title;document.getElementById('adm-t-title').value=t.title;document.getElementById('adm-t-artist').value=t.artist;document.getElementById('adm-t-artistid').value=t.artistId||'';document.getElementById('adm-t-genre').value=t.genre||'Rap';document.getElementById('adm-t-emoji').value=t.emoji||'🎵';document.getElementById('adm-t-color').value=t.color||'#1a0a3d';document.getElementById('adm-t-color-txt').value=t.color||'#1a0a3d';document.getElementById('adm-t-dur').value=t.duration||'';document.getElementById('adm-t-reward').value=t.reward||10;document.getElementById('adm-t-vreward').value=t.videoReward||20;document.getElementById('adm-t-audio').value=t.audioUrl==='__local__'?'':t.audioUrl||'';document.getElementById('adm-t-cover').value=t.coverUrl||'';document.getElementById('adm-t-video').value=t.videoUrl||'';document.getElementById('adm-t-etype').value=t.earnType||'normal';document.getElementById('adm-t-blabel').value=t.badgeLabel||'';document.getElementById('adm-t-etext').value=t.earnText||'';document.getElementById('adm-t-hasvid').checked=!!t.hasVideo;document.getElementById('adm-links-con').innerHTML='';(t.links||[]).forEach(l=>admAddLR(l));
+  if(t.audioUrl==='__local__'){admSwitchAudioSrc('file');}else if(t.audioUrl){admSwitchAudioSrc('url');}
+  admShowPage('adm-add-track');}
 function admCancelEdit(){_admEditId=null;admShowPage('adm-tracks');}
 function admAddLR(l={}){const c=document.getElementById('adm-links-con');const d=document.createElement('div');d.className='adm-lr';d.style.cssText='display:flex;gap:7px;margin-bottom:7px;align-items:center;flex-wrap:wrap';d.innerHTML=`<input class="adm-inp li" type="text" placeholder="🎵" value="${esc(l.icon||'')}" style="width:40px"><input class="adm-inp ln" type="text" placeholder="Spotify" value="${esc(l.name||'')}" style="flex:1;min-width:80px"><input class="adm-inp lf" type="text" placeholder="2.1M" value="${esc(l.followers||'')}" style="width:70px"><input class="adm-inp lu" type="url" placeholder="https://..." value="${esc(l.url||'')}" dir="ltr" style="flex:2;min-width:120px"><input class="adm-inp lc" type="color" value="${l.color||'#1DB954'}" style="width:36px;height:36px;padding:2px;cursor:pointer"><button onclick="this.parentElement.remove()" style="background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);border-radius:7px;padding:5px 8px;cursor:pointer;color:var(--re)"><i class="ti ti-x"></i></button>`;c.appendChild(d);}
 function admAutoFill(){const t=document.getElementById('adm-t-etype').value;const m={normal:['🎵 ترک','گوش بده Coin بگیر'],early:['✨ Early Discover','Viral بشه Coin اضافه'],sponsored:['💼 Sponsored','تا آخر گوش بده'],hot:['🔥 Trending','الان ترندینگه']};const[lb,et]=m[t]||['🎵',''];document.getElementById('adm-t-blabel').value=lb;document.getElementById('adm-t-etext').value=et;}
-function admTestAud(url){if(!url){admToast('⚠️ Audio URL نداره');return;}const a=new Audio(url);a.play().then(()=>{admToast('▶ پخش شد');setTimeout(()=>a.pause(),5000);}).catch(e=>admToast('❌ '+e.message));}
 
 // Artists
 function admRenArtists(){const map={};ATK.forEach(t=>{if(!map[t.artistId])map[t.artistId]={id:t.artistId,name:t.artist,genre:t.genre,emoji:t.emoji,color:t.color,tks:0};map[t.artistId].tks++;});const ar=Object.values(map);const el=document.getElementById('adm-artists-list');if(!el)return;if(!ar.length){el.innerHTML='<div style="color:var(--mu);text-align:center;padding:40px;font-size:13px">ترک اضافه کن</div>';return;}el.innerHTML=ar.map(a=>`<div style="display:flex;align-items:center;gap:12px;padding:13px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin-bottom:10px"><div style="width:46px;height:46px;border-radius:50%;background:${a.color};display:flex;align-items:center;justify-content:center;font-size:20px">${a.emoji}</div><div style="flex:1"><div style="font-size:14px;font-weight:600">${esc(a.name)}</div><div style="font-size:11px;color:var(--mu2)">${esc(a.genre)} · ${a.tks} ترک</div></div><span style="font-size:10px;background:rgba(167,139,250,.13);color:var(--pu);padding:2px 8px;border-radius:8px">ID: ${esc(a.id)}</span></div>`).join('');}
@@ -2810,16 +2813,111 @@ async function ghPushAll(silent=false){
   }
 }
 
-// override admSaveAll to auto-push if enabled
-const _origAdmSaveAll=admSaveAll;
-function admSaveAll(){
-  _origAdmSaveAll();
-  if(ghCfg().auto){
-    setTimeout(()=>ghPushAll(true),500);
+// ─── admSaveTK — نسخه نهایی با validation + feedback ─
+function admSaveTK(){
+  const btn=document.getElementById('adm-save-tk-btn');
+  const result=document.getElementById('adm-save-result');
+  const showErr=msg=>{
+    if(result){result.style.display='block';result.style.background='rgba(248,113,113,.1)';result.style.border='.5px solid rgba(248,113,113,.25)';result.style.color='var(--re)';result.innerHTML='⚠️ '+msg;}
+    if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}
+  };
+  if(result)result.style.display='none';
+  if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> ذخیره...';}
+
+  const ti=document.getElementById('adm-t-title').value.trim();
+  const ar=document.getElementById('adm-t-artist').value.trim();
+  if(!ti){showErr('عنوان ترک خالیه');document.getElementById('adm-t-title').focus();return;}
+  if(!ar){showErr('نام آرتیست خالیه');document.getElementById('adm-t-artist').focus();return;}
+
+  const audioUrl=document.getElementById('adm-t-audio').value.trim();
+  const isBlob=audioUrl.startsWith('blob:');
+  const isLocal=audioUrl==='__local__';
+  if(!audioUrl){showErr('موزیک رو مشخص کن — فایل آپلود کن یا لینک بزار');if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}return;}
+
+  const finalAudioUrl=isBlob?'__local__':audioUrl;
+  const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);
+  const em={normal:'hot',early:'new',sponsored:'sp',hot:'hot'};
+  const ety=document.getElementById('adm-t-etype').value;
+  const existingTrack=_admEditId?ATK.find(x=>x.id===_admEditId):null;
+  const newId=_admEditId||'t'+Date.now();
+
+  const tk={
+    id:newId,title:ti,artist:ar,
+    artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),
+    genre:document.getElementById('adm-t-genre').value,
+    emoji:document.getElementById('adm-t-emoji').value||'🎵',
+    color:document.getElementById('adm-t-color').value||'#1a0a3d',
+    duration:parseInt(document.getElementById('adm-t-dur').value)||180,
+    reward:parseInt(document.getElementById('adm-t-reward').value)||10,
+    videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,
+    audioUrl:finalAudioUrl,
+    coverUrl:document.getElementById('adm-t-cover').value.trim(),
+    videoUrl:document.getElementById('adm-t-video').value.trim(),
+    hasVideo:document.getElementById('adm-t-hasvid').checked,
+    earnType:ety,badge:em[ety]||'hot',
+    badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',
+    earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',
+    links,addedAt:existingTrack?.addedAt||Date.now(),
+  };
+
+  if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;else ATK.push(tk);}
+  else ATK.push(tk);
+
+  if(isBlob) admPersistAudio(newId);
+
+  _adminDirty=true;
+  admSaveAll();
+
+  const isEdit=!!_admEditId;
+  _admEditId=null;
+
+  if(result){
+    result.style.display='block';
+    result.style.background='rgba(52,211,153,.08)';
+    result.style.border='.5px solid rgba(52,211,153,.25)';
+    result.style.color='var(--gr)';
+    result.innerHTML='✅ ترک "'+ti+'" '+(isEdit?'ویرایش شد':'اضافه شد');
   }
+  if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}
+
+  setTimeout(()=>{admResetAT();if(result)result.style.display='none';admRenTKList();},2000);
 }
 
-// Toast & utils
+// ─── admDelTK ────────────────────────────────────
+function admDelTK(id){
+  if(!confirm('ترک حذف بشه؟'))return;
+  ATK=ATK.filter(t=>t.id!==id);
+  // حذف فایل صوتی از IndexedDB هم
+  dbDel('track_audio_'+id).catch(()=>{});
+  _adminDirty=true;
+  admSaveAll();
+  admRenTKList();admRenDTK();
+  admToast('🗑 حذف شد');
+}
+
+// ─── admTestAud — test با پشتیبانی از local ───────
+async function admTestAud(url){
+  if(!url||url==='__local__'){
+    // سعی کن از IndexedDB پیدا کنی
+    const trackId=ATK.find(t=>t.audioUrl==='__local__')?.id;
+    if(trackId){
+      const data=await dbGet('track_audio_'+trackId);
+      if(data){
+        const blob=new Blob([data.data],{type:data.type||'audio/mpeg'});
+        const blobUrl=URL.createObjectURL(blob);
+        const a=new Audio(blobUrl);
+        a.play().then(()=>{admToast('▶ پخش شد (فایل local)');setTimeout(()=>{a.pause();URL.revokeObjectURL(blobUrl);},8000);}).catch(e=>admToast('❌ '+e.message));
+        return;
+      }
+    }
+    admToast('⚠️ فایل در دستگاه پیدا نشد');return;
+  }
+  const a=new Audio(url);
+  a.play().then(()=>{admToast('▶ پخش شد');setTimeout(()=>a.pause(),8000);}).catch(e=>admToast('❌ '+e.message));
+}
+
+// ─── Auto-push override pattern حذف شد —
+//     auto-push مستقیم داخل admSaveAll هست
 function admToast(msg,type=''){const w=document.getElementById('adm-twrap');const t=document.createElement('div');t.className='toast '+(type==='s'?'s':type==='w'?'w':'');t.textContent=msg;w.appendChild(t);setTimeout(()=>t.remove(),2500);}
 function admAgo(ts){const d=(Date.now()-ts)/1000;if(d<60)return 'همین الان';if(d<3600)return Math.floor(d/60)+' دق';if(d<86400)return Math.floor(d/3600)+' ساعت';return Math.floor(d/86400)+' روز';}
 
@@ -2985,52 +3083,6 @@ function admOnCoverInput(inp){
   if(!url){prev.style.display='none';return;}
   prev.style.display='block';
   const img=prev.querySelector('img');if(img){img.src=url;img.onerror=()=>{prev.style.display='none'};}
-}
-
-// ─── admSaveTK — validation کامل + feedback ───────
-function admSaveTK(){
-  const btn=document.getElementById('adm-save-tk-btn');
-  const result=document.getElementById('adm-save-result');
-  function showErr(msg){
-    if(result){result.style.display='block';result.style.background='rgba(248,113,113,.1)';result.style.border='.5px solid rgba(248,113,113,.25)';result.style.color='var(--re)';result.innerHTML='<i class="ti ti-alert-circle"></i> '+msg;}
-    if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}
-  }
-  function showOk(msg){
-    if(result){result.style.display='block';result.style.background='rgba(52,211,153,.08)';result.style.border='.5px solid rgba(52,211,153,.25)';result.style.color='var(--gr)';result.innerHTML='<i class="ti ti-check"></i> '+msg;}
-  }
-  if(result)result.style.display='none';
-  if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> ذخیره...';}
-  const ti=document.getElementById('adm-t-title').value.trim();
-  const ar=document.getElementById('adm-t-artist').value.trim();
-  if(!ti){showErr('عنوان ترک خالیه');document.getElementById('adm-t-title').focus();return;}
-  if(!ar){showErr('نام آرتیست خالیه');document.getElementById('adm-t-artist').focus();return;}
-  const audioUrl=document.getElementById('adm-t-audio').value.trim();
-  const hasFile=audioUrl.startsWith('blob:');
-  const hasUrl=audioUrl&&!hasFile;
-  if(!hasFile&&!hasUrl){showErr('موزیک رو مشخص کن — فایل آپلود کن یا لینک بزار');return;}
-  const isBlob=audioUrl.startsWith('blob:');
-  const finalAudioUrl=isBlob?'__local__':audioUrl;
-  const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);
-  const em={normal:'hot',early:'new',sponsored:'sp',hot:'hot'};
-  const ety=document.getElementById('adm-t-etype').value;
-  const existingTrack=_admEditId?ATK.find(x=>x.id===_admEditId):null;
-  const tk={id:_admEditId||'t'+Date.now(),title:ti,artist:ar,artistId:document.getElementById('adm-t-artistid').value.trim()||(ar.toLowerCase().replace(/\s+/g,'')),genre:document.getElementById('adm-t-genre').value,emoji:document.getElementById('adm-t-emoji').value||'🎵',color:document.getElementById('adm-t-color').value||'#1a0a3d',duration:parseInt(document.getElementById('adm-t-dur').value)||180,reward:parseInt(document.getElementById('adm-t-reward').value)||10,videoReward:parseInt(document.getElementById('adm-t-vreward').value)||20,audioUrl:finalAudioUrl,coverUrl:document.getElementById('adm-t-cover').value.trim(),videoUrl:document.getElementById('adm-t-video').value.trim(),hasVideo:document.getElementById('adm-t-hasvid').checked,earnType:ety,badge:em[ety]||'hot',badgeLabel:document.getElementById('adm-t-blabel').value.trim()||'🎵',earnText:document.getElementById('adm-t-etext').value.trim()||'گوش بده Coin بگیر',links,addedAt:existingTrack?.addedAt||Date.now()};
-  if(_admEditId){const i=ATK.findIndex(x=>x.id===_admEditId);if(i>=0)ATK[i]=tk;}else ATK.push(tk);
-  if(isBlob)admPersistAudio(tk.id);
-  admMD();admSaveAll();
-  const isEdit=!!_admEditId;_admEditId=null;
-  showOk(isEdit?`ترک "${ti}" ویرایش شد`:`ترک "${ti}" اضافه شد ✅`);
-  if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}
-  setTimeout(()=>{admResetAT();if(result)result.style.display='none';},2500);
-}
-
-// ─── admResetAT — reset audio source switch هم بشه ─
-const _origAdmResetAT=admResetAT;
-function admResetAT(){
-  _origAdmResetAT();
-  admSwitchAudioSrc('file');
-  const prev=document.getElementById('adm-url-preview');if(prev)prev.style.display='none';
-  const cprev=document.getElementById('adm-cover-preview');if(cprev)cprev.style.display='none';
 }
 
 // ذخیره فایل صوتی در IndexedDB و بازگشت blob URL
