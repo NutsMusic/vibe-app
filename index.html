@@ -803,6 +803,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .pl-share-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(167,139,250,.05);border:.5px solid rgba(167,139,250,.15);border-radius:var(--r);margin:0 14px 12px}
 </style>
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.7/jsmediatags.min.js"></script>
 </head>
 <body>
 
@@ -1754,23 +1755,89 @@ const dbAll=()=>new Promise(res=>{const t=DB.transaction('tr','readonly');const 
 
 // ─── Local Library ───────────────────────────────
 let LIB=[],FILTERED=[];
+let _fileInputLock=false; // جلوگیری از double trigger
+
 const aud=document.getElementById('aud');
+
+// ─── load local tracks از IndexedDB در startup ────
+async function loadLocalLib(){
+  try{
+    const all=await dbAll();
+    const locals=all.filter(t=>t._isLocal);
+    if(locals.length){
+      for(const t of locals){
+        const blob=new Blob([t.data],{type:t.mimeType||'audio/mpeg'});
+        const url=URL.createObjectURL(blob);
+        LIB.push({id:t.id,title:t.title,artist:t.artist,url,dur:t.dur||0,size:t.size||0,coverUrl:t.coverUrl||''});
+      }
+      FILTERED=[...LIB];S.localC=LIB.length;
+      renderLib();updateBadge();updateStats();
+    }
+  }catch{}
+}
+
+// ─── handleFiles — با IndexedDB persistence ────────
 function handleFiles(files){
+  if(_fileInputLock)return;_fileInputLock=true;setTimeout(()=>_fileInputLock=false,500);
   const arr=Array.from(files).filter(f=>f.type.startsWith('audio/')||/\.(mp3|wav|flac|ogg|m4a|aac)$/i.test(f.name));
-  if(!arr.length){toast('⚠️ فایل‌های صوتی انتخاب کن');return;}
+  if(!arr.length){toast('⚠️ فایل صوتی انتخاب کن');return;}
+  let done=0;
   arr.forEach(f=>{
-    const url=URL.createObjectURL(f),id='l'+Date.now()+Math.random().toString(36).slice(2,4);
+    const id='l'+Date.now()+Math.random().toString(36).slice(2,5);
     const raw=f.name.replace(/\.[^/.]+$/,'');
     let title=raw,artist='نامشخص';
     const sep=[' - ',' – ','_-_'].find(s=>raw.includes(s));
     if(sep){const p=raw.split(sep);artist=p[0].trim();title=p.slice(1).join(sep).trim();}
-    const t={id,title,artist,url,dur:0,size:f.size};
-    const tmp=new Audio(url);tmp.addEventListener('loadedmetadata',()=>{t.dur=tmp.duration;renderLib();});
-    LIB.push(t);
+    const trackObj={id,title,artist,url:'',dur:0,size:f.size,coverUrl:''};
+
+    // خوندن فایل برای IndexedDB
+    const reader=new FileReader();
+    reader.onload=async(e)=>{
+      const buf=e.target.result;
+      // ذخیره در IndexedDB
+      await dbPut({id,data:buf,mimeType:f.type||'audio/mpeg',title,artist,dur:0,size:f.size,coverUrl:'',_isLocal:true,ts:Date.now()});
+      // ساختن blob URL
+      const blob=new Blob([buf],{type:f.type||'audio/mpeg'});
+      trackObj.url=URL.createObjectURL(blob);
+      // گرفتن مدت
+      const tmpA=new Audio(trackObj.url);
+      tmpA.addEventListener('loadedmetadata',async()=>{
+        trackObj.dur=tmpA.duration;
+        // آپدیت IndexedDB با duration
+        await dbPut({id,data:buf,mimeType:f.type,title:trackObj.title,artist:trackObj.artist,dur:trackObj.dur,size:f.size,coverUrl:trackObj.coverUrl,_isLocal:true,ts:Date.now()});
+        renderLib();
+      });
+      // خوندن ID3 tags
+      if(window.jsmediatags){
+        window.jsmediatags.read(f,{
+          onSuccess(tag){
+            const tags=tag.tags;
+            if(tags.title)trackObj.title=tags.title;
+            if(tags.artist)trackObj.artist=tags.artist;
+            if(tags.picture){
+              const pic=tags.picture;
+              const b64=pic.data.reduce((a,b)=>a+String.fromCharCode(b),'');
+              trackObj.coverUrl='data:'+pic.format+';base64,'+btoa(b64);
+            }
+            LIB[LIB.indexOf(trackObj)];
+            // آپدیت IndexedDB با metadata کامل
+            dbPut({id,data:buf,mimeType:f.type,title:trackObj.title,artist:trackObj.artist,dur:trackObj.dur,size:f.size,coverUrl:trackObj.coverUrl,_isLocal:true,ts:Date.now()});
+            renderLib();
+          },
+          onError(){}
+        });
+      }
+      done++;
+      if(done===arr.length){
+        FILTERED=[...LIB];S.localC=LIB.length;save();
+        updateMissions();renderLib();updateBadge();updateStats();
+        toast('✅ '+arr.length+' ترک اضافه شد');
+      }
+    };
+    LIB.push(trackObj);
+    reader.readAsArrayBuffer(f);
   });
-  FILTERED=[...LIB];S.localC=LIB.length;save();
-  updateMissions();renderLib();updateBadge();updateStats();
-  toast('✅ '+arr.length+' ترک اضافه شد');
+  FILTERED=[...LIB];renderLib();
 }
 const dz=document.getElementById('dz');
 dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dov');});
@@ -1784,12 +1851,18 @@ function renderLib(){
   if(!FILTERED.length){list.innerHTML=`<div class="empty"><i class="ti ti-music"></i><p>${LIB.length?'نتیجه‌ای پیدا نشد':'هنوز موزیکی نداری<br>فایل بکش اینجا'}</p></div>`;return;}
   list.innerHTML=FILTERED.map(t=>{
     const pl=CUR.id===t.id&&CUR.isLocal;
-    return`<div class="ltc${pl?' pl':''}" onclick="playLocal('${t.id}')">
-      <div class="lcov" style="background:linear-gradient(135deg,#1a0a3d,#3d1a6b);position:relative">
-        ${t.coverUrl?`<img src="${t.coverUrl}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px">`:`<span style="font-size:18px">🎵</span>`}
+    return`<div class="ltk${pl?' pl':''}" onclick="playLocal('${t.id}')">
+      <div class="lcov" style="background:linear-gradient(135deg,#1a0a3d,#3d1a6b);position:relative;overflow:hidden;flex-shrink:0">
+        ${t.coverUrl?`<img src="${t.coverUrl}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px">`:`<span style="font-size:20px">🎵</span>`}
       </div>
-      <div class="linf" style="flex:1;min-width:0"><div class="lt2">${esc(t.title)}</div><div class="la2">${esc(t.artist)} · <span style="color:var(--mu)">${fmtT(t.dur)}</span></div></div>
-      <button class="lpbtn${pl&&CUR.playing?' on':''}" onclick="event.stopPropagation();playLocal('${t.id}')"><i class="ti ti-${pl&&CUR.playing?'player-pause':'player-play'}"></i></button>
+      <div class="linf" style="flex:1;min-width:0">
+        <div class="lt2">${esc(t.title)}</div>
+        <div class="la2">${esc(t.artist)} · <span style="color:var(--mu)">${fmtT(t.dur)}</span></div>
+      </div>
+      <div style="display:flex;gap:3px;align-items:center;flex-shrink:0">
+        <button class="lpbtn${pl&&CUR.playing?' on':''}" onclick="event.stopPropagation();playLocal('${t.id}')"><i class="ti ti-${pl&&CUR.playing?'player-pause':'player-play'}"></i></button>
+        <button onclick="event.stopPropagation();deleteLocalTrack('${t.id}')" style="background:none;border:none;cursor:pointer;color:rgba(248,113,113,.4);font-size:17px;padding:5px"><i class="ti ti-trash"></i></button>
+      </div>
     </div>`;
   }).join('');
 }
@@ -1813,7 +1886,14 @@ function switchTab(tab){
   if(tab==='cached')renderCached();
   if(tab==='online'){if(typeof buildOnlineLib==='function')buildOnlineLib();const oc=document.getElementById('ocount');if(oc)oc.textContent=OT.length;}
 }
-function shufflePlay(){if(!LIB.length){toast('ابتدا موزیک اضافه کن');return;}playLocal(LIB[Math.floor(Math.random()*LIB.length)].id);toast('🔀 Shuffle');}
+async function deleteLocalTrack(id){
+  LIB=LIB.filter(t=>t.id!==id);
+  FILTERED=FILTERED.filter(t=>t.id!==id);
+  try{await dbDel(id);}catch{}
+  if(CUR.id===id)closeMiniPlayer();
+  S.localC=LIB.length;save();
+  renderLib();updateBadge();toast('🗑 حذف شد');
+}
 function playAll(){if(!LIB.length){toast('ابتدا موزیک اضافه کن');return;}playLocal(LIB[0].id);}
 async function clearCache(){const all=await dbAll();for(const t of all)await dbDel(t.id);renderCached();toast('🗑️ Cache پاک شد');}
 function updateBadge(){const b=document.getElementById('nbadge'),n=LIB.length;if(b){b.textContent=n>99?'99+':n;b.classList.toggle('on',n>0);}}
@@ -1910,13 +1990,35 @@ async function playOnline(idx){
   }
   startEarnTick();
 }
-function playLocal(id){
+async function playLocal(id){
   const t=LIB.find(x=>x.id===id);if(!t)return;
+  // اگه URL خالیه یا session جدیده، از IndexedDB بخون
+  if(!t.url||t.url===''){
+    const stored=await dbGet(id);
+    if(stored?.data){
+      const blob=new Blob([stored.data],{type:stored.mimeType||'audio/mpeg'});
+      t.url=URL.createObjectURL(blob);
+      if(stored.title&&stored.title!=='نامشخص')t.title=stored.title;
+      if(stored.artist)t.artist=stored.artist;
+      if(stored.coverUrl)t.coverUrl=stored.coverUrl;
+      if(stored.dur)t.dur=stored.dur;
+    }else{toast('❌ فایل پیدا نشد — دوباره اضافه کن');return;}
+  }
   stopAll();aud.pause();aud.src=t.url;
-  aud.play().catch(e=>toast('خطا: '+e.message));
-  Object.assign(CUR,{id:t.id,title:t.title,artist:t.artist,emoji:'🎵',color:'#1a1a2e',isLocal:true,isCached:false,playing:true,progress:0});
-  setMini('🎵','#1a1a2e',t.title,t.artist,'local');
+  aud.play().catch(async(e)=>{
+    // اگه blob URL expire شده بود، reload کن
+    const stored=await dbGet(id);
+    if(stored?.data){
+      const blob=new Blob([stored.data],{type:stored.mimeType||'audio/mpeg'});
+      t.url=URL.createObjectURL(blob);aud.src=t.url;aud.play().catch(()=>toast('خطا: '+e.message));
+    }else toast('خطا: '+e.message);
+  });
+  const col=t.color||'#1a1a2e';
+  const emoji='🎵';
+  Object.assign(CUR,{id:t.id,title:t.title,artist:t.artist,emoji,color:col,isLocal:true,isCached:false,playing:true,progress:0,dur:t.dur});
+  setMini(emoji,col,t.title,t.artist,'local');
   renderLib();
+  startEarnTick();
 }
 async function playCached(id){
   const t=await dbGet(id);if(!t){toast('❌ پیدا نشد');return;}
@@ -4232,8 +4334,10 @@ setInterval(checkScheduledReleases,60000);
 
 const ADM_AUDIO_KEY = 'adm_audio_pending';
 
+let _admAudioLock=false;
 async function admHandleAudio(input){
-  const file=input.files[0];if(!file)return;
+  if(_admAudioLock)return;_admAudioLock=true;setTimeout(()=>_admAudioLock=false,1000);
+  const file=input.files[0];if(!file){_admAudioLock=false;return;}
   const maxMB=50;
   if(file.size>maxMB*1024*1024){admToast('❌ فایل بیشتر از '+maxMB+'MB هست');return;}
   const fname=document.getElementById('adm-audio-fname');
@@ -4449,6 +4553,8 @@ document.addEventListener('keydown',e=>{
   if(!localStorage.getItem('vibe_device'))localStorage.setItem('vibe_device','web_'+Math.random().toString(36).slice(2,10));
   // load all remote data (tracks + config + notifications)
   await loadRemoteData();
+  // load local tracks از IndexedDB
+  await loadLocalLib();
   // init UI
   updHdr();updateMissions();updProfile();updateStats();updateBadge();updateNotifBadge();updProfMenu();updProfileForRole();
   if(ONLINE)buildFeed();else syncOnline();
