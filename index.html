@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Vibe — گوش بده، Earn کن</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -22,7 +22,7 @@
   --shadow:0 8px 32px rgba(0,0,0,.4);--shadow-sm:0 2px 8px rgba(0,0,0,.3);
   --glass:rgba(255,255,255,.04);--glass-b:blur(20px);
 }
-html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmatn',sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Inter',sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none}
 .app{display:flex;flex-direction:column;height:100vh;max-width:430px;margin:0 auto;background:var(--bg);position:relative}
 /* ─── HEADER ──────────────────────────────────────────── */
 .hdr{padding:13px 16px 11px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,7,16,.85);backdrop-filter:var(--glass-b);-webkit-backdrop-filter:var(--glass-b);border-bottom:.5px solid var(--b1);flex-shrink:0;position:relative;z-index:5}
@@ -41,7 +41,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .offbar.on{display:flex}
 /* ─── NAV ─────────────────────────────────────────────── */
 .nav{display:flex;background:rgba(7,7,16,.92);backdrop-filter:var(--glass-b);-webkit-backdrop-filter:var(--glass-b);border-top:.5px solid var(--b1);position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:30;padding-bottom:env(safe-area-inset-bottom)}
-.nb{flex:1;padding:9px 0 7px;background:none;border:none;cursor:pointer;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Vazirmatn',sans-serif;transition:all .15s;position:relative}
+.nb{flex:1;padding:9px 0 7px;background:none;border:none;cursor:pointer;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Inter',sans-serif;transition:all .15s;position:relative}
 .nb i{font-size:20px;transition:transform .15s}
 .nb.on{color:var(--pu)}
 .nb.on i{transform:scale(1.1)}
@@ -59,7 +59,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 /* ─── GENRE CHIPS ─────────────────────────────────────── */
 .chips{display:flex;gap:7px;padding:10px 14px 8px;overflow-x:auto;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{padding:6px 15px;border-radius:20px;border:.5px solid var(--b2);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--mu2);transition:all .15s;flex-shrink:0;font-family:'Vazirmatn',sans-serif}
+.chip{padding:6px 15px;border-radius:20px;border:.5px solid var(--b2);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--mu2);transition:all .15s;flex-shrink:0;font-family:'Inter',sans-serif}
 .chip.on{background:linear-gradient(135deg,var(--pu2),#9333ea);border-color:transparent;color:#fff;box-shadow:0 2px 12px rgba(124,58,237,.4)}
 /* ─── TRACK CARD — full-width immersive ─────────── */
 .tc{margin:0 10px 20px;border-radius:22px;overflow:hidden;position:relative;box-shadow:0 12px 40px rgba(0,0,0,.6),0 2px 8px rgba(0,0,0,.4);transition:transform .2s}
@@ -108,7 +108,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 /* CHIPS */
 .chips{display:flex;gap:7px;padding:10px 14px 8px;overflow-x:auto;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{padding:7px 16px;border-radius:20px;border:.5px solid var(--b2);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--mu2);transition:all .15s;flex-shrink:0;font-family:'Vazirmatn',sans-serif}
+.chip{padding:7px 16px;border-radius:20px;border:.5px solid var(--b2);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--mu2);transition:all .15s;flex-shrink:0;font-family:'Inter',sans-serif}
 .chip.on{background:linear-gradient(135deg,var(--pu2),#9333ea);border-color:transparent;color:#fff;box-shadow:0 3px 14px rgba(124,58,237,.45)}
 /* ANTI-FRAUD BAR */
 .afbar{display:flex;align-items:center;gap:7px;padding:7px 14px;font-size:11px;color:var(--gr);background:rgba(52,211,153,.05);border-bottom:.5px solid rgba(52,211,153,.1)}
@@ -148,7 +148,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .mbdg.local{background:rgba(251,191,36,.15);color:var(--am)}
 .mbdg.cached{background:rgba(96,165,250,.15);color:var(--bl)}
 .mini-ctrl-bar{display:flex;align-items:center;justify-content:space-between;padding:2px 10px 8px}
-.mini-ctrl-bar .mxbtn{font-size:11px;padding:4px 8px;background:none;border:none;cursor:pointer;color:var(--mu);display:flex;align-items:center;gap:4px;border-radius:8px;font-family:'Vazirmatn',sans-serif;transition:color .12s}
+.mini-ctrl-bar .mxbtn{font-size:11px;padding:4px 8px;background:none;border:none;cursor:pointer;color:var(--mu);display:flex;align-items:center;gap:4px;border-radius:8px;font-family:'Inter',sans-serif;transition:color .12s}
 .mini-ctrl-bar .mxbtn.on{color:var(--pu)}
 .mcbtn{background:none;border:none;cursor:pointer;color:var(--mu2);font-size:22px;padding:4px;transition:all .12s;display:flex;align-items:center;justify-content:center}
 .mcbtn:active{transform:scale(.9);color:var(--tx)}
@@ -185,9 +185,9 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .sht{font-size:18px;font-weight:700;margin-bottom:18px;text-align:center}
 .shf{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .shl{font-size:12px;font-weight:600;color:var(--mu2)}
-.shi{padding:13px 14px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:14px;font-family:'Vazirmatn',sans-serif;outline:none;transition:border-color .15s;width:100%}
+.shi{padding:13px 14px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s;width:100%}
 .shi:focus{border-color:var(--pu)}
-.shbtn{width:100%;padding:14px;border-radius:var(--r2);border:none;background:linear-gradient(135deg,var(--pu2),#9333ea);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Vazirmatn',sans-serif;box-shadow:0 4px 16px rgba(124,58,237,.4);transition:all .15s;letter-spacing:.3px}
+.shbtn{width:100%;padding:14px;border-radius:var(--r2);border:none;background:linear-gradient(135deg,var(--pu2),#9333ea);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 16px rgba(124,58,237,.4);transition:all .15s;letter-spacing:.3px}
 .shbtn:active{transform:scale(.98);box-shadow:0 2px 8px rgba(124,58,237,.3)}
 /* ─── LOCAL LIBRARY ───────────────────────────────────── */
 .dropzone{border:1.5px dashed var(--b2);border-radius:var(--r2);padding:24px 20px;text-align:center;color:var(--mu);cursor:pointer;margin:12px 14px;transition:all .15s;background:var(--bg3)}
@@ -195,14 +195,14 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .dropzone i{font-size:32px;display:block;margin-bottom:10px}
 .dropzone p{font-size:13px;line-height:1.6}
 .lsrch{position:relative;margin:0 14px 8px}
-.lsinp{width:100%;padding:10px 14px 10px 42px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none}
+.lsinp{width:100%;padding:10px 14px 10px 42px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Inter',sans-serif;outline:none}
 .lsinp:focus{border-color:var(--pu)}
 .ltabs{display:flex;gap:0;margin:0 14px 12px;background:var(--bg3);border-radius:var(--r);overflow:hidden;border:.5px solid var(--b1)}
-.ltab{flex:1;padding:8px;border:none;background:none;color:var(--mu);font-size:11px;font-weight:500;cursor:pointer;font-family:'Vazirmatn',sans-serif;transition:all .15s}
+.ltab{flex:1;padding:8px;border:none;background:none;color:var(--mu);font-size:11px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .ltab.on{background:var(--pu2);color:#fff;border-radius:calc(var(--r) - 1px)}
 .lhdr{display:flex;align-items:center;justify-content:space-between;padding:4px 14px 8px}
 .lhlbl{font-size:12px;color:var(--mu);font-weight:500}
-.lhtool{background:rgba(255,255,255,.05);border:.5px solid var(--b1);border-radius:20px;padding:6px 12px;font-size:11px;color:var(--mu2);cursor:pointer;font-family:'Vazirmatn',sans-serif;display:inline-flex;align-items:center;gap:5px;transition:all .13s}
+.lhtool{background:rgba(255,255,255,.05);border:.5px solid var(--b1);border-radius:20px;padding:6px 12px;font-size:11px;color:var(--mu2);cursor:pointer;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:5px;transition:all .13s}
 .lhtool:active{background:rgba(255,255,255,.1)}
 .ltk{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s;background:var(--card)}
 .ltk:last-child{border-bottom:none}
@@ -257,7 +257,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .cft{font-size:17px;font-weight:700;margin-bottom:8px;text-align:center}
 .cfm{font-size:13px;color:var(--mu2);text-align:center;line-height:1.6;margin-bottom:20px}
 .cfbtns{display:flex;gap:10px}
-.cfbtn{flex:1;padding:12px;border-radius:var(--r);border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif;transition:all .15s}
+.cfbtn{flex:1;padding:12px;border-radius:var(--r);border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .cfbtn.no{background:var(--bg3);border:.5px solid var(--b2);color:var(--mu2)}
 .cfbtn.ok{background:linear-gradient(135deg,var(--pu2),#9333ea);color:#fff;box-shadow:0 2px 8px rgba(124,58,237,.4)}
 .cfbtn.red{background:linear-gradient(135deg,#b91c1c,#ef4444);color:#fff}
@@ -293,7 +293,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .nbody{flex:1;min-width:0}
 .ntitle{font-size:13px;font-weight:600}.nsub{font-size:12px;color:var(--mu2);margin-top:2px;line-height:1.4}
 .ntime{font-size:10px;color:var(--mu);margin-top:4px}
-.nact{background:var(--pu3);border:.5px solid rgba(167,139,250,.25);border-radius:8px;padding:5px 11px;font-size:11px;color:var(--pu);cursor:pointer;font-family:'Vazirmatn',sans-serif;margin-top:6px;font-weight:600}
+.nact{background:var(--pu3);border:.5px solid rgba(167,139,250,.25);border-radius:8px;padding:5px 11px;font-size:11px;color:var(--pu);cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;font-weight:600}
 /* ─── WALLET ───────────────────────────────────────────── */
 .wbal{background:linear-gradient(135deg,var(--pu2),#4c1d95,#1e1b4b);border-radius:var(--r2);padding:20px;margin:0 14px 14px;position:relative;overflow:hidden}
 .wbal::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06)}
@@ -329,7 +329,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .offbar.on{display:flex}
 /* NAV - fixed at bottom */
 .nav{display:flex;border-top:.5px solid var(--b1);background:var(--bg2);position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:30}
-.nb{flex:1;padding:8px 0 5px;background:none;border:none;cursor:pointer;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Vazirmatn',sans-serif;transition:color .12s;position:relative}
+.nb{flex:1;padding:8px 0 5px;background:none;border:none;cursor:pointer;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:3px;font-family:'Inter',sans-serif;transition:color .12s;position:relative}
 .nb i{font-size:19px}.nb s{font-size:9px;text-decoration:none}.nb.on{color:var(--pu)}
 .nbadge{position:absolute;top:4px;right:calc(50% - 14px);min-width:16px;height:16px;border-radius:8px;font-size:9px;color:#fff;display:none;align-items:center;justify-content:center;padding:0 3px;border:1.5px solid var(--bg2)}
 .nbadge.on{display:flex}
@@ -343,7 +343,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .bsp{height:160px}
 .chips{display:flex;gap:7px;padding:8px 14px 6px;overflow-x:auto;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{padding:5px 13px;border-radius:20px;border:.5px solid var(--b2);font-size:12px;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--mu);transition:all .13s;flex-shrink:0;font-family:'Vazirmatn',sans-serif}
+.chip{padding:5px 13px;border-radius:20px;border:.5px solid var(--b2);font-size:12px;cursor:pointer;white-space:nowrap;background:var(--bg3);color:var(--mu);transition:all .13s;flex-shrink:0;font-family:'Inter',sans-serif}
 .chip.on{background:var(--pu2);border-color:var(--pu);color:#fff}
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 14px 14px}
 .sbox{background:var(--card);border:.5px solid var(--b1);border-radius:var(--r);padding:13px}
@@ -433,14 +433,14 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .dropzone b{color:var(--pu)}
 .dropzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
 .lsrch{padding:8px 14px 4px;position:relative}
-.lsinp{width:100%;padding:10px 40px 10px 14px;border-radius:var(--r);background:var(--card);border:.5px solid var(--b2);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none;transition:border-color .15s}
+.lsinp{width:100%;padding:10px 40px 10px 14px;border-radius:var(--r);background:var(--card);border:.5px solid var(--b2);color:var(--tx);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
 .lsinp:focus{border-color:rgba(167,139,250,.4)}.lsinp::placeholder{color:var(--mu)}
 .ltabs{display:flex;gap:0;margin:4px 14px 0;border-radius:var(--r);overflow:hidden;border:.5px solid var(--b2)}
-.ltab{flex:1;padding:8px;background:var(--bg3);color:var(--mu);border:none;cursor:pointer;font-family:'Vazirmatn',sans-serif;font-size:12px;font-weight:500;transition:all .13s}
+.ltab{flex:1;padding:8px;background:var(--bg3);color:var(--mu);border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;transition:all .13s}
 .ltab.on{background:var(--pu2);color:#fff}
 .lhdr{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 6px}
 .lhlbl{font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1.1px;text-transform:uppercase}
-.lhtool{background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:8px;transition:background .12s}
+.lhtool{background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:8px;transition:background .12s}
 .lhtool:hover{background:var(--bg3);color:var(--tx)}
 .ltc{margin:0 14px 7px;border-radius:var(--r);background:var(--card);border:.5px solid var(--b1);padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:border-color .12s}
 .ltc:hover{border-color:var(--b2)}.ltc.pl{border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.03)}
@@ -461,7 +461,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .whero{margin:12px 14px;border-radius:var(--r2);background:linear-gradient(135deg,var(--pu3),#1a0a3d);border:.5px solid rgba(124,58,237,.4);padding:20px;position:relative;overflow:hidden}
 .whero::after{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:radial-gradient(circle,rgba(124,58,237,.2),transparent 70%);pointer-events:none}
 .wbtns{display:flex;gap:9px;margin-top:14px}
-.wbtn{flex:1;padding:9px;border-radius:10px;border:.5px solid rgba(167,139,250,.35);background:rgba(124,58,237,.13);color:var(--pu);font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif;transition:background .12s}
+.wbtn{flex:1;padding:9px;border-radius:10px;border:.5px solid rgba(167,139,250,.35);background:rgba(124,58,237,.13);color:var(--pu);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;transition:background .12s}
 .wbtn:hover{background:rgba(124,58,237,.22)}.wbtn.sol{background:var(--pu2);color:#fff;border-color:transparent}
 .txlist{margin:0 14px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden}
 .txi{display:flex;align-items:center;gap:10px;padding:11px 13px;border-bottom:.5px solid var(--b1)}
@@ -500,7 +500,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .qmico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 /* DISCOVER */
 .srchwrap{padding:10px 14px 6px;position:relative}
-.srchinp{width:100%;padding:10px 40px 10px 14px;border-radius:var(--r);background:var(--card);border:.5px solid var(--b2);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none;transition:border-color .15s}
+.srchinp{width:100%;padding:10px 40px 10px 14px;border-radius:var(--r);background:var(--card);border:.5px solid var(--b2);color:var(--tx);font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .15s}
 .srchinp:focus{border-color:rgba(167,139,250,.4)}.srchinp::placeholder{color:var(--mu)}
 .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:4px 14px 12px}
 .tcard{border-radius:var(--r2);border:.5px solid var(--b1);padding:13px;cursor:pointer;transition:border-color .12s,transform .1s;position:relative;overflow:hidden}
@@ -533,7 +533,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .apstat{padding:12px 8px;text-align:center;border-left:.5px solid var(--b1)}
 .apstat:last-child{border-left:none}
 .apstatv{font-size:18px;font-weight:700;color:var(--pu)}.apstatl{font-size:10px;color:var(--mu);margin-top:2px}
-.apfbtn{margin:0 14px 14px;padding:12px;border-radius:var(--r2);width:calc(100% - 28px);border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif;transition:all .15s}
+.apfbtn{margin:0 14px 14px;padding:12px;border-radius:var(--r2);width:calc(100% - 28px);border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
 .apfbtn.f{background:var(--pu2);color:#fff}.apfbtn.uf{background:var(--bg3);color:var(--mu);border:.5px solid var(--b2)}
 .aplinkrow{display:flex;gap:9px;padding:4px 14px 14px;overflow-x:auto;scrollbar-width:none}
 .aplinkrow::-webkit-scrollbar{display:none}
@@ -560,7 +560,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .ntitle{font-size:13px;font-weight:500;line-height:1.4}
 .nsub{font-size:11px;color:var(--mu);margin-top:3px}
 .ntime{font-size:10px;color:var(--mu);margin-top:4px}
-.nact{padding:4px 12px;border-radius:8px;border:none;font-size:11px;cursor:pointer;font-family:'Vazirmatn',sans-serif;margin-top:6px;display:inline-block;background:rgba(167,139,250,.13);color:var(--pu)}
+.nact{padding:4px 12px;border-radius:8px;border:none;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;display:inline-block;background:rgba(167,139,250,.13);color:var(--pu)}
 /* SETTINGS */
 .stitem{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--card);border-bottom:.5px solid var(--b1);cursor:pointer;transition:background .1s}
 .stitem:hover{background:var(--card2)}.stitem:last-child{border-bottom:none}
@@ -585,7 +585,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .lbinf{flex:1}.lbname{font-size:13px;font-weight:500}.lblvl{font-size:10px;color:var(--mu);margin-top:2px}
 .lbcoin{font-size:13px;font-weight:600;color:var(--am);flex-shrink:0}
 .lbtabs{display:flex;gap:0;margin:6px 14px;border-radius:var(--r);overflow:hidden;border:.5px solid var(--b2)}
-.lbtab{flex:1;padding:8px;background:var(--bg3);color:var(--mu);border:none;cursor:pointer;font-family:'Vazirmatn',sans-serif;font-size:12px;font-weight:500;transition:all .13s}
+.lbtab{flex:1;padding:8px;background:var(--bg3);color:var(--mu);border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;transition:all .13s}
 .lbtab.on{background:var(--pu2);color:#fff}
 /* QUEUE */
 .qnow{margin:12px 14px;border-radius:var(--r2);background:linear-gradient(135deg,var(--pu3),#0a0a1f);border:.5px solid rgba(167,139,250,.3);padding:16px;display:flex;align-items:center;gap:12px}
@@ -620,7 +620,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .mplay{width:34px;height:34px;background:var(--pu2);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;transition:background .12s}
 .mplay.loc{background:#78350f}
 .mextra{display:flex;align-items:center;gap:4px;padding:0 12px 10px}
-.mxbtn{background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Vazirmatn',sans-serif;padding:4px 8px;border-radius:7px;display:flex;align-items:center;gap:4px;transition:all .12s}
+.mxbtn{background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Inter',sans-serif;padding:4px 8px;border-radius:7px;display:flex;align-items:center;gap:4px;transition:all .12s}
 .mxbtn:hover{background:var(--bg3);color:var(--tx)}.mxbtn.on{color:var(--pu)}
 .mxbtn i{font-size:13px}
 /* OVERLAY */
@@ -631,16 +631,16 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 .shh{width:38px;height:4px;background:var(--b2);border-radius:2px;margin:0 auto 16px}
 .sht{font-size:16px;font-weight:600;margin-bottom:14px}
 .shf{margin-bottom:13px}.shl{font-size:11px;color:var(--mu);margin-bottom:6px}
-.shi{width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:14px;font-family:'Vazirmatn',sans-serif;outline:none;transition:border-color .13s}
+.shi{width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .13s}
 .shi:focus{border-color:rgba(167,139,250,.4)}
-.shbtn{width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif}
+.shbtn{width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
 /* CONFIRM */
 .cf{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:60;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
 .cf.on{opacity:1;pointer-events:all}
 .cfbox{background:var(--bg2);border-radius:var(--r2);border:.5px solid var(--b2);padding:24px;max-width:300px;width:calc(100% - 40px);text-align:center}
 .cft{font-size:15px;font-weight:600;margin-bottom:8px}.cfm{font-size:13px;color:var(--mu);line-height:1.6;margin-bottom:18px}
 .cfbtns{display:flex;gap:10px}
-.cfbtn{flex:1;padding:11px;border-radius:var(--r);border:none;font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif;font-weight:500}
+.cfbtn{flex:1;padding:11px;border-radius:var(--r);border:none;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:500}
 .cfbtn.no{background:var(--bg3);color:var(--mu)}.cfbtn.ok{background:var(--pu2);color:#fff}.cfbtn.red{background:rgba(248,113,113,.15);color:var(--re)}
 /* TOAST */
 .twrap{position:fixed;top:60px;left:0;right:0;display:flex;justify-content:center;z-index:100;pointer-events:none}
@@ -648,7 +648,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 @keyframes tIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes tOut{to{opacity:0}}
 /* PROFILE TABS */
-.prof-tab{flex-shrink:0;padding:10px 14px;background:none;border:none;border-bottom:2px solid transparent;font-size:12px;font-weight:500;color:var(--mu2);cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:all .15s}
+.prof-tab{flex-shrink:0;padding:10px 14px;background:none;border:none;border-bottom:2px solid transparent;font-size:12px;font-weight:500;color:var(--mu2);cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:all .15s}
 .prof-tab.on{color:var(--pu);border-bottom-color:var(--pu)}
 .prof-tab-content{animation:fadeIn .2s ease}
 /* ONLINE TRACK INDICATOR */
@@ -726,9 +726,9 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .ob-title{font-size:22px;font-weight:700;text-align:center;margin-bottom:8px}
 .ob-sub{font-size:14px;color:var(--mu2);text-align:center;margin-bottom:28px;line-height:1.6}
-.ob-inp{width:100%;padding:14px 16px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:16px;font-family:'Vazirmatn',sans-serif;outline:none;margin-bottom:13px;transition:border-color .15s;text-align:center}
+.ob-inp{width:100%;padding:14px 16px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:16px;font-family:'Inter',sans-serif;outline:none;margin-bottom:13px;transition:border-color .15s;text-align:center}
 .ob-inp:focus{border-color:rgba(167,139,250,.5)}
-.ob-btn{width:100%;padding:14px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif;margin-bottom:10px;transition:opacity .12s}
+.ob-btn{width:100%;padding:14px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;margin-bottom:10px;transition:opacity .12s}
 .ob-btn:hover{opacity:.88}
 .ob-btn.out{background:var(--bg3);color:var(--mu);border:.5px solid var(--b2)}
 .ob-role-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
@@ -818,7 +818,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
         <div style="font-size:11px;color:var(--mu2)" id="pl-picker-artist">—</div>
       </div>
     </div>
-    <div style="font-size:12px;font-weight:700;color:var(--mu2);letter-spacing:.5px;padding:8px 2px 4px">اضافه کردن به پلی‌لیست</div>
+    <div style="font-size:12px;font-weight:700;color:var(--mu2);letter-spacing:.5px;padding:8px 2px 4px">Add to playlist</div>
     <div id="pl-picker-list" style="overflow-y:auto;max-height:50vh"></div>
   </div>
 </div>
@@ -837,8 +837,8 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
 
   <!-- Tab: ثبت‌نام / ورود -->
   <div style="display:flex;border:.5px solid var(--b2);border-radius:var(--r2);overflow:hidden;margin-bottom:24px;width:100%;max-width:340px">
-    <button id="ob-tab-reg" onclick="obSwitchTab('reg')" style="flex:1;padding:10px;border:none;background:var(--pu2);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif">ثبت‌نام</button>
-    <button id="ob-tab-login" onclick="obSwitchTab('login')" style="flex:1;padding:10px;border:none;background:var(--bg3);color:var(--mu2);font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif">ورود با Username</button>
+    <button id="ob-tab-reg" onclick="obSwitchTab('reg')" style="flex:1;padding:10px;border:none;background:var(--pu2);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">ثبت‌نام</button>
+    <button id="ob-tab-login" onclick="obSwitchTab('login')" style="flex:1;padding:10px;border:none;background:var(--bg3);color:var(--mu2);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif">ورود با Username</button>
   </div>
 
   <!-- ثبت‌نام -->
@@ -862,10 +862,10 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div class="ob-role" id="ob-role-artist" onclick="obSelectRole('artist')">
         <span class="ob-role-ico">🎤</span>
         <div class="ob-role-name">آرتیست</div>
-        <div class="ob-role-desc">ترک آپلود کن، آمار ببین</div>
+        <div class="ob-role-desc">Upload tracks, view stats</div>
       </div>
     </div>
-    <div id="ob-artist-note" style="display:none;background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.2);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--am);margin-bottom:12px;line-height:1.7"><i class="ti ti-info-circle"></i> حساب آرتیست نیاز به تأیید ادمین داره.</div>
+    <div id="ob-artist-note" style="display:none;background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.2);border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--am);margin-bottom:12px;line-height:1.7"><i class="ti ti-info-circle"></i> Artist account needs admin approval.</div>
     <button class="ob-btn" id="ob-reg-btn" onclick="obFinish()">ساخت حساب 🚀</button>
     <div style="text-align:center;font-size:11px;color:var(--mu)">با ادامه، <a href="#" style="color:var(--pu);text-decoration:none">قوانین</a> رو قبول میکنی</div>
   </div>
@@ -911,7 +911,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div id="feed-offline" style="display:none;text-align:center;padding:36px 20px;color:var(--mu)">
         <i class="ti ti-wifi-off" style="font-size:44px;display:block;margin-bottom:12px;opacity:.25"></i>
         <p style="font-size:13px;line-height:1.8">آفلاینی<br>برو <b style="color:var(--am)">Local</b> موزیک گوش بده</p>
-        <button onclick="navTo('local',document.querySelectorAll('.nb')[3])" style="margin-top:14px;padding:9px 20px;border-radius:var(--r2);background:var(--pu2);border:none;color:#fff;font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif">رفتن به Local Music</button>
+        <button onclick="navTo('local',document.querySelectorAll('.nb')[3])" style="margin-top:14px;padding:9px 20px;border-radius:var(--r2);background:var(--pu2);border:none;color:#fff;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif">رفتن به Local Music</button>
       </div>
       <div class="bsp"></div>
     </div>
@@ -926,7 +926,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div id="video-list"></div>
       <div id="video-offline" style="display:none;text-align:center;padding:36px 20px;color:var(--mu)">
         <i class="ti ti-wifi-off" style="font-size:44px;display:block;margin-bottom:12px;opacity:.25"></i>
-        <p style="font-size:13px">آفلاینی — برای ویدیو اینترنت لازمه</p>
+        <p style="font-size:13px">آفلاینی — Video requires internet</p>
       </div>
       <div class="bsp"></div>
     </div>
@@ -998,8 +998,8 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       </div>
       <!-- Follow + Platform Links -->
       <div style="padding:12px 14px;display:flex;gap:9px;align-items:center">
-        <button class="apfbtn f" id="apfbtn" onclick="toggleFollow()" style="flex:1;padding:11px;border-radius:var(--r2);border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif">+ دنبال کن</button>
-        <button onclick="shareArtistPage()" style="padding:11px 13px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu2);font-size:13px;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:5px"><i class="ti ti-share"></i></button>
+        <button class="apfbtn f" id="apfbtn" onclick="toggleFollow()" style="flex:1;padding:11px;border-radius:var(--r2);border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">+ دنبال کن</button>
+        <button onclick="shareArtistPage()" style="padding:11px 13px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu2);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:5px"><i class="ti ti-share"></i></button>
       </div>
       <!-- Platform links row -->
       <div class="aplinkrow" id="aplinkrow" style="padding:0 14px 4px"></div>
@@ -1042,7 +1042,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div id="ap-tracks-sec">
         <div style="padding:14px 16px 8px;display:flex;align-items:center;justify-content:space-between">
           <div style="font-size:12px;font-weight:700;color:var(--mu2);letter-spacing:.8px;text-transform:uppercase">همه ترک‌ها</div>
-          <button id="ap-play-all" onclick="playArtistAll()" style="background:var(--pu2);border:none;border-radius:20px;color:#fff;padding:5px 14px;font-size:11px;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:4px"><i class="ti ti-player-play" style="font-size:12px"></i>پلی همه</button>
+          <button id="ap-play-all" onclick="playArtistAll()" style="background:var(--pu2);border:none;border-radius:20px;color:#fff;padding:5px 14px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px"><i class="ti ti-player-play" style="font-size:12px"></i>پلی همه</button>
         </div>
         <div id="ap-tracks-list" style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:0 14px;overflow:hidden"></div>
       </div>
@@ -1062,7 +1062,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
     <div class="page" id="pg-local">
       <div class="dropzone" id="dz">
         <i class="ti ti-music-plus"></i>
-        <p>فایل موزیک بکش اینجا یا کلیک کن<br><b>MP3, WAV, FLAC, OGG, M4A</b></p>
+        <p>Drag music files here or click<br><b>MP3, WAV, FLAC, OGG, M4A</b></p>
         <input type="file" id="finp" accept="audio/*" multiple onchange="handleFiles(this.files)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
       </div>
       <div class="lsrch"><input class="lsinp" id="lsinp" type="text" placeholder="جستجو در کتابخانه..." oninput="filterLib(this.value)"><i class="ti ti-search" style="position:absolute;left:26px;top:50%;transform:translateY(-50%);color:var(--mu);font-size:16px;pointer-events:none"></i></div>
@@ -1084,7 +1084,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <!-- Cached -->
       <div id="tab-cached-content" style="display:none">
         <div class="lhdr"><div class="lhlbl">ذخیره برای آفلاین</div><div style="display:flex;gap:8px"><button class="lhtool" onclick="clearCache()"><i class="ti ti-trash"></i>پاک کردن</button></div></div>
-        <div id="cached-list"><div class="empty"><i class="ti ti-cloud-download"></i><p>هنوز ترکی ذخیره نکردی<br>از فید دکمه ⬇ بزن</p></div></div>
+        <div id="cached-list"><div class="empty"><i class="ti ti-cloud-download"></i><p>No saved tracks yet<br>از فید دکمه ⬇ بزن</p></div></div>
       </div>
       <div class="bsp"></div>
     </div>
@@ -1093,7 +1093,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
     <div class="page" id="pg-playlist">
       <div style="padding:14px 14px 8px;display:flex;align-items:center;justify-content:space-between">
         <div style="font-size:18px;font-weight:700">پلی‌لیست‌ها</div>
-        <button onclick="createPlaylist()" style="background:rgba(167,139,250,.13);border:.5px solid rgba(167,139,250,.25);color:var(--pu);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-plus" style="vertical-align:-2px"></i> جدید</button>
+        <button onclick="createPlaylist()" style="background:rgba(167,139,250,.13);border:.5px solid rgba(167,139,250,.25);color:var(--pu);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif"><i class="ti ti-plus" style="vertical-align:-2px"></i> جدید</button>
       </div>
       <div id="pl-list"></div>
       <div id="pl-detail" style="display:none">
@@ -1102,10 +1102,10 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
           <div style="font-size:16px;font-weight:600;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="pl-detail-name">—</div>
           <button onclick="renamePL(activePL?.id)" title="تغییر نام" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:16px;padding:4px"><i class="ti ti-pencil"></i></button>
           <button onclick="deletePL(activePL?.id);closePLDetail()" title="حذف پلی‌لیست" style="background:none;border:none;cursor:pointer;color:var(--re);font-size:16px;padding:4px"><i class="ti ti-trash"></i></button>
-          <button onclick="playPlaylist()" style="background:var(--pu2);border:none;border-radius:20px;color:#fff;padding:6px 13px;font-size:12px;cursor:pointer;font-family:'Vazirmatn',sans-serif;flex-shrink:0"><i class="ti ti-player-play" style="vertical-align:-2px"></i> پلی</button>
+          <button onclick="playPlaylist()" style="background:var(--pu2);border:none;border-radius:20px;color:#fff;padding:6px 13px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0"><i class="ti ti-player-play" style="vertical-align:-2px"></i> پلی</button>
         </div>
         <div style="padding:0 14px 10px;display:flex;align-items:center;justify-content:space-between">
-          <span style="font-size:12px;color:var(--mu)">عمومی (قابل مشاهده برای همه)</span>
+          <span style="font-size:12px;color:var(--mu)">عمومی (Visible to everyone)</span>
           <label class="tgl"><input type="checkbox" id="pl-public-toggle" onchange="if(activePL){activePL.isPublic=this.checked;savePL();toast(this.checked?'🌍 عمومی شد':'🔒 خصوصی شد');}"><span class="tgl-s"></span></label>
         </div>
         <div id="pl-tracks" style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:0 14px;overflow:hidden"></div>
@@ -1120,7 +1120,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
         <div style="font-size:18px;font-weight:700">🎤 ارسال ترک</div>
       </div>
       <div style="margin:0 14px 12px;background:rgba(167,139,250,.07);border:.5px solid rgba(167,139,250,.2);border-radius:var(--r);padding:11px 13px;font-size:12px;color:var(--pu);line-height:1.7">
-        <i class="ti ti-info-circle"></i> ترکت رو ارسال کن — بعد از تأیید ادمین در لیست موزیک‌ها نمایش داده میشه.
+        <i class="ti ti-info-circle"></i> ترکت رو ارسال کن — Shown in music list after admin approval.
       </div>
       <div style="margin:0 14px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden">
         <div style="padding:13px;border-bottom:.5px solid var(--b1)">
@@ -1149,7 +1149,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
             <div class="field">
               <div class="flbl">★ لینک موزیک</div>
               <input class="inp" id="sub-audio" type="url" dir="ltr" placeholder="لینک SoundCloud، Spotify، YouTube یا MP3 مستقیم">
-              <div style="font-size:10px;color:var(--mu);margin-top:3px">هر لینکی که موزیک رو پخش کنه قبوله</div>
+              <div style="font-size:10px;color:var(--mu);margin-top:3px">Any link that plays music works</div>
             </div>
             <div class="field"><div class="flbl">Cover Image URL</div><input class="inp" id="sub-cover" type="url" dir="ltr" placeholder="https://..."></div>
             <div class="field"><div class="flbl">توضیح</div><textarea class="inp" id="sub-desc" placeholder="درباره این ترک..." style="height:65px;resize:none;line-height:1.5"></textarea></div>
@@ -1165,8 +1165,8 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
           </div>
         </div>
         <div style="padding:13px">
-          <div style="font-size:11px;color:var(--mu2);margin-bottom:11px">با ارسال این درخواست تأیید میکنم که این ترک متعلق به منه.</div>
-          <button onclick="submitArtistTrack()" style="width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-send" style="vertical-align:-2px"></i> ارسال درخواست</button>
+          <div style="font-size:11px;color:var(--mu2);margin-bottom:11px">By submitting, I confirm this track belongs to me.</div>
+          <button onclick="submitArtistTrack()" style="width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif"><i class="ti ti-send" style="vertical-align:-2px"></i> ارسال درخواست</button>
         </div>
       </div>
       <div class="bsp"></div>
@@ -1181,7 +1181,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div id="embed-con" style="margin:14px;border-radius:var(--r2);overflow:hidden;background:var(--card);border:.5px solid var(--b1);min-height:160px"></div>
       <div style="margin:0 14px 14px;background:rgba(251,191,36,.05);border:.5px solid rgba(251,191,36,.18);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:7px">
         <i class="ti ti-coin" style="font-size:15px;color:var(--am)"></i>
-        <span id="embed-earn-txt" style="font-size:12px;color:var(--am)">ترک رو تا آخر گوش بده Coin بگیر</span>
+        <span id="embed-earn-txt" style="font-size:12px;color:var(--am)">Listen to the full track Coin بگیر</span>
       </div>
       <div class="bsp"></div>
     </div>
@@ -1193,7 +1193,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
         <div class="role-badge artist"><i class="ti ti-microphone-2" style="font-size:11px"></i>آرتیست</div>
       </div>
       <div id="adash-pending-note" style="display:none;margin:0 14px 12px;background:rgba(251,191,36,.07);border:.5px solid rgba(251,191,36,.2);border-radius:var(--r);padding:11px 13px;font-size:12px;color:var(--am);line-height:1.7">
-        <i class="ti ti-clock"></i> حسابت در انتظار تأیید ادمینه. ترک‌های ارسالی بعد از تأیید نمایش داده میشن.
+        <i class="ti ti-clock"></i> Your account awaits admin approval. Submitted tracks appear after approval.
       </div>
       <!-- Stats -->
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:0 14px 14px">
@@ -1207,8 +1207,8 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <!-- Quick Actions -->
       <div class="sec">اقدام‌های سریع</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 14px">
-        <button onclick="navPage('artist-submit')" style="padding:13px;border-radius:var(--r2);border:.5px solid rgba(52,211,153,.25);background:rgba(52,211,153,.08);color:var(--gr);font-size:13px;font-weight:500;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px"><i class="ti ti-music-plus"></i>ارسال ترک جدید</button>
-        <button onclick="navPage('campaign-req')" style="padding:13px;border-radius:var(--r2);border:.5px solid rgba(251,191,36,.25);background:rgba(251,191,36,.08);color:var(--am);font-size:13px;font-weight:500;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px"><i class="ti ti-speakerphone"></i>درخواست کمپین</button>
+        <button onclick="navPage('artist-submit')" style="padding:13px;border-radius:var(--r2);border:.5px solid rgba(52,211,153,.25);background:rgba(52,211,153,.08);color:var(--gr);font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px"><i class="ti ti-music-plus"></i>ارسال ترک جدید</button>
+        <button onclick="navPage('campaign-req')" style="padding:13px;border-radius:var(--r2);border:.5px solid rgba(251,191,36,.25);background:rgba(251,191,36,.08);color:var(--am);font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px"><i class="ti ti-speakerphone"></i>درخواست کمپین</button>
       </div>
       <!-- Earnings breakdown -->
       <div class="sec">درآمد از ترک‌ها</div>
@@ -1223,7 +1223,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
         <div style="font-size:18px;font-weight:700">📣 درخواست کمپین</div>
       </div>
       <div style="margin:0 14px 14px;background:rgba(96,165,250,.07);border:.5px solid rgba(96,165,250,.2);border-radius:var(--r);padding:11px 13px;font-size:12px;color:var(--bl);line-height:1.7">
-        <i class="ti ti-info-circle"></i> کمپین‌ها بعد از تأیید ادمین فعال میشن. هزینه از Coin کسر میشه.
+        <i class="ti ti-info-circle"></i> Campaigns activate after admin approval. هزینه از Coin کسر میشه.
       </div>
       <!-- Campaign Types -->
       <div style="padding:0 14px">
@@ -1248,19 +1248,19 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
         <div class="camp-card" id="camp-early" onclick="selectCamp('early')">
           <span class="camp-ico">✨</span>
           <div class="camp-name">Early Discover Boost</div>
-          <div class="camp-desc">کاربرانی که ترکت رو زود گوش بدن Coin بیشتری میگیرن — incentive برای discovery</div>
+          <div class="camp-desc">Users who listen early Coin بیشتری میگیرن — incentive برای discovery</div>
           <div class="camp-price">۳۰۰ Coin / ۷ روز</div>
         </div>
       </div>
       <!-- Track selector -->
       <div class="sec">کدوم ترک؟</div>
       <div style="padding:0 14px">
-        <select id="camp-track-sel" style="width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none;margin-bottom:12px">
+        <select id="camp-track-sel" style="width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Inter',sans-serif;outline:none;margin-bottom:12px">
           <option value="">انتخاب ترک...</option>
         </select>
-        <textarea id="camp-note" placeholder="توضیح اضافه (اختیاری)..." style="width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Vazirmatn',sans-serif;outline:none;resize:none;height:70px;line-height:1.5;margin-bottom:12px"></textarea>
+        <textarea id="camp-note" placeholder="توضیح اضافه (اختیاری)..." style="width:100%;padding:11px 13px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:13px;font-family:'Inter',sans-serif;outline:none;resize:none;height:70px;line-height:1.5;margin-bottom:12px"></textarea>
         <div id="camp-cost-preview" style="background:rgba(251,191,36,.06);border:.5px solid rgba(251,191,36,.15);border-radius:var(--r);padding:11px 13px;font-size:12px;color:var(--am);margin-bottom:14px;display:none"></div>
-        <button onclick="submitCampaign()" style="width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-send" style="vertical-align:-2px"></i> ارسال درخواست</button>
+        <button onclick="submitCampaign()" style="width:100%;padding:13px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif"><i class="ti ti-send" style="vertical-align:-2px"></i> ارسال درخواست</button>
       </div>
       <div class="bsp"></div>
     </div>
@@ -1285,7 +1285,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0 14px 14px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);overflow:hidden" id="pub-stats-row"></div>
       <div id="pub-follow-btn-wrap" style="padding:0 14px 14px">
-        <button id="pub-follow-btn" onclick="togglePubFollow()" style="width:100%;padding:12px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Vazirmatn',sans-serif">+ دنبال کن</button>
+        <button id="pub-follow-btn" onclick="togglePubFollow()" style="width:100%;padding:12px;border-radius:var(--r2);border:none;background:var(--pu2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">+ دنبال کن</button>
       </div>
       <!-- Artist tracks if artist -->
       <div id="pub-tracks-section" style="display:none">
@@ -1326,7 +1326,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
     <div class="page" id="pg-notifs">
       <div style="padding:12px 14px 6px;display:flex;align-items:center;justify-content:space-between">
         <div style="font-size:18px;font-weight:700">اعلان‌ها</div>
-        <button onclick="markAllRead()" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Vazirmatn',sans-serif">همه خوانده شد</button>
+        <button onclick="markAllRead()" style="background:none;border:none;cursor:pointer;color:var(--mu);font-size:12px;font-family:'Inter',sans-serif">همه خوانده شد</button>
       </div>
       <div id="notif-list" style="background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);margin:6px 14px 0;overflow:hidden"></div>
       <div class="bsp"></div>
@@ -1338,9 +1338,9 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div class="mcard" id="mc0"><div class="mico"><i class="ti ti-headphones"></i></div><div class="mbod"><div class="mt3">۵ ترک کامل گوش بده</div><div class="ms2" id="ms0">۰ از ۵</div><div class="prog"><div class="pf" id="mf0" style="width:0%;background:var(--pu)"></div></div></div><div class="mrew">+50 🪙</div></div>
       <div class="mcard" id="mc1"><div class="mico p"><i class="ti ti-heart"></i></div><div class="mbod"><div class="mt3">۳ ترک لایک کن</div><div class="ms2" id="ms1">۰ از ۳</div><div class="prog"><div class="pf" id="mf1" style="width:0%;background:var(--pk)"></div></div></div><div class="mrew">+30 🪙</div></div>
       <div class="mcard" id="mc2"><div class="mico g"><i class="ti ti-share"></i></div><div class="mbod"><div class="mt3">یه ترک Share کن</div><div class="ms2" id="ms2">۰ از ۱</div><div class="prog"><div class="pf" id="mf2" style="width:0%;background:var(--gr)"></div></div></div><div class="mrew">+20 🪙</div></div>
-      <div class="mcard" id="mc3"><div class="mico a"><i class="ti ti-cloud-download"></i></div><div class="mbod"><div class="mt3">یه ترک برای آفلاین ذخیره کن</div><div class="ms2" id="ms3">۰ از ۱</div><div class="prog"><div class="pf" id="mf3" style="width:0%;background:var(--am)"></div></div></div><div class="mrew">+25 🪙</div></div>
+      <div class="mcard" id="mc3"><div class="mico a"><i class="ti ti-cloud-download"></i></div><div class="mbod"><div class="mt3">Save a track for offline</div><div class="ms2" id="ms3">۰ از ۱</div><div class="prog"><div class="pf" id="mf3" style="width:0%;background:var(--am)"></div></div></div><div class="mrew">+25 🪙</div></div>
       <div class="sec" style="margin-top:4px">هفتگی</div>
-      <div class="mcard"><div class="mico a"><i class="ti ti-trophy"></i></div><div class="mbod"><div class="mt3">۲۰ ساعت موزیک گوش بده</div><div class="ms2" id="ms-wk">۰ از ۲۰ ساعت</div><div class="prog"><div class="pf" id="mf-wk" style="width:0%;background:var(--am)"></div></div></div><div class="mrew" style="color:var(--am)">+500 🪙</div></div>
+      <div class="mcard"><div class="mico a"><i class="ti ti-trophy"></i></div><div class="mbod"><div class="mt3">Listen to 20 hours of music</div><div class="ms2" id="ms-wk">۰ از ۲۰ ساعت</div><div class="prog"><div class="pf" id="mf-wk" style="width:0%;background:var(--am)"></div></div></div><div class="mrew" style="color:var(--am)">+500 🪙</div></div>
       <div class="mcard"><div class="mico g"><i class="ti ti-music"></i></div><div class="mbod"><div class="mt3">۱۰ ترک Local اضافه کن</div><div class="ms2" id="ms-loc">۰ از ۱۰</div><div class="prog"><div class="pf" id="mf-loc" style="width:0%;background:var(--gr)"></div></div></div><div class="mrew" style="color:var(--gr)">+100 🪙</div></div>
       <div class="mcard"><div class="mico p"><i class="ti ti-friends"></i></div><div class="mbod"><div class="mt3">۲ دوست دعوت کن</div><div class="ms2">کد: <b id="rcode">—</b></div><div class="prog"><div class="pf" style="width:0%;background:var(--pk)"></div></div></div><div class="mrew" style="color:var(--pk)">+300 🪙</div></div>
       <div class="bsp"></div>
@@ -1392,7 +1392,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       </div>
       <div style="font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1px;text-transform:uppercase;padding:14px 14px 8px">پخش</div>
       <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
-        <div class="stitem"><div class="stico" style="background:rgba(96,165,250,.12)"><i class="ti ti-wifi" style="color:var(--bl)"></i></div><div class="stlbl"><div class="sttitle">کیفیت</div></div><select id="st-quality" style="background:var(--bg3);border:.5px solid var(--b2);color:var(--mu2);font-size:12px;border-radius:8px;padding:4px 8px;outline:none;font-family:'Vazirmatn',sans-serif" onchange="saveST('quality',this.value)"><option value="low">کم</option><option value="medium" selected>متوسط</option><option value="high">بالا</option></select></div>
+        <div class="stitem"><div class="stico" style="background:rgba(96,165,250,.12)"><i class="ti ti-wifi" style="color:var(--bl)"></i></div><div class="stlbl"><div class="sttitle">کیفیت</div></div><select id="st-quality" style="background:var(--bg3);border:.5px solid var(--b2);color:var(--mu2);font-size:12px;border-radius:8px;padding:4px 8px;outline:none;font-family:'Inter',sans-serif" onchange="saveST('quality',this.value)"><option value="low">کم</option><option value="medium" selected>متوسط</option><option value="high">بالا</option></select></div>
         <div class="stitem"><div class="stico" style="background:rgba(251,191,36,.12)"><i class="ti ti-repeat" style="color:var(--am)"></i></div><div class="stlbl"><div class="sttitle">پخش خودکار</div></div><label class="stgl"><input type="checkbox" id="st-autoplay" checked onchange="saveST('autoplay',this.checked)"><span class="stgl-s"></span></label></div>
         <div class="stitem"><div class="stico" style="background:rgba(244,114,182,.12)"><i class="ti ti-arrows-shuffle" style="color:var(--pk)"></i></div><div class="stlbl"><div class="sttitle">Shuffle</div></div><label class="stgl"><input type="checkbox" id="st-shuffle" onchange="saveST('shuffle',this.checked)"><span class="stgl-s"></span></label></div>
       </div>
@@ -1404,7 +1404,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div style="font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1px;text-transform:uppercase;padding:14px 14px 8px">داده‌ها</div>
       <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
         <div class="stitem" onclick="clearCacheFromSettings()"><div class="stico" style="background:rgba(251,191,36,.12)"><i class="ti ti-cloud-off" style="color:var(--am)"></i></div><div class="stlbl"><div class="sttitle">پاک کردن Cache</div><div class="stsub" id="st-cache">محاسبه...</div></div><i class="ti ti-trash" style="color:var(--am);font-size:16px"></i></div>
-        <div class="stitem" onclick="openCf('پاک کردن همه داده‌ها','Coin، آمار و تراکنش‌ها پاک میشن.',doReset,'red')"><div class="stico" style="background:rgba(248,113,113,.1)"><i class="ti ti-trash" style="color:var(--re)"></i></div><div class="stlbl"><div class="sttitle" style="color:var(--re)">پاک کردن همه</div></div><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
+        <div class="stitem" onclick="openCf('Clear all data','Coin، آمار و تراکنش‌ها پاک میشن.',doReset,'red')"><div class="stico" style="background:rgba(248,113,113,.1)"><i class="ti ti-trash" style="color:var(--re)"></i></div><div class="stlbl"><div class="sttitle" style="color:var(--re)">پاک کردن همه</div></div><i class="ti ti-chevron-left" style="color:var(--mu);font-size:16px"></i></div>
       </div>
       <div style="padding:16px;text-align:center;font-size:11px;color:var(--mu)" id="ver-tap" onclick="adminTap()">Vibe v1.0 — ساخته شده با ❤️</div>
       <div id="ver-tap-hint" style="display:none;text-align:center;font-size:10px;color:var(--pu);margin-top:-10px;padding-bottom:10px"></div>
@@ -1422,10 +1422,10 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
           <div class="plvl"><i class="ti ti-star" style="font-size:12px"></i><span id="plvl-t">Level 1</span></div>
           <span class="role-badge listener" id="prof-role-badge">🎧 شنونده</span>
         </div>
-        <button id="prof-artist-dash-btn" onclick="navPage('artist-dash')" style="display:none;margin-top:12px;padding:9px 20px;border-radius:var(--r2);border:.5px solid rgba(52,211,153,.25);background:rgba(52,211,153,.08);color:var(--gr);font-size:13px;font-weight:500;cursor:pointer;font-family:'Vazirmatn',sans-serif;align-items:center;gap:7px"><i class="ti ti-microphone-2"></i> داشبورد آرتیست</button>
+        <button id="prof-artist-dash-btn" onclick="navPage('artist-dash')" style="display:none;margin-top:12px;padding:9px 20px;border-radius:var(--r2);border:.5px solid rgba(52,211,153,.25);background:rgba(52,211,153,.08);color:var(--gr);font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;align-items:center;gap:7px"><i class="ti ti-microphone-2"></i> داشبورد آرتیست</button>
         <div style="display:flex;gap:9px;margin-top:12px;padding:0 20px">
-          <button onclick="openOv('ov-ep')" style="flex:1;padding:9px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu);font-size:12px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-edit" style="vertical-align:-2px"></i> ویرایش</button>
-          <button onclick="copyRef()" style="flex:1;padding:9px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu);font-size:12px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-link" style="vertical-align:-2px"></i> دعوت</button>
+          <button onclick="openOv('ov-ep')" style="flex:1;padding:9px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu);font-size:12px;cursor:pointer;font-family:'Inter',sans-serif"><i class="ti ti-edit" style="vertical-align:-2px"></i> ویرایش</button>
+          <button onclick="copyRef()" style="flex:1;padding:9px;border-radius:var(--r2);border:.5px solid var(--b2);background:var(--bg3);color:var(--mu);font-size:12px;cursor:pointer;font-family:'Inter',sans-serif"><i class="ti ti-link" style="vertical-align:-2px"></i> دعوت</button>
         </div>
       </div>
       <!-- XP bar -->
@@ -1444,7 +1444,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div id="prof-tab-liked" class="prof-tab-content">
         <div style="padding:8px 14px 4px;display:flex;align-items:center;justify-content:space-between">
           <span style="font-size:12px;color:var(--mu)"><span id="prof-liked-count">0</span> ترک</span>
-          <button onclick="playAllLiked()" style="background:var(--pu2);border:none;border-radius:20px;color:#fff;padding:5px 14px;font-size:11px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-player-play" style="vertical-align:-2px"></i> پلی همه</button>
+          <button onclick="playAllLiked()" style="background:var(--pu2);border:none;border-radius:20px;color:#fff;padding:5px 14px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif"><i class="ti ti-player-play" style="vertical-align:-2px"></i> پلی همه</button>
         </div>
         <div id="prof-liked-list"></div>
       </div>
@@ -1452,7 +1452,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
       <div id="prof-tab-playlists" class="prof-tab-content" style="display:none">
         <div style="padding:10px 14px 4px;display:flex;align-items:center;justify-content:space-between">
           <span style="font-size:12px;color:var(--mu)"><span id="prof-pl-count">0</span> پلی‌لیست</span>
-          <button onclick="createPlaylist()" style="background:rgba(167,139,250,.13);border:.5px solid rgba(167,139,250,.25);color:var(--pu);padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;font-family:'Vazirmatn',sans-serif"><i class="ti ti-plus" style="vertical-align:-2px"></i> جدید</button>
+          <button onclick="createPlaylist()" style="background:rgba(167,139,250,.13);border:.5px solid rgba(167,139,250,.25);color:var(--pu);padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif"><i class="ti ti-plus" style="vertical-align:-2px"></i> جدید</button>
         </div>
         <div id="prof-pl-list"></div>
       </div>
@@ -1531,7 +1531,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
   <div class="vhdr">
     <button class="vback" onclick="closeVideo()"><i class="ti ti-arrow-left"></i></button>
     <div class="vtitle" id="vtitle">—</div>
-    <button id="vid-to-track-btn" onclick="videoGoToTrack()" style="display:none;background:rgba(167,139,250,.15);border:.5px solid rgba(167,139,250,.25);border-radius:20px;color:var(--pu);padding:5px 11px;font-size:11px;cursor:pointer;font-family:'Vazirmatn',sans-serif;display:flex;align-items:center;gap:4px"><i class="ti ti-music" style="font-size:12px"></i>ترک</button>
+    <button id="vid-to-track-btn" onclick="videoGoToTrack()" style="display:none;background:rgba(167,139,250,.15);border:.5px solid rgba(167,139,250,.25);border-radius:20px;color:var(--pu);padding:5px 11px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px"><i class="ti ti-music" style="font-size:12px"></i>ترک</button>
     <div class="vcbdg" id="vcbdg">+0 🪙</div>
   </div>
   <div class="vscreen" id="vscreen" onclick="toggleVidPlay()">
@@ -1603,8 +1603,8 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Vazirmat
     <button class="shbtn" onclick="saveProfile()"><i class="ti ti-check" style="vertical-align:-2px"></i> ذخیره تغییرات</button>
   </div>
 </div>
-<div class="ov" id="ov-sleep" onclick="closeOv('ov-sleep')"><div class="sheet" onclick="event.stopPropagation()"><div class="shh"></div><div class="sht">⏰ Sleep Timer</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:14px"><button onclick="setSleep(15)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۱۵ دق</button><button onclick="setSleep(30)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۳۰ دق</button><button onclick="setSleep(45)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۴۵ دق</button><button onclick="setSleep(60)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۱ ساعت</button><button onclick="setSleep(90)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">۹۰ دق</button><button onclick="setSleep(0)" style="padding:11px;border-radius:var(--r);background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);color:var(--re);font-size:14px;cursor:pointer;font-family:'Vazirmatn',sans-serif">لغو</button></div><div id="sleep-status" style="text-align:center;font-size:13px;color:var(--mu)">Timer فعال نیست</div></div></div>
-<div class="cf" id="cf" onclick="if(event.target===this)closeCf()"><div class="cfbox"><div class="cft" id="cft">مطمئنی؟</div><div class="cfm" id="cfm">این عمل قابل برگشت نیست.</div><div class="cfbtns"><button class="cfbtn no" onclick="closeCf()">انصراف</button><button class="cfbtn ok" id="cfok">تایید</button></div></div></div>
+<div class="ov" id="ov-sleep" onclick="closeOv('ov-sleep')"><div class="sheet" onclick="event.stopPropagation()"><div class="shh"></div><div class="sht">⏰ Sleep Timer</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:14px"><button onclick="setSleep(15)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Inter',sans-serif">۱۵ دق</button><button onclick="setSleep(30)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Inter',sans-serif">۳۰ دق</button><button onclick="setSleep(45)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Inter',sans-serif">۴۵ دق</button><button onclick="setSleep(60)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Inter',sans-serif">۱ ساعت</button><button onclick="setSleep(90)" style="padding:11px;border-radius:var(--r);background:var(--bg3);border:.5px solid var(--b2);color:var(--tx);font-size:14px;cursor:pointer;font-family:'Inter',sans-serif">۹۰ دق</button><button onclick="setSleep(0)" style="padding:11px;border-radius:var(--r);background:rgba(248,113,113,.13);border:.5px solid rgba(248,113,113,.2);color:var(--re);font-size:14px;cursor:pointer;font-family:'Inter',sans-serif">لغو</button></div><div id="sleep-status" style="text-align:center;font-size:13px;color:var(--mu)">Timer فعال نیست</div></div></div>
+<div class="cf" id="cf" onclick="if(event.target===this)closeCf()"><div class="cfbox"><div class="cft" id="cft">مطمئنی؟</div><div class="cfm" id="cfm">This action cannot be undone.</div><div class="cfbtns"><button class="cfbtn no" onclick="closeCf()">انصراف</button><button class="cfbtn ok" id="cfok">تایید</button></div></div></div>
 <div class="twrap" id="twrap"></div>
 <audio id="aud" preload="auto"></audio>
 
@@ -1631,7 +1631,7 @@ let NOTIFS=(()=>{try{return JSON.parse(localStorage.getItem('vibe_notifs')||'nul
 let SETTINGS=(()=>{try{return{...{quality:'medium',autoplay:true,shuffle:false,notifCoin:true,notifMission:true},...JSON.parse(localStorage.getItem('vibe_st')||'{}')};}catch{return{quality:'medium',autoplay:true,shuffle:false,notifCoin:true,notifMission:true};}})();
 function defNotifs(){return[
   {id:'n1',type:'coin',title:'🪙 به Vibe خوش اومدی!',sub:'اولین Coin رو با گوش دادن به دست بیار',time:Date.now()-60000,read:false,action:'feed'},
-  {id:'n2',type:'mission',title:'🎯 ماموریت‌های امروز آماده‌ن',sub:'۵ ترک گوش بده و +50 Coin بگیر',time:Date.now()-600000,read:false,action:'missions'},
+  {id:'n2',type:'mission',title:'🎯 Today’s missions are ready',sub:'۵ ترک گوش بده و +50 Coin بگیر',time:Date.now()-600000,read:false,action:'missions'},
 ];}
 const saveLiked=()=>{try{localStorage.setItem('vibe_liked',JSON.stringify(LIKED));}catch{}};
 // savePL = savePLVerified (defined later)
@@ -1805,7 +1805,7 @@ function handleFiles(files){
       // ذخیره در IndexedDB
       const saveToDb=async()=>{
         const ok=await dbPut({id,data:buf,mimeType:f.type||'audio/mpeg',title:trackObj.title,artist:trackObj.artist,dur:trackObj.dur,size:f.size,coverUrl:trackObj.coverUrl,_isLocal:true,ts:Date.now()});
-        if(!ok)toast('⚠️ فضای ذخیره کافی نیست');
+        if(!ok)toast('⚠️ Not enough storage');
       };
       await saveToDb();
 
@@ -1871,7 +1871,7 @@ function renderLib(){
 async function renderCached(){
   const list=document.getElementById('cached-list'),cached=await dbAll();
   document.getElementById('ccount').textContent=cached.length;
-  if(!cached.length){list.innerHTML=`<div class="empty"><i class="ti ti-cloud-download"></i><p>هنوز ترکی ذخیره نکردی</p></div>`;return;}
+  if(!cached.length){list.innerHTML=`<div class="empty"><i class="ti ti-cloud-download"></i><p>No saved tracks yet</p></div>`;return;}
   list.innerHTML=cached.map(t=>`<div class="cachecard" onclick="playCached('${t.id}')">
     <div class="lcov" style="background:${t.color||'var(--bg3)'}">${t.emoji||'🎵'}</div>
     <div class="linf"><div class="lt2">${esc(t.title)}</div><div class="la2" style="color:var(--gr)">${esc(t.artist)} · ✓ ذخیره</div></div>
@@ -1896,7 +1896,7 @@ async function deleteLocalTrack(id){
   S.localC=LIB.length;save();
   renderLib();updateBadge();toast('🗑 حذف شد');
 }
-function playAll(){if(!LIB.length){toast('ابتدا موزیک اضافه کن');return;}playLocal(LIB[0].id);}
+function playAll(){if(!LIB.length){toast('Add music first');return;}playLocal(LIB[0].id);}
 async function clearCache(){const all=await dbAll();for(const t of all)await dbDel(t.id);renderCached();toast('🗑️ Cache پاک شد');}
 function updateBadge(){const b=document.getElementById('nbadge'),n=LIB.length;if(b){b.textContent=n>99?'99+':n;b.classList.toggle('on',n>0);}}
 
@@ -2159,7 +2159,7 @@ function updHdrAvatar(){
   if(!el)return;
   if(S.avatarUrl){el.innerHTML=`<img src="${S.avatarUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;}
   else{el.textContent=S.avatar||'🎧';}
-  // رنگ پس‌زمینه بر اساس نقش
+  // Background color by role
   const role=getRole();
   el.style.background=role.includes('artist')?'rgba(52,211,153,.15)':role==='admin'?'rgba(248,113,113,.15)':'var(--bg3)';
   el.style.border=role.includes('artist')?'.5px solid rgba(52,211,153,.3)':'.5px solid var(--b2)';
@@ -2468,7 +2468,7 @@ function renderLiked(){
   const list=document.getElementById('liked-list'),cnt=document.getElementById('liked-count');
   if(cnt)cnt.textContent=LIKED.length+' ترک';
   if(!list)return;
-  if(!LIKED.length){list.innerHTML=`<div class="empty"><i class="ti ti-heart"></i><p>هنوز ترکی لایک نکردی</p></div>`;return;}
+  if(!LIKED.length){list.innerHTML=`<div class="empty"><i class="ti ti-heart"></i><p>No liked tracks yet</p></div>`;return;}
   list.innerHTML=LIKED.map(t=>`<div class="ltc" onclick="playById('${t.id||''}')">
     <div class="lcov" style="background:${t.color};position:relative">${t.coverUrl?`<img src="${t.coverUrl}" onerror="this.style.display='none'" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:8px">`:''}${t.emoji}</div>
     <div class="linf"><div class="lt2">${esc(t.title)}</div><div class="la2">${esc(t.artist)}</div></div>
@@ -2540,7 +2540,7 @@ function openArtistPage(artistId){
 
   // پیدا کردن ترک‌های این آرتیست
   _apTracks=OT.filter(t=>t.artistId===artistId);
-  if(!_apTracks.length){toast('ترکی از این آرتیست نداریم');return;}
+  if(!_apTracks.length){toast('No tracks from this artist');return;}
 
   const sample=_apTracks[0];
   const artistData=getArtistData(artistId)||{};
@@ -2829,7 +2829,7 @@ function editArtistCover(){
     reader.onload=ev=>{
       const url=ev.target.result;
       const d=getArtistData(curArtistId);d.coverUrl=url;saveArtistData(curArtistId,d);
-      // آپدیت ترک‌های این آرتیست
+      // Update this artist tracks
       ATK=_ATK();ATK.forEach(t=>{if(t.artistId===curArtistId)t.artistCoverUrl=url;});
       localStorage.setItem('vaTK',JSON.stringify(ATK));
       document.getElementById('ap-cover-img').src=url;document.getElementById('ap-cover-img').style.display='block';
@@ -2881,7 +2881,7 @@ function createPlaylist(){
 function renderPlaylists(){
   const list=document.getElementById('pl-list'),det=document.getElementById('pl-detail');
   if(!list)return;det.style.display='none';
-  if(!PLAYLISTS.length){list.innerHTML=`<div class="empty"><i class="ti ti-playlist"></i><p>هنوز پلی‌لیستی نداری<br><small>از روی هر ترک ➕ بزن</small></p></div>`;return;}
+  if(!PLAYLISTS.length){list.innerHTML=`<div class="empty"><i class="ti ti-playlist"></i><p>No playlists yet<br><small>از روی هر ترک ➕ بزن</small></p></div>`;return;}
   list.innerHTML=PLAYLISTS.map(pl=>`
     <div class="plcard">
       <div class="pltop" onclick="openPL('${pl.id}')" style="cursor:pointer">
@@ -2980,7 +2980,7 @@ function buildPLPickerSheet(){
   if(!PLAYLISTS.length){
     const empty=document.createElement('div');
     empty.style.cssText='padding:20px;text-align:center;color:var(--mu);font-size:13px';
-    empty.textContent='هنوز پلی‌لیستی نداری';
+    empty.textContent='No playlists yet';
     list.appendChild(empty);return;
   }
   PLAYLISTS.forEach(pl=>{
@@ -2989,7 +2989,7 @@ function buildPLPickerSheet(){
     const alreadyIn=pl.tracks.some(x=>x.id===_pendingPLTrack?.id);
     row.innerHTML=`<div style="width:40px;height:40px;border-radius:10px;background:${pl.tracks[0]?.color||'var(--bg3)'};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${pl.tracks[0]?.emoji||'🎵'}</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:500">${esc(pl.name)}</div><div style="font-size:11px;color:var(--mu)">${pl.tracks.length} ترک</div></div>${alreadyIn?'<span style="font-size:11px;color:var(--gr)">✓ موجوده</span>':'<i class="ti ti-plus" style="color:var(--mu);font-size:18px"></i>'}`;
     row.onclick=()=>{
-      if(alreadyIn){toast('قبلاً توی این پلی‌لیست هست');return;}
+      if(alreadyIn){toast('Already in this playlist');return;}
       if(_pendingPLTrack)pl.tracks.push(_pendingPLTrack);
       savePLVerified();
       closeOv('ov-pl-picker');
@@ -3008,7 +3008,7 @@ function savePLVerified(){
     // تأیید save
     const readback=localStorage.getItem('vibe_pl');
     if(!readback||readback!==json){
-      console.error('PL save mismatch');toast('⚠️ خطا در ذخیره پلی‌لیست');return false;
+      console.error('PL save mismatch');toast('⚠️ Error saving playlist');return false;
     }
     return true;
   }catch(e){
@@ -3214,7 +3214,7 @@ function obFinish(){
   const name=(document.getElementById('ob-name')?.value||'').trim();
   const msg=document.getElementById('ob-handle-msg'),btn=document.getElementById('ob-reg-btn');
   if(!handleRaw||!/^[@]?[a-z0-9_]{3,20}$/i.test(handleRaw)){if(msg){msg.textContent='⚠️ username معتبر وارد کن';msg.style.color='var(--re)';}return;}
-  if(!name){toast('⚠️ نام نمایشی رو وارد کن');return;}
+  if(!name){toast('⚠️ Enter display name');return;}
   if(!isHandleAvailable(handleRaw)){if(msg){msg.textContent='❌ این username قبلاً گرفته شده';msg.style.color='var(--re)';}return;}
   if(btn){btn.disabled=true;btn.textContent='در حال ثبت...';}
   const finalRole=_obRole==='artist'?'artist_pending':'listener';
@@ -3227,7 +3227,7 @@ function obFinish(){
   }
   document.getElementById('ob-screen').classList.remove('on');
   updHdr();updProfile();updProfileForRole();updHdrAvatar();
-  if(_obRole==='artist'){toast('🎤 حساب آرتیست ساخته شد');setTimeout(()=>navPage('artist-dash'),600);}
+  if(_obRole==='artist'){toast('🎤 Artist account created');setTimeout(()=>navPage('artist-dash'),600);}
   else{toast('🎧 خوش اومدی '+name+'!');setTimeout(()=>navTo('feed',document.querySelectorAll('.nb')[0]),400);}
 }
 
@@ -3280,7 +3280,7 @@ function buildArtistDash(){
   const el1=document.getElementById('adash-pending-note');
   const el2=document.getElementById('adash-status-txt');
   if(el1)el1.style.display=pending?'block':'none';
-  if(el2)el2.textContent=pending?'در انتظار تأیید ادمین':'حساب فعاله ✅';
+  if(el2)el2.textContent=pending?'Awaiting admin approval':'حساب فعاله ✅';
 
   const myHandle=(S.handle||'').replace('@','');
   const myTracks=ATK.filter(t=>t.artistId===myHandle);
@@ -3377,7 +3377,7 @@ function openPublicProfile(userId){
   // public playlists
   const pubPLs=PLAYLISTS.filter(p=>p.isPublic);
   const plEl=document.getElementById('pub-playlists');
-  if(plEl)plEl.innerHTML=pubPLs.length?pubPLs.map(pl=>`<div style="margin:0 14px 10px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);padding:12px 13px;cursor:pointer;display:flex;align-items:center;gap:10px" onclick="openPL('${pl.id}');navPage('playlist')"><div style="width:40px;height:40px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px">🎵</div><div style="flex:1"><div style="font-size:13px;font-weight:500">${esc(pl.name)}</div><div style="font-size:11px;color:var(--mu)">${pl.tracks.length} ترک · عمومی</div></div></div>`).join(''):'<div style="padding:20px;text-align:center;color:var(--mu);font-size:13px">پلی‌لیست عمومی نداره</div>';
+  if(plEl)plEl.innerHTML=pubPLs.length?pubPLs.map(pl=>`<div style="margin:0 14px 10px;background:var(--card);border:.5px solid var(--b1);border-radius:var(--r2);padding:12px 13px;cursor:pointer;display:flex;align-items:center;gap:10px" onclick="openPL('${pl.id}');navPage('playlist')"><div style="width:40px;height:40px;border-radius:9px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px">🎵</div><div style="flex:1"><div style="font-size:13px;font-weight:500">${esc(pl.name)}</div><div style="font-size:11px;color:var(--mu)">${pl.tracks.length} ترک · عمومی</div></div></div>`).join(''):'<div style="padding:20px;text-align:center;color:var(--mu);font-size:13px">No public playlists</div>';
   navPage('pub-profile');
 }
 
@@ -3506,7 +3506,7 @@ function ago(ts){const d=(Date.now()-ts)/1000;if(d<60)return 'همین الان'
 // ─── Admin Access ─────────────────────────────────
 let _tapCount=0,_tapTimer=null;
 const ADMIN_HASH_KEY='vibe_adm_h';
-// default password hash: "vibe1403" - کاربر میتونه از پنل ادمین عوض کنه
+// default password hash: "vibe1403" - Admin can change from panel
 function _simpleHash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return h.toString(36);}
 function getAdminHash(){return localStorage.getItem(ADMIN_HASH_KEY)||_simpleHash('nemesisfatal9');}
 
@@ -3567,7 +3567,7 @@ function openAdminPanel(){
   admShowPage('adm-dashboard');admUpdDS();admRenDTK();admRenDN();
 }
 function closeAdminPanel(){
-  if(_adminDirty&&!confirm('تغییرات ذخیره نشده پاک میشن. ادامه؟'))return;
+  if(_adminDirty&&!confirm('Unsaved changes will be lost. ادامه؟'))return;
   document.getElementById('adm-panel').style.display='none';
   document.body.style.overflow='hidden';
   _adminDirty=false;
@@ -3795,7 +3795,7 @@ function admSaveTK(){
   const audioUrl=document.getElementById('adm-t-audio').value.trim();
   const isBlob=audioUrl.startsWith('blob:');
   const isLocal=audioUrl==='__local__';
-  if(!audioUrl){showErr('موزیک رو مشخص کن — فایل آپلود کن یا لینک بزار');if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}return;}
+  if(!audioUrl){showErr('موزیک رو مشخص کن — Upload a file or paste a link');if(btn){btn.disabled=false;btn.innerHTML='<i class="ti ti-check"></i>ذخیره ترک';}return;}
 
   const finalAudioUrl=isBlob?'__local__':audioUrl;
   const links=[...document.querySelectorAll('.adm-lr')].map(r=>({name:r.querySelector('.ln').value,icon:r.querySelector('.li').value,color:r.querySelector('.lc').value,followers:r.querySelector('.lf').value,url:r.querySelector('.lu').value})).filter(l=>l.name);
@@ -3877,7 +3877,7 @@ async function admTestAud(url){
         return;
       }
     }
-    admToast('⚠️ فایل در دستگاه پیدا نشد');return;
+    admToast('⚠️ File not found on device');return;
   }
   const a=new Audio(url);
   a.play().then(()=>{admToast('▶ پخش شد');setTimeout(()=>a.pause(),8000);}).catch(e=>admToast('❌ '+e.message));
@@ -3925,7 +3925,7 @@ function buildFeed(genre){
   if(currentGenre!=='all') tracks=tracks.filter(t=>t.genre===currentGenre);
 
   if(!tracks.length){
-    list.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--mu)"><i class="ti ti-music" style="font-size:48px;display:block;margin-bottom:14px;opacity:.2"></i><p style="font-size:14px;line-height:1.8">هنوز موزیکی اضافه نشده<br><span style="font-size:12px">ادمین به زودی ترک اضافه میکنه</span></p></div>`;
+    list.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--mu)"><i class="ti ti-music" style="font-size:48px;display:block;margin-bottom:14px;opacity:.2"></i><p style="font-size:14px;line-height:1.8">No music added yet<br><span style="font-size:12px">Admin will add tracks soon</span></p></div>`;
     return;
   }
 
@@ -4006,7 +4006,7 @@ async function trySyncToServer(silent=false){
   }catch{if(!silent)toast('⚠️ سرور در دسترس نیست');}
 }
 
-// وقتی اینترنت وصل میشه
+// When internet connects
 window.addEventListener('online',()=>{
   ONLINE=true;syncOnline();
   const url=getServerUrl();const q=JSON.parse(localStorage.getItem(SYNC_KEY)||'[]');
@@ -4019,7 +4019,7 @@ window.addEventListener('online',()=>{
 
 function admSetServerUrl(){
   const cur=getServerUrl();
-  const url=prompt('آدرس سرور backend:\n(خالی بذار برای غیرفعال کردن)',cur||'https://');
+  const url=prompt('آدرس سرور backend:\n(Leave empty to disable)',cur||'https://');
   if(url!==null){localStorage.setItem('vibe_server_url',url.trim());admToast(url.trim()?'✅ سرور تنظیم شد':'⚠️ سرور غیرفعال شد','s');}
 }
 
@@ -4115,7 +4115,7 @@ function buildProfLiked(){
   if(!list)return;
   const liked=LIKED||[];
   if(cnt)cnt.textContent=liked.length;
-  if(!liked.length){list.innerHTML='<div class="empty"><i class="ti ti-heart"></i><p>هنوز ترکی لایک نکردی</p></div>';return;}
+  if(!liked.length){list.innerHTML='<div class="empty"><i class="ti ti-heart"></i><p>No liked tracks yet</p></div>';return;}
   list.innerHTML=liked.map((t,i)=>`
     <div class="ltk" onclick="playById('${t.id||''}')">
       <div class="lcov" style="background:${t.color};position:relative">
@@ -4139,7 +4139,7 @@ function buildProfPlaylists(){
   const cnt=document.getElementById('prof-pl-count');
   if(!list)return;
   if(cnt)cnt.textContent=PLAYLISTS.length;
-  if(!PLAYLISTS.length){list.innerHTML='<div class="empty"><i class="ti ti-playlist"></i><p>هنوز پلی‌لیستی نداری</p></div>';return;}
+  if(!PLAYLISTS.length){list.innerHTML='<div class="empty"><i class="ti ti-playlist"></i><p>No playlists yet</p></div>';return;}
   list.innerHTML=PLAYLISTS.map(pl=>`
     <div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:.5px solid var(--b1);cursor:pointer" onclick="navPage('playlist');openPL('${pl.id}')">
       <div style="width:44px;height:44px;border-radius:9px;background:${pl.tracks[0]?.color||'var(--bg3)'};display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">${pl.tracks[0]?.emoji||'🎵'}</div>
@@ -4156,7 +4156,7 @@ function buildProfVideoLiked(){
   if(!list)return;
   const vliked=(JSON.parse(localStorage.getItem('vibe_vliked')||'[]'));
   if(cnt)cnt.textContent=vliked.length;
-  if(!vliked.length){list.innerHTML='<div class="empty"><i class="ti ti-player-play"></i><p>هنوز ویدیویی لایک نکردی</p></div>';return;}
+  if(!vliked.length){list.innerHTML='<div class="empty"><i class="ti ti-player-play"></i><p>No liked videos yet</p></div>';return;}
   list.innerHTML=vliked.map(id=>{
     const t=OT.find(x=>x.id===id);if(!t)return'';
     return`<div style="display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:.5px solid var(--b1);cursor:pointer" onclick="openVideo('${t.id}')">
@@ -4173,11 +4173,11 @@ function buildProfRecommended(){
   const list=document.getElementById('prof-rec-list');
   if(!list)return;
   if(!OT.length){list.innerHTML='<div class="empty"><i class="ti ti-star"></i><p>هنوز موزیکی نیست</p></div>';return;}
-  // پیشنهاد: ترک‌هایی که لایک نشدن، بر اساس ژانر لایک‌های قبلی
+  // پیشنهاد: Unliked tracks based on your favorite genres
   const likedIds=new Set((LIKED||[]).map(t=>t.id));
   const likedGenres=new Set((LIKED||[]).map(t=>t.genre));
   let recs=OT.filter(t=>!likedIds.has(t.id));
-  // ژانرهای لایک‌شده رو بالاتر بزار
+  // Prioritize liked genres
   recs.sort((a,b)=>(likedGenres.has(b.genre)?1:0)-(likedGenres.has(a.genre)?1:0));
   recs=recs.slice(0,10);
   list.innerHTML=recs.map(t=>`
@@ -4353,7 +4353,7 @@ async function admHandleAudio(input){
       const dur=Math.round(tmpAud.duration);
       document.getElementById('adm-t-dur').value=dur;
     });
-    // پیشنهاد نام ترک از اسم فایل
+    // Track name suggested from filename
     const rawName=file.name.replace(/\.[^/.]+$/,'');
     if(!document.getElementById('adm-t-title').value){
       const sep=[' - ',' – '].find(s=>rawName.includes(s));
@@ -4450,7 +4450,7 @@ function openEmbedPlayer(t,idx){
     if(url.includes('v='))vid=url.split('v=')[1]?.split('&')[0];
     else if(url.includes('youtu.be/'))vid=url.split('youtu.be/')[1]?.split('?')[0];
     if(vid)con.innerHTML=`<iframe width="100%" height="220" src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
-    else con.innerHTML=`<div style="padding:20px;text-align:center;color:var(--mu)">لینک یوتیوب نامعتبره</div>`;
+    else con.innerHTML=`<div style="padding:20px;text-align:center;color:var(--mu)">Invalid YouTube link</div>`;
   } else if(url){
     // MP3 مستقیم
     aud.src=url;aud.play().catch(()=>{});
@@ -4478,7 +4478,7 @@ function admRenRequests(){
   const el=document.getElementById('adm-requests-list');if(!el)return;
   const pending=reqs.filter(r=>r.status==='pending');
   document.getElementById('adm-req-count').textContent=pending.length;
-  if(!pending.length){el.innerHTML='<div style="color:var(--mu);text-align:center;padding:20px;font-size:13px">درخواستی در انتظار نیست</div>';return;}
+  if(!pending.length){el.innerHTML='<div style="color:var(--mu);text-align:center;padding:20px;font-size:13px">No pending requests</div>';return;}
   el.innerHTML=pending.map(r=>`
     <div style="border:.5px solid var(--b1);border-radius:var(--r2);background:var(--bg3);padding:13px;margin-bottom:10px">
       <div style="display:flex;align-items:flex-start;gap:11px">
@@ -4565,7 +4565,7 @@ document.addEventListener('keydown',e=>{
     <div style="text-align:center;margin-bottom:16px">
       <div style="font-size:28px;margin-bottom:8px">🔐</div>
       <div style="font-size:16px;font-weight:700">پنل مدیریت</div>
-      <div style="font-size:12px;color:var(--mu);margin-top:4px">رمز ادمین رو وارد کن</div>
+      <div style="font-size:12px;color:var(--mu);margin-top:4px">Enter admin password</div>
     </div>
     <input id="adm-pass-inp" type="password" dir="ltr" placeholder="رمز عبور" style="width:100%;padding:12px 14px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:16px;font-family:inherit;outline:none;text-align:center;letter-spacing:4px;margin-bottom:10px">
     <div id="adm-login-err" style="color:var(--re);font-size:12px;text-align:center;margin-bottom:10px;display:none"></div>
@@ -4705,7 +4705,7 @@ document.addEventListener('keydown',e=>{
         </div></div>
         <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-link" style="color:var(--bl)"></i><b>موزیک</b></div><div class="adm-card-body">
           <div class="adm-fg">
-            <!-- انتخاب نوع ورودی صدا -->
+            <!-- Select audio source -->
             <div>
               <div class="adm-lbl" style="margin-bottom:8px">منبع صدا</div>
               <div style="display:flex;gap:0;border:.5px solid var(--b2);border-radius:var(--r);overflow:hidden;margin-bottom:12px">
@@ -4719,7 +4719,7 @@ document.addEventListener('keydown',e=>{
                 <i class="ti ti-music-plus" style="font-size:24px;color:var(--mu);flex-shrink:0"></i>
                 <div style="flex:1">
                   <div style="font-size:13px;font-weight:500" id="adm-audio-fname">انتخاب فایل MP3 / WAV / FLAC</div>
-                  <div style="font-size:11px;color:var(--mu);margin-top:2px">فایل رو بکش اینجا یا کلیک کن — حداکثر ۵۰MB</div>
+                  <div style="font-size:11px;color:var(--mu);margin-top:2px">Drag file here or click — حداکثر ۵۰MB</div>
                 </div>
                 <input type="file" id="adm-audio-file" accept="audio/*" style="display:none" onchange="admHandleAudio(this)">
               </label>
@@ -4749,20 +4749,20 @@ document.addEventListener('keydown',e=>{
             <div class="adm-field"><div class="adm-lbl">Video URL (MV) <span style="color:var(--mu);font-weight:400">(اختیاری)</span></div><input class="adm-inp" id="adm-t-video" type="url" dir="ltr" placeholder="YouTube یا لینک مستقیم MP4" onchange="admMD()"></div>
           </div>
           <div class="adm-div"></div>
-          <div class="adm-tgl-row"><div style="font-size:13px">این ترک موزیک ویدیو داره</div><label class="adm-tgl"><input type="checkbox" id="adm-t-hasvid" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
+          <div class="adm-tgl-row"><div style="font-size:13px">This track has a music video</div><label class="adm-tgl"><input type="checkbox" id="adm-t-hasvid" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
           <div class="adm-div"></div>
-          <div class="adm-tgl-row"><div><div style="font-size:13px">اجازه دانلود</div><div style="font-size:11px;color:var(--mu2)">کاربرها میتونن این ترک رو دانلود کنن</div></div><label class="adm-tgl"><input type="checkbox" id="adm-t-allowdl" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
+          <div class="adm-tgl-row"><div><div style="font-size:13px">اجازه دانلود</div><div style="font-size:11px;color:var(--mu2)">Users can download this track</div></div><label class="adm-tgl"><input type="checkbox" id="adm-t-allowdl" onchange="admMD()"><span class="adm-tgl-s"></span></label></div>
           <div class="adm-div"></div>
           <div class="adm-fg c2">
             <div class="adm-field">
               <div class="adm-lbl">🔗 لینک Music Video (ID ترک ویدیو)</div>
               <input class="adm-inp" id="adm-t-videoid" type="text" dir="ltr" placeholder="ID ویدیوی مرتبط" onchange="admMD()">
-              <div style="font-size:10px;color:var(--mu);margin-top:3px">ترک و ویدیو رو به هم وصل میکنه</div>
+              <div style="font-size:10px;color:var(--mu);margin-top:3px">Links track and video together</div>
             </div>
             <div class="adm-field">
               <div class="adm-lbl">📅 تاریخ انتشار (اختیاری)</div>
               <input class="adm-inp" id="adm-t-releaseat" type="datetime-local" dir="ltr" onchange="admMD()">
-              <div style="font-size:10px;color:var(--mu);margin-top:3px">خالی = همین الان منتشر میشه</div>
+              <div style="font-size:10px;color:var(--mu);margin-top:3px">خالی = Published immediately</div>
             </div>
           </div>
         </div></div>
@@ -4774,7 +4774,7 @@ document.addEventListener('keydown',e=>{
             <div class="adm-field"><div class="adm-lbl">متن Earn</div><input class="adm-inp" id="adm-t-etext" type="text" placeholder="گوش بده Coin بگیر" onchange="admMD()"></div>
           </div>
         </div></div>
-        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-brand-spotify" style="color:var(--gr)"></i><b>لینک‌های پلتفرم آرتیست</b><div style="font-size:11px;color:var(--mu2);margin-right:auto">Spotify، SoundCloud، Instagram و...</div><button class="adm-btn su" onclick="admAddLR()" style="flex-shrink:0"><i class="ti ti-plus"></i>لینک</button></div><div class="adm-card-body"><div id="adm-links-con"></div></div></div>
+        <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-brand-spotify" style="color:var(--gr)"></i><b>Artist platform links</b><div style="font-size:11px;color:var(--mu2);margin-right:auto">Spotify، SoundCloud، Instagram و...</div><button class="adm-btn su" onclick="admAddLR()" style="flex-shrink:0"><i class="ti ti-plus"></i>لینک</button></div><div class="adm-card-body"><div id="adm-links-con"></div></div></div>
         <!-- Save Button + Result -->
         <div id="adm-save-result" style="display:none;padding:12px 14px;border-radius:var(--r);margin-bottom:12px;font-size:13px"></div>
         <div style="display:flex;gap:9px">
@@ -4786,13 +4786,13 @@ document.addEventListener('keydown',e=>{
       <!-- REQUESTS -->
       <div class="adm-page" id="adm-requests">
         <div style="font-size:17px;font-weight:700;margin-bottom:14px">🕐 درخواست‌های آرتیست</div>
-        <div class="adm-info"><i class="ti ti-info-circle"></i>آرتیست‌ها از داخل اپ ترک ارسال میکنن — اینجا تأیید یا رد کن.</div>
+        <div class="adm-info"><i class="ti ti-info-circle"></i>Artists submit tracks from the app — Approve or reject here.</div>
         <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-clock" style="color:var(--am)"></i><b>در انتظار تأیید</b></div><div class="adm-card-body"><div id="adm-requests-list"></div></div></div>
       </div>
       <!-- ARTISTS -->
       <div class="adm-page" id="adm-artists">
         <div style="font-size:17px;font-weight:700;margin-bottom:14px">🎤 آرتیست‌ها</div>
-        <div class="adm-info"><i class="ti ti-info-circle"></i>آرتیست‌ها از ترک‌ها استخراج میشن.</div>
+        <div class="adm-info"><i class="ti ti-info-circle"></i>Artists extracted from tracks.</div>
         <div id="adm-artists-list"></div>
       </div>
 
@@ -4856,7 +4856,7 @@ document.addEventListener('keydown',e=>{
       <!-- REVENUE -->
       <div class="adm-page" id="adm-revenue">
         <div style="font-size:17px;font-weight:700;margin-bottom:14px">📊 تقسیم درآمد</div>
-        <div class="adm-info">مجموع باید ۱۰۰٪ باشه.</div>
+        <div class="adm-info">Total must equal 100%.</div>
         <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-chart-pie" style="color:var(--gr)"></i><b>از هر کمپین Sponsored</b></div><div class="adm-card-body">
           <div class="adm-fg c2">
             <div class="adm-field"><div class="adm-lbl" style="color:var(--gr)">سهم آرتیست</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-r-artist" min="0" max="100" step="5" oninput="admSyncRev('a');admMD()"><span class="adm-rnv" id="adm-r-artist-v" style="color:var(--gr)">70%</span></div></div>
@@ -4867,7 +4867,7 @@ document.addEventListener('keydown',e=>{
           <div class="adm-div"></div>
           <div class="adm-fg c3">
             <div class="adm-field"><div class="adm-lbl">کارمزد برداشت کاربر</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-f-user" min="0" max="20" step="1" oninput="admUR('adm-f-user','adm-f-user-v','%');admMD()"><span class="adm-rnv" id="adm-f-user-v">5%</span></div></div>
-            <div class="adm-field"><div class="adm-lbl">کارمزد برداشت آرتیست</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-f-artist" min="0" max="20" step="1" oninput="admUR('adm-f-artist','adm-f-artist-v','%');admMD()"><span class="adm-rnv" id="adm-f-artist-v">3%</span></div></div>
+            <div class="adm-field"><div class="adm-lbl">Artist withdrawal fee</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-f-artist" min="0" max="20" step="1" oninput="admUR('adm-f-artist','adm-f-artist-v','%');admMD()"><span class="adm-rnv" id="adm-f-artist-v">3%</span></div></div>
             <div class="adm-field"><div class="adm-lbl">کارمزد کمپین</div><div class="adm-rrow"><input class="adm-rng" type="range" id="adm-f-camp" min="0" max="30" step="1" oninput="admUR('adm-f-camp','adm-f-camp-v','%');admMD()"><span class="adm-rnv" id="adm-f-camp-v">10%</span></div></div>
           </div>
         </div></div>
@@ -4907,7 +4907,7 @@ document.addEventListener('keydown',e=>{
         <div class="adm-card" style="border-color:rgba(52,211,153,.2)">
           <div class="adm-card-hdr" style="background:rgba(52,211,153,.04)">
             <i class="ti ti-brand-github" style="font-size:18px;color:var(--gr)"></i>
-            <div><b style="color:var(--gr)">GitHub Auto-Push</b><div style="font-size:11px;color:var(--mu2)">بعد از هر تغییر، خودکار آپلود میشه</div></div>
+            <div><b style="color:var(--gr)">GitHub Auto-Push</b><div style="font-size:11px;color:var(--mu2)">Auto-uploads after each change</div></div>
             <label class="adm-tgl" style="margin-right:auto">
               <input type="checkbox" id="gh-auto-toggle" onchange="const c=ghCfg();c.auto=this.checked;ghSave(c);admToast(this.checked?'✅ Auto-Push فعال شد':'⚠️ Auto-Push غیرفعال',this.checked?'s':'w')">
               <span class="adm-tgl-s"></span>
@@ -4951,7 +4951,7 @@ document.addEventListener('keydown',e=>{
 
         <!-- Server Sync -->
         <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-server" style="color:var(--bl)"></i><b>Sync به Backend Server</b><span style="font-size:10px;color:var(--mu2);margin-right:auto" id="adm-sync-status">غیرفعال</span></div><div class="adm-card-body">
-          <div style="font-size:11px;color:var(--mu2);margin-bottom:9px">وقتی backend راه‌اندازی کردی اینجا آدرسش رو بزار</div>
+          <div style="font-size:11px;color:var(--mu2);margin-bottom:9px">وقتی backend Once set up, enter its address here</div>
           <div style="display:flex;gap:7px"><input id="adm-server-url-inp" type="url" dir="ltr" placeholder="https://yourserver.com" style="flex:1;padding:9px 11px;border-radius:var(--r);border:.5px solid var(--b2);background:var(--bg3);color:var(--tx);font-size:12px;font-family:inherit;outline:none"><button class="adm-btn bl" onclick="const u=document.getElementById('adm-server-url-inp').value.trim();localStorage.setItem('vibe_server_url',u);document.getElementById('adm-sync-status').textContent=u?'✅ فعال':'غیرفعال';admToast(u?'✅ ذخیره شد':'⚠️ غیرفعال','s')"><i class="ti ti-check"></i></button><button class="adm-btn su" onclick="trySyncToServer()"><i class="ti ti-refresh"></i>Sync</button></div>
         </div></div>
 
@@ -4974,7 +4974,7 @@ document.addEventListener('keydown',e=>{
       <!-- ARTIST REQUESTS -->
       <div class="adm-page" id="adm-artist-reqs">
         <div style="font-size:17px;font-weight:700;margin-bottom:14px">🎤 درخواست‌های آرتیست</div>
-        <div class="adm-info"><i class="ti ti-info-circle"></i>کاربرانی که درخواست حساب آرتیست دادن — تأیید کن.</div>
+        <div class="adm-info"><i class="ti ti-info-circle"></i>Users who requested artist accounts — تأیید کن.</div>
         <div class="adm-card"><div class="adm-card-hdr"><i class="ti ti-users" style="color:var(--gr)"></i><b>در انتظار</b></div><div class="adm-card-body"><div id="adm-artist-reqs"></div></div></div>
       </div>
       <!-- CAMPAIGN REQUESTS -->
