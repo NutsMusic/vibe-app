@@ -1762,82 +1762,84 @@ const aud=document.getElementById('aud');
 // ─── load local tracks از IndexedDB در startup ────
 async function loadLocalLib(){
   try{
+    if(!DB)await openDB();
     const all=await dbAll();
-    const locals=all.filter(t=>t._isLocal);
-    if(locals.length){
-      for(const t of locals){
+    const locals=all.filter(t=>t&&t._isLocal&&t.data);
+    LIB=[];
+    for(const t of locals){
+      try{
         const blob=new Blob([t.data],{type:t.mimeType||'audio/mpeg'});
         const url=URL.createObjectURL(blob);
-        LIB.push({id:t.id,title:t.title,artist:t.artist,url,dur:t.dur||0,size:t.size||0,coverUrl:t.coverUrl||''});
-      }
-      FILTERED=[...LIB];S.localC=LIB.length;
-      renderLib();updateBadge();updateStats();
+        LIB.push({id:t.id,title:t.title||'بدون عنوان',artist:t.artist||'نامشخص',url,dur:t.dur||0,size:t.size||0,coverUrl:t.coverUrl||''});
+      }catch(e){}
     }
-  }catch{}
+    FILTERED=[...LIB];S.localC=LIB.length;
+    renderLib();updateBadge();updateStats();
+  }catch(e){console.error('loadLocalLib error',e);}
 }
 
 // ─── handleFiles — با IndexedDB persistence ────────
 function handleFiles(files){
-  if(_fileInputLock)return;_fileInputLock=true;setTimeout(()=>_fileInputLock=false,500);
+  if(_fileInputLock)return;_fileInputLock=true;setTimeout(()=>_fileInputLock=false,600);
   const arr=Array.from(files).filter(f=>f.type.startsWith('audio/')||/\.(mp3|wav|flac|ogg|m4a|aac)$/i.test(f.name));
   if(!arr.length){toast('⚠️ فایل صوتی انتخاب کن');return;}
-  let done=0;
+  toast('⏳ در حال افزودن...');
   arr.forEach(f=>{
     const id='l'+Date.now()+Math.random().toString(36).slice(2,5);
     const raw=f.name.replace(/\.[^/.]+$/,'');
     let title=raw,artist='نامشخص';
     const sep=[' - ',' – ','_-_'].find(s=>raw.includes(s));
     if(sep){const p=raw.split(sep);artist=p[0].trim();title=p.slice(1).join(sep).trim();}
-    const trackObj={id,title,artist,url:'',dur:0,size:f.size,coverUrl:''};
 
-    // خوندن فایل برای IndexedDB
     const reader=new FileReader();
     reader.onload=async(e)=>{
       const buf=e.target.result;
-      // ذخیره در IndexedDB
-      await dbPut({id,data:buf,mimeType:f.type||'audio/mpeg',title,artist,dur:0,size:f.size,coverUrl:'',_isLocal:true,ts:Date.now()});
-      // ساختن blob URL
+      // ساختن blob URL برای پخش
       const blob=new Blob([buf],{type:f.type||'audio/mpeg'});
-      trackObj.url=URL.createObjectURL(blob);
-      // گرفتن مدت
-      const tmpA=new Audio(trackObj.url);
-      tmpA.addEventListener('loadedmetadata',async()=>{
-        trackObj.dur=tmpA.duration;
-        // آپدیت IndexedDB با duration
-        await dbPut({id,data:buf,mimeType:f.type,title:trackObj.title,artist:trackObj.artist,dur:trackObj.dur,size:f.size,coverUrl:trackObj.coverUrl,_isLocal:true,ts:Date.now()});
-        renderLib();
-      });
-      // خوندن ID3 tags
+      const url=URL.createObjectURL(blob);
+      // track object در حافظه
+      const trackObj={id,title,artist,url,dur:0,size:f.size,coverUrl:''};
+      LIB.push(trackObj);
+      FILTERED=[...LIB];renderLib();updateBadge();
+
+      // ذخیره در IndexedDB
+      const saveToDb=async()=>{
+        const ok=await dbPut({id,data:buf,mimeType:f.type||'audio/mpeg',title:trackObj.title,artist:trackObj.artist,dur:trackObj.dur,size:f.size,coverUrl:trackObj.coverUrl,_isLocal:true,ts:Date.now()});
+        if(!ok)toast('⚠️ فضای ذخیره کافی نیست');
+      };
+      await saveToDb();
+
+      // مدت زمان
+      const tmpA=new Audio(url);
+      tmpA.addEventListener('loadedmetadata',()=>{trackObj.dur=tmpA.duration;renderLib();saveToDb();});
+
+      // ID3 tags (عنوان، آرتیست، cover)
       if(window.jsmediatags){
-        window.jsmediatags.read(f,{
-          onSuccess(tag){
-            const tags=tag.tags;
-            if(tags.title)trackObj.title=tags.title;
-            if(tags.artist)trackObj.artist=tags.artist;
-            if(tags.picture){
-              const pic=tags.picture;
-              const b64=pic.data.reduce((a,b)=>a+String.fromCharCode(b),'');
-              trackObj.coverUrl='data:'+pic.format+';base64,'+btoa(b64);
-            }
-            LIB[LIB.indexOf(trackObj)];
-            // آپدیت IndexedDB با metadata کامل
-            dbPut({id,data:buf,mimeType:f.type,title:trackObj.title,artist:trackObj.artist,dur:trackObj.dur,size:f.size,coverUrl:trackObj.coverUrl,_isLocal:true,ts:Date.now()});
-            renderLib();
-          },
-          onError(){}
-        });
+        try{
+          window.jsmediatags.read(f,{
+            onSuccess(tag){
+              const tags=tag.tags||{};
+              if(tags.title)trackObj.title=tags.title;
+              if(tags.artist)trackObj.artist=tags.artist;
+              if(tags.picture){
+                try{
+                  const pic=tags.picture;
+                  let b64='';const d=pic.data;
+                  for(let i=0;i<d.length;i++)b64+=String.fromCharCode(d[i]);
+                  trackObj.coverUrl='data:'+pic.format+';base64,'+btoa(b64);
+                }catch{}
+              }
+              renderLib();saveToDb();
+            },
+            onError(){}
+          });
+        }catch{}
       }
-      done++;
-      if(done===arr.length){
-        FILTERED=[...LIB];S.localC=LIB.length;save();
-        updateMissions();renderLib();updateBadge();updateStats();
-        toast('✅ '+arr.length+' ترک اضافه شد');
-      }
+      S.localC=LIB.length;save();updateStats();updateMissions();
     };
-    LIB.push(trackObj);
+    reader.onerror=()=>toast('❌ خطا در خواندن فایل');
     reader.readAsArrayBuffer(f);
   });
-  FILTERED=[...LIB];renderLib();
 }
 const dz=document.getElementById('dz');
 dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('dov');});
@@ -4088,21 +4090,6 @@ function playOnlineAll(){
 
 // override switchTab to handle online tab
 const _origSwitchTab=switchTab;
-function switchTab(name){
-  if(name==='online'){
-    document.querySelectorAll('.ltab').forEach(b=>b.classList.remove('on'));
-    document.getElementById('tab-online-btn')?.classList.add('on');
-    ['local','cached'].forEach(n=>{const el=document.getElementById('tab-'+n+'-content');if(el)el.style.display='none';});
-    const el=document.getElementById('tab-online-content');if(el)el.style.display='';
-    buildOnlineLib();
-    return;
-  }
-  _origSwitchTab(name);
-  // hide online tab content
-  const oel=document.getElementById('tab-online-content');if(oel)oel.style.display='none';
-  document.getElementById('tab-online-btn')?.classList.remove('on');
-}
-
 // ═══════════════════════════════════════════════════
 //  PROFILE TABS (listener)
 // ═══════════════════════════════════════════════════
