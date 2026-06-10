@@ -1727,14 +1727,7 @@ function getCoin(type){
   return map[type]||10;
 }
 function getCoinToman(){return window._COIN_TOMAN||15;}
-function getFallbackTracks(){
-  return[
-    {id:'t1',title:'Track Title',artist:'Hichkas',artistId:'hichkas',genre:'Rap',emoji:'🎵',color:'#1a0a3d',duration:222,reward:12,videoReward:20,badge:'hot',badgeLabel:'🔥 Trending',earnText:'Full listen +12 Coins earn',earnType:'normal',hasVideo:true,audioUrl:'',coverUrl:'',links:[{name:'Spotify',icon:'🎵',color:'#1DB954',followers:'2.1M',url:''},{name:'Instagram',icon:'📷',color:'#E1306C',followers:'380K',url:''}]},
-    {id:'t2',title:'Queue',artist:'Behzad Leito',artistId:'leito',genre:'R&B',emoji:'🌿',color:'#0a2d1a',duration:251,reward:25,videoReward:0,badge:'new',badgeLabel:'✨ Early Discover',earnText:'Early Discover — Viral be Coin Add',earnType:'early',hasVideo:false,audioUrl:'',coverUrl:'',links:[{name:'Spotify',icon:'🎵',color:'#1DB954',followers:'980K',url:''}]},
-    {id:'t3',title:'Volcano',artist:'Sijal',artistId:'sijal',genre:'Trap',emoji:'🔶',color:'#2d1a0a',duration:208,reward:20,videoReward:30,badge:'sp',badgeLabel:'💼 Sponsored',earnText:'Sponsored — to end +20 Coin',earnType:'normal',hasVideo:true,audioUrl:'',coverUrl:'',links:[{name:'Instagram',icon:'📷',color:'#E1306C',followers:'520K',url:''}]},
-    {id:'t4',title:'Sea',artist:'Tataloo',artistId:'tataloo',genre:'Pop',emoji:'🌊',color:'#0a1a2d',duration:302,reward:8,videoReward:15,badge:'hot',badgeLabel:'❤️ Popular',earnText:'Listen +8 Coins earn',earnType:'normal',hasVideo:true,audioUrl:'',coverUrl:'',links:[{name:'Instagram',icon:'📷',color:'#E1306C',followers:'2.1M',url:''}]},
-  ];
-}
+// getFallbackTracks defined later (returns [] — no demo tracks)
 
 // ─── Artists (from OT we create) ──────────────────────
 function getArtists(){
@@ -1924,6 +1917,7 @@ function updateBadge(){const b=document.getElementById('nbadge'),n=LIB.length;if
 
 // ─── Player ───────────────────────────────────────
 const CUR={id:null,title:'',artist:'',emoji:'🎵',color:'#1a1a2e',isLocal:false,isCached:false,playing:false,progress:0,dur:0};
+let PLAY_MODE=parseInt(localStorage.getItem('vibe_pmode')||'0'); // 0=normal 1=repeat-all 2=repeat-one 3=shuffle
 let progT=null,earnT=null,isShuffle=false,isRepeat=false,QUEUE=[];
 let sleepTimer=null,sleepEndsAt=0,sleepCountdown=null;
 
@@ -2103,23 +2097,48 @@ function onOnlineComplete(){
   if(PLAY_MODE===2){CUR.progress=0;startSynthProg(t.duration);return;}
   if(PLAY_MODE===3){if(SETTINGS.autoplay)setTimeout(()=>playOnline(Math.floor(Math.random()*OT.length)),1400);return;}
   if(isRepeat){CUR.progress=0;startSynthProg(t.duration);return;}
-  const next=(OT.findIndex(x=>x.id===CUR.id)+1)%OT.length;
+  const curIdx=OT.findIndex(x=>x.id===CUR.id);
+  const isLast=curIdx===OT.length-1;
+  // PLAY_MODE 0 (normal): اگه آخرین ترک بود توقف؛ mode 1 (repeat-all): برگرد اول
+  if(PLAY_MODE===0&&isLast){CUR.playing=false;document.getElementById('mplaybtn').innerHTML='<i class="ti ti-player-play"></i>';return;}
+  const next=(curIdx+1)%OT.length;
   if(SETTINGS.autoplay)setTimeout(()=>playOnline(next),1400);
 }
 function togglePlay(){
   if(!CUR.id)return;CUR.playing=!CUR.playing;
   document.getElementById('mplaybtn').innerHTML=CUR.playing?'<i class="ti ti-player-pause"></i>':'<i class="ti ti-player-play"></i>';
-  if(CUR.isLocal||CUR.isCached){CUR.playing?aud.play():aud.pause();}
-  else{if(CUR.playing)startSynthProg(CUR.dur);else clearInterval(progT);}
+  // اگه aud src داره (local/cached/online با URL واقعی) → کنترل مستقیم
+  if(aud.src&&aud.src!==''&&aud.src!==window.location.href){
+    CUR.playing?aud.play().catch(()=>{}):aud.pause();
+  }
+  if(!CUR.isLocal&&!CUR.isCached){
+    if(CUR.playing){if(!aud.src||aud.src===window.location.href)startSynthProg(CUR.dur);}
+    else clearInterval(progT);
+  }
   renderLib();
 }
 function prevTr(){
-  if(CUR.isLocal){const i=LIB.findIndex(t=>t.id===CUR.id);playLocal(LIB[i<=0?LIB.length-1:i-1].id);}
-  else if(!CUR.isCached){playOnline((OT.findIndex(t=>t.id===CUR.id)-1+OT.length)%OT.length);}
+  if(CUR.isLocal){const i=LIB.findIndex(t=>t.id===CUR.id);if(LIB.length)playLocal(LIB[i<=0?LIB.length-1:i-1].id);}
+  else if(!CUR.isCached&&OT.length){playOnline((OT.findIndex(t=>t.id===CUR.id)-1+OT.length)%OT.length);}
 }
 function nextTr(){
-  if(CUR.isLocal){const i=LIB.findIndex(t=>t.id===CUR.id);playLocal(LIB[isShuffle?Math.floor(Math.random()*LIB.length):(i+1)%LIB.length].id);}
-  else if(!CUR.isCached){playOnline(isShuffle?Math.floor(Math.random()*OT.length):(OT.findIndex(t=>t.id===CUR.id)+1)%OT.length);}
+  // PLAY_MODE: 0=normal 1=repeat-all 2=repeat-one 3=shuffle
+  if(typeof PLAY_MODE!=='undefined'){
+    if(PLAY_MODE===2){
+      // repeat one
+      if(aud.src){aud.currentTime=0;aud.play().catch(()=>{});}
+      else{CUR.progress=0;startSynthProg(CUR.dur);}
+      return;
+    }
+    if(PLAY_MODE===3){
+      // shuffle
+      if(CUR.isLocal&&LIB.length){playLocal(LIB[Math.floor(Math.random()*LIB.length)].id);return;}
+      if(OT.length){playOnline(Math.floor(Math.random()*OT.length));return;}
+      return;
+    }
+  }
+  if(CUR.isLocal){const i=LIB.findIndex(t=>t.id===CUR.id);if(LIB.length)playLocal(LIB[isShuffle?Math.floor(Math.random()*LIB.length):(i+1)%LIB.length].id);}
+  else if(!CUR.isCached&&OT.length){playOnline(isShuffle?Math.floor(Math.random()*OT.length):(OT.findIndex(t=>t.id===CUR.id)+1)%OT.length);}
 }
 function seekMini(e){
   const r=document.getElementById('mpwrap').getBoundingClientRect(),p=(e.clientX-r.left)/r.width;
@@ -2350,20 +2369,26 @@ function openVideo(id){
     vidEl.src=t.videoUrl;vidEl.style.display='block';vizCvs.style.display='none';
     vidEl.play().catch(()=>{vidEl.style.display='none';vizCvs.style.display='block';resizeViz();startVisualizer(t);});
   }else if(t.videoUrl&&(t.videoUrl.includes('youtube.com')||t.videoUrl.includes('youtu.be'))){
-    // YouTube embed
+    // YouTube embed — در container جدا تا vid-el/viz-canvas پاک نشن
     let vid='';
     if(t.videoUrl.includes('v='))vid=t.videoUrl.split('v=')[1]?.split('&')[0];
     else if(t.videoUrl.includes('youtu.be/'))vid=t.videoUrl.split('youtu.be/')[1]?.split('?')[0];
     if(vid){
-      const iframe=document.createElement('iframe');
-      iframe.src='https://www.youtube.com/embed/'+vid+'?autoplay=1&rel=0';
-      iframe.style.cssText='width:100%;height:100%;border:none;position:absolute;inset:0';
-      iframe.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';
-      iframe.allowFullscreen=true;
-      const vcon=document.getElementById('video-con')||document.querySelector('.vwrap');
-      if(vcon){vcon.style.position='relative';vcon.innerHTML='';vcon.appendChild(iframe);}
+      vidEl.style.display='none';vizCvs.style.display='none';
+      let ytc=document.getElementById('yt-embed-con');
+      if(!ytc){
+        ytc=document.createElement('div');
+        ytc.id='yt-embed-con';
+        ytc.style.cssText='position:absolute;inset:0;z-index:1';
+        document.getElementById('vscreen').appendChild(ytc);
+      }
+      ytc.style.display='block';
+      ytc.innerHTML=`<iframe src="https://www.youtube.com/embed/${vid}?autoplay=1&rel=0" style="width:100%;height:100%;border:none" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
+    }else{
+      vidEl.style.display='none';vizCvs.style.display='block';resizeViz();startVisualizer(t);
     }
   }else{
+    const ytc=document.getElementById('yt-embed-con');if(ytc){ytc.style.display='none';ytc.innerHTML='';}
     vidEl.style.display='none';vizCvs.style.display='block';resizeViz();startVisualizer(t);
   }
   document.getElementById('vov').classList.add('on');
@@ -2895,11 +2920,7 @@ function toggleFollow(){
 }
 
 // ─── Playlists ────────────────────────────────────
-function createPlaylist(){
-  const n=prompt('Playlist name:');if(!n?.trim())return;
-  PLAYLISTS.unshift({id:'pl'+Date.now(),name:n.trim(),tracks:[],ts:Date.now()});
-  savePL();renderPlaylists();updProfMenu();toast('✅ "'+n+'" Createdone');
-}
+// createPlaylist defined later (with savePLVerified)
 function renderPlaylists(){
   const list=document.getElementById('pl-list'),det=document.getElementById('pl-detail');
   if(!list)return;det.style.display='none';
@@ -3037,7 +3058,7 @@ function savePLVerified(){
     toast('⚠️ Low storage — Playlist Save failed');return false;
   }
 }
-const savePL=savePLVerified;
+function savePL(){return savePLVerified();}
 
 function createPlaylist(){
   const nm=prompt('Playlist name:','My playlist');
@@ -4125,8 +4146,6 @@ function playOnlineAll(){
   toast('▶ Play all Online');
 }
 
-// override switchTab to handle online tab
-const _origSwitchTab=switchTab;
 // ═══════════════════════════════════════════════════
 //  PROFILE TABS (listener)
 // ═══════════════════════════════════════════════════
@@ -4277,7 +4296,6 @@ function admOnCoverInput(inp){
 
 // Save File audio in IndexedDB and return blob URL
 // ═══ PLAY MODE ═══════════════════════════════════
-let PLAY_MODE=parseInt(localStorage.getItem('vibe_pmode')||'0');
 const PM_DATA=[
   {ico:'ti-repeat',txt:'Normal',col:'var(--mu)'},
   {ico:'ti-repeat',txt:'Repeat All',col:'var(--pu)'},
@@ -4295,13 +4313,7 @@ function updatePlayModeUI(){
   const ico=document.getElementById('mini-mode-ico'),txt=document.getElementById('mini-mode-txt'),btn=document.getElementById('mini-mode-btn');
   if(ico)ico.className='ti '+pm.ico;if(txt)txt.textContent=pm.txt;if(btn)btn.style.color=pm.col;
 }
-// intercept nextTr for repeat/shuffle
-const _origNextTr=nextTr;
-function nextTr(){
-  if(PLAY_MODE===2){aud.currentTime=0;aud.play().catch(()=>{});return;}
-  if(PLAY_MODE===3){const idx=Math.floor(Math.random()*OT.length);if(OT[idx])playOnline(idx);return;}
-  _origNextTr();
-}
+// nextTr handles PLAY_MODE directly (no override needed)
 
 // ═══ MINI PLAYER ENHANCEMENTS ════════════════════
 function updMiniTime(c,d){
