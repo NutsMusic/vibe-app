@@ -70,13 +70,31 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Inter',s
 .tc-art-emoji-bg{position:absolute;inset:-20px;display:flex;align-items:center;justify-content:center;font-size:120px;opacity:.12;filter:blur(4px);pointer-events:none}
 .tc-art-grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05) 0%,rgba(0,0,0,.15) 35%,rgba(7,7,16,.98) 100%)}
 .tc-art-info{position:absolute;bottom:0;left:0;right:0;padding:16px 14px 12px}
-.tc-art-badges{display:flex;gap:5px;margin-bottom:8px;flex-wrap:wrap}
-.bdg{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:700;letter-spacing:.3px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.bhot{background:rgba(248,113,113,.3);color:#fca5a5;border:.5px solid rgba(248,113,113,.45)}
-.bnew{background:rgba(52,211,153,.25);color:#6ee7b7;border:.5px solid rgba(52,211,153,.4)}
-.bsp2{background:rgba(96,165,250,.25);color:#93c5fd;border:.5px solid rgba(96,165,250,.4)}
-.bsp{background:rgba(251,191,36,.25);color:#fde68a;border:.5px solid rgba(251,191,36,.4)}
-.bmv{background:rgba(248,113,113,.25);color:#fca5a5;cursor:pointer;border:.5px solid rgba(248,113,113,.4)}
+.tc-art-badges{display:flex;gap:6px;margin-bottom:9px;flex-wrap:wrap}
+/* ═══ GRAFFITI BADGES ═══ */
+.bdg{
+  font-size:10px;padding:4px 11px 4px 9px;border-radius:7px;font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px;
+  position:relative;font-style:italic;transform:skewX(-7deg);
+  box-shadow:0 2px 10px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25);
+  border:none;backdrop-filter:blur(4px)
+}
+.bdg>span{display:inline-block;transform:skewX(7deg)}
+.bdg::before{content:'';position:absolute;inset:0;border-radius:7px;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.5),transparent);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+/* HOT / Trending — fire gradient */
+.bhot{background:linear-gradient(135deg,#ff3d3d,#ff6b35,#ff9500);color:#fff;text-shadow:0 1px 3px rgba(180,30,0,.6);box-shadow:0 2px 14px rgba(255,80,40,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+/* NEW / Early — neon green */
+.bnew{background:linear-gradient(135deg,#00e676,#00c853,#00bfa5);color:#fff;text-shadow:0 1px 3px rgba(0,80,40,.6);box-shadow:0 2px 14px rgba(0,200,100,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+/* SPONSORED — electric blue */
+.bsp2{background:linear-gradient(135deg,#2979ff,#448aff,#00b0ff);color:#fff;text-shadow:0 1px 3px rgba(0,40,120,.6);box-shadow:0 2px 14px rgba(40,120,255,.5),inset 0 1px 0 rgba(255,255,255,.35)}
+/* TRENDING gold */
+.bsp{background:linear-gradient(135deg,#ffd600,#ffab00,#ff6f00);color:#3d2800;text-shadow:0 1px 2px rgba(255,255,255,.4);box-shadow:0 2px 14px rgba(255,180,0,.5),inset 0 1px 0 rgba(255,255,255,.5)}
+/* MV — hot pink/red */
+.bmv{background:linear-gradient(135deg,#ff1744,#d500f9);color:#fff;cursor:pointer;text-shadow:0 1px 3px rgba(120,0,40,.6);box-shadow:0 2px 14px rgba(213,0,249,.45),inset 0 1px 0 rgba(255,255,255,.35)}
+.bmv:active{transform:skewX(-7deg) scale(.94)}
+/* pulse glow animation for hot */
+@keyframes badgeGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.2)}}
+.bhot,.bsp{animation:badgeGlow 2.5s ease-in-out infinite}
 .tct{font-size:21px;font-weight:900;line-height:1.15;letter-spacing:-.6px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
 .tca{font-size:13px;color:rgba(255,255,255,.6);margin-top:5px;display:inline-flex;align-items:center;gap:4px;cursor:pointer;transition:color .12s}
 .tca:active{color:#fff}
@@ -2302,7 +2320,7 @@ function buildVideoFeed(){
       ${t.coverUrl?`<img src="${t.coverUrl}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.6" onerror="this.style.display='none'">`:''}
       <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:64px;opacity:.13">${t.emoji}</div>
       <div class="vtcenter"><div class="vtpbtn"><i class="ti ti-player-play" style="font-size:20px"></i></div></div>
-      <div style="position:absolute;top:8px;right:10px"><span class="bdg b${t.badge}">${t.badgeLabel}</span></div>
+      <div style="position:absolute;top:8px;right:10px">${renderBadge(t.badge,t.badgeLabel,false)}</div>
       <div style="position:absolute;top:8px;left:10px;background:rgba(248,113,113,.85);border-radius:6px;font-size:9px;padding:2px 7px;color:#fff;font-weight:600">MV</div>
       <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,.7);border-radius:4px;font-size:10px;padding:2px 7px;color:#fff">${fmtT(t.duration)}</div>
       <div style="position:absolute;bottom:8px;left:10px;background:rgba(251,191,36,.85);border-radius:6px;font-size:9px;padding:2px 7px;color:#000;font-weight:600">+${t.videoReward} 🪙</div>
@@ -2646,8 +2664,8 @@ function buildTrendingCard(t,isMV){
         <div style="font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(t.title)}</div>
         <div style="font-size:12px;color:var(--mu);margin-top:3px">${fmtT(t.duration)} · ${t.genre}</div>
         <div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
-          ${isMV?'<span style="background:rgba(248,113,113,.13);color:var(--re);font-size:10px;padding:2px 8px;border-radius:8px">🎬 MV</span>':''}
-          <span style="background:rgba(251,191,36,.1);color:var(--am);font-size:10px;padding:2px 8px;border-radius:8px">#1 Trending</span>
+          ${isMV?'<span class="bdg bmv"><i class="ti ti-player-play" style="font-size:9px;transform:skewX(7deg)"></i><span>MV</span></span>':''}
+          <span class="bdg bsp"><i class="ti ti-trophy" style="font-size:9px;transform:skewX(7deg)"></i><span>#1 TRENDING</span></span>
           <span style="font-size:10px;color:var(--mu)">${(t.playCount||0).toLocaleString()} Streams</span>
         </div>
       </div>
@@ -3906,6 +3924,22 @@ function closeMiniPlayer(){
 // ─── No Demo Tracks — only from admin ───────────────
 function getFallbackTracks(){ return []; }  // demo removed
 
+// ─── Graffiti Badge Renderer ──────────────────────
+function renderBadge(badge,label,isNew){
+  const L=(label||'').toLowerCase();
+  let cls='bnew',icon='ti-sparkles',txt='NEW';
+  if(badge==='hot'||L.includes('trend')){cls='bhot';icon='ti-flame';txt=L.includes('trend')?'TRENDING':'HOT';}
+  else if(badge==='sp'||L.includes('sponsor')){cls='bsp2';icon='ti-briefcase';txt='SPONSORED';}
+  else if(L.includes('popular')){cls='bhot';icon='ti-heart-filled';txt='POPULAR';}
+  else if(badge==='new'||L.includes('early')||L.includes('new')){cls='bnew';icon='ti-sparkles';txt=L.includes('early')?'EARLY':'NEW';}
+  else if(L.includes('hot')){cls='bsp';icon='ti-trophy';txt='HOT WEEK';}
+  let html=`<span class="bdg ${cls}"><i class="ti ${icon}" style="font-size:10px;transform:skewX(7deg)"></i><span>${txt}</span></span>`;
+  if(isNew&&badge!=='new'&&!L.includes('new')&&!L.includes('early')){
+    html+=`<span class="bdg bnew"><i class="ti ti-bolt" style="font-size:10px;transform:skewX(7deg)"></i><span>FRESH</span></span>`;
+  }
+  return html;
+}
+
 // ─── Trending Logic — 10 day ────────────────────
 function buildFeed(genre){
   if(genre!==undefined)currentGenre=genre;
@@ -3951,9 +3985,8 @@ function buildFeed(genre){
         <div class="tc-art-grad"></div>
         <div class="tc-art-info">
           <div class="tc-art-badges">
-            <span class="bdg b${badge||'new'}">${badgeLabel||'🎵'}</span>
-            ${isNew10&&badge!=='new'?'<span class="bdg bnew">🆕 New</span>':''}
-            ${t.hasVideo?`<span class="bdg bmv" onclick="event.stopPropagation();openVideo('${t.id}')">🎬 MV</span>`:''}
+            ${renderBadge(badge,badgeLabel,isNew10)}
+            ${t.hasVideo?`<span class="bdg bmv" onclick="event.stopPropagation();openVideo('${t.id}')"><i class="ti ti-player-play" style="font-size:9px;transform:skewX(7deg)"></i><span>MV</span></span>`:''}
           </div>
           <div class="tct">${esc(t.title)}</div>
           <div class="tca" onclick="event.stopPropagation();openArtistPage('${t.artistId}')">${esc(t.artist)} <i class="ti ti-chevron-left" style="font-size:11px"></i></div>
