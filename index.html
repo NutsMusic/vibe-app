@@ -198,7 +198,13 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Inter',s
 .shbtn{width:100%;padding:14px;border-radius:var(--r2);border:none;background:linear-gradient(135deg,var(--pu2),#9333ea);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 4px 16px rgba(124,58,237,.4);transition:all .15s;letter-spacing:.3px}
 .shbtn:active{transform:scale(.98);box-shadow:0 2px 8px rgba(124,58,237,.3)}
 /* ─── LOCAL LIBRARY ───────────────────────────────────── */
-.dropzone{border:1.5px dashed var(--b2);border-radius:var(--r2);padding:24px 20px;text-align:center;color:var(--mu);cursor:pointer;margin:12px 14px;transition:all .15s;background:var(--bg3)}
+.dropzone{position:relative;border:1.5px dashed var(--b2);border-radius:var(--r2);padding:24px 20px;text-align:center;color:var(--mu);cursor:pointer;margin:12px 14px;transition:all .15s;background:var(--bg3);overflow:hidden}
+/* GENRE CHIPS — button style */
+.chips{display:flex;gap:8px;padding:10px 14px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;padding:8px 16px;border-radius:22px;background:var(--bg3);border:1px solid var(--b2);color:var(--mu2);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .18s;user-select:none}
+.chip:active{transform:scale(.94)}
+.chip.on{background:linear-gradient(135deg,var(--pu),#9333ea);border-color:transparent;color:#fff;box-shadow:0 3px 14px rgba(124,58,237,.4)}
 .dropzone:hover,.dropzone.dov{border-color:var(--pu);color:var(--pu);background:rgba(124,58,237,.06)}
 .dropzone i{font-size:32px;display:block;margin-bottom:10px}
 .dropzone p{font-size:13px;line-height:1.6}
@@ -508,7 +514,7 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Inter',s
 .theme-card.sel{border-color:var(--pu)}
 .theme-card-prev{height:50px;display:flex;align-items:center;justify-content:center;font-size:18px}
 .theme-card-name{font-size:10px;font-weight:600;text-align:center;padding:5px;background:var(--bg3)}
-@keyframes cmtPop{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes cmtFloat{0%{opacity:0;transform:translateX(-50%) translateY(14px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}80%{opacity:1;transform:translateX(-50%) translateY(-6px)}100%{opacity:0;transform:translateX(-50%) translateY(-18px)}}
 #cmt-flash{transition:opacity .3s ease}
 /* LOADING */
 #loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;transition:opacity .4s}
@@ -1312,6 +1318,11 @@ html,body{height:100%;background:var(--bg);color:var(--tx);font-family:'Inter',s
         <div class="stitem" onclick="openOv('ov-ep')"><div class="stico" style="background:rgba(167,139,250,.12)"><i class="ti ti-user-edit" style="color:var(--pu)"></i></div><div class="stlbl"><div class="sttitle">Edit Profile</div></div><i class="ti ti-chevron-right" style="color:var(--mu);font-size:16px"></i></div>
         <div class="stitem" onclick="copyRef()"><div class="stico" style="background:rgba(52,211,153,.12)"><i class="ti ti-link" style="color:var(--gr)"></i></div><div class="stlbl"><div class="sttitle">Link Invite</div><div class="stsub" id="st-ref">—</div></div><i class="ti ti-copy" style="color:var(--mu);font-size:16px"></i></div>
       </div>
+      <div style="font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1px;text-transform:uppercase;padding:14px 14px 8px">🌐 Language</div>
+      <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
+        <div class="stitem" onclick="setLang('en')"><div class="stico" style="background:rgba(96,165,250,.12)">🇬🇧</div><div class="stlbl"><div class="sttitle">English</div></div><i class="ti ti-check" id="lang-check-en" style="color:var(--gr);font-size:18px"></i></div>
+        <div class="stitem" onclick="setLang('fa')"><div class="stico" style="background:rgba(52,211,153,.12)">🇮🇷</div><div class="stlbl"><div class="sttitle">فارسی</div></div><i class="ti ti-check" id="lang-check-fa" style="color:var(--gr);font-size:18px;display:none"></i></div>
+      </div>
       <div style="font-size:10px;font-weight:600;color:var(--mu);letter-spacing:1px;text-transform:uppercase;padding:14px 14px 8px">Play</div>
       <div style="margin:0 14px;border-radius:var(--r2);overflow:hidden;border:.5px solid var(--b1)">
         <div class="stitem"><div class="stico" style="background:rgba(96,165,250,.12)"><i class="ti ti-wifi" style="color:var(--bl)"></i></div><div class="stlbl"><div class="sttitle">Quality</div></div><select id="st-quality" style="background:var(--bg3);border:.5px solid var(--b2);color:var(--mu2);font-size:12px;border-radius:8px;padding:4px 8px;outline:none;font-family:'Inter',sans-serif" onchange="saveST('quality',this.value)"><option value="low">low</option><option value="medium" selected>Average</option><option value="high">up</option></select></div>
@@ -2023,7 +2034,7 @@ function setMini(emoji,color,title,artist,type){
   const qna=document.getElementById('qnartist');if(qna)qna.textContent=artist;
   updMiniLikeBtn();updMiniMVBtn();updatePlayModeUI();
   updMiniRepostBtn();updMiniRadioBtn();
-  _crossfadeStarted=false;_lastFlashedComment=-1;
+  _crossfadeStarted=false;_flashedComments.clear();
   loadLyricsForCurrent();
   if(CUR.id)renderCommentMarkers(CUR.id);
   // ══ Media Session API (bar Notification phone) ══
@@ -5282,7 +5293,7 @@ function openStory(gi){
   const stories=getStories();
   const byArtist={};stories.forEach(s=>{if(!byArtist[s.handle])byArtist[s.handle]=[];byArtist[s.handle].push(s);});
   _storyGroups=Object.values(byArtist);_storyGi=gi;_storyIdx=0;
-  document.getElementById('ov-story').classList.add('on');
+  document.getElementById('ov-story').style.display='flex';
   showStoryFrame();
 }
 function showStoryFrame(){
@@ -5290,20 +5301,93 @@ function showStoryFrame(){
   const s=g[_storyIdx];if(!s){nextStoryGroup();return;}
   markStorySeen(s.id);
   const body=document.getElementById('story-body');
-  body.innerHTML=`${s.type==='video'?`<video src="${s.img}" autoplay playsinline style="width:100%;height:100%;object-fit:contain">`:`<img src="${s.img}" style="width:100%;height:100%;object-fit:contain">`}`;
+  if(s.type==='video'){
+    body.innerHTML=`<video src="${s.img}" autoplay playsinline style="width:100%;height:100%;object-fit:contain"></video>`;
+  }else{
+    body.innerHTML=`<img src="${s.img}" style="width:100%;height:100%;object-fit:contain">`;
+  }
   document.getElementById('story-avatar').textContent=s.avatar||'🎤';
   document.getElementById('story-artist-name').textContent=s.artist;
   document.getElementById('story-time').textContent=ago(s.ts);
   const pb=document.getElementById('story-progress');
-  pb.innerHTML=g.map((_,i)=>`<div style="flex:1;height:2.5px;background:rgba(255,255,255,.3);border-radius:2px;overflow:hidden"><div style="height:100%;background:#fff;width:${i<_storyIdx?100:0}%;transition:width ${i===_storyIdx?'4s':'0s'} linear" id="story-pf-${i}"></div></div>`).join('');
-  setTimeout(()=>{const pf=document.getElementById('story-pf-'+_storyIdx);if(pf)pf.style.width='100%';},50);
+  pb.innerHTML=g.map((_,i)=>`<div style="flex:1;height:2.5px;background:rgba(255,255,255,.3);border-radius:2px;overflow:hidden"><div style="height:100%;background:#fff;width:${i<_storyIdx?100:0}%;border-radius:2px" id="story-pf-${i}"></div></div>`).join('');
+  const dur=s.type==='video'?8000:4000;
+  // animate active bar
+  requestAnimationFrame(()=>{const pf=document.getElementById('story-pf-'+_storyIdx);if(pf){pf.style.transition=`width ${dur}ms linear`;pf.style.width='100%';}});
   clearTimeout(_storyTimer);
-  _storyTimer=setTimeout(nextStory,s.type==='video'?8000:4000);
+  _storyTimer=setTimeout(nextStory,dur);
 }
-function nextStory(){_storyIdx++;const g=_storyGroups[_storyGi];if(_storyIdx>=g.length){nextStoryGroup();}else showStoryFrame();}
-function nextStoryGroup(){_storyGi++;_storyIdx=0;if(_storyGi>=_storyGroups.length){closeStory();renderStoriesBar();}else showStoryFrame();}
+function nextStory(){_storyIdx++;const g=_storyGroups[_storyGi];if(!g||_storyIdx>=g.length){nextStoryGroup();}else showStoryFrame();}
+function nextStoryGroup(){_storyGi++;_storyIdx=0;if(_storyGi>=_storyGroups.length){closeStory();}else showStoryFrame();}
 function prevStory(){if(_storyIdx>0){_storyIdx--;showStoryFrame();}else if(_storyGi>0){_storyGi--;_storyIdx=0;showStoryFrame();}}
-function closeStory(){clearTimeout(_storyTimer);document.getElementById('ov-story').classList.remove('on');renderStoriesBar();}
+function closeStory(){clearTimeout(_storyTimer);document.getElementById('ov-story').style.display='none';renderStoriesBar();}
+
+// ════════════════════════════════════════════════════
+//  LANGUAGE / i18n  (English ↔ Persian)
+// ════════════════════════════════════════════════════
+const I18N={
+  // nav & pages
+  'Music':'موزیک','Library':'کتابخانه','Discover':'کشف','Video':'ویدیو','Profile':'پروفایل',
+  'Feed':'فید','Settings':'تنظیمات','Wallet':'کیف پول','Missions':'ماموریت‌ها','Mission':'ماموریت',
+  'Notifications':'اعلان‌ها','Leaderboard':'جدول برترین‌ها','Queue':'صف پخش','Menu':'منو',
+  'Liked':'لایک‌شده','Playlists':'پلی‌لیست‌ها','Reposts':'بازنشرها','For You':'برای تو','Stats':'آمار',
+  // actions
+  'Save':'ذخیره','Cancel':'انصراف','Confirm':'تایید','Delete':'حذف','Edit':'ویرایش','Add':'افزودن',
+  'Share':'اشتراک','Download':'دانلود','Submit':'ارسال','Close':'بستن','Done':'انجام شد',
+  'Play all':'پخش همه','Shuffle':'تصادفی','Search':'جستجو','Clear':'پاک کردن','Follow':'دنبال کردن',
+  'Comments':'نظرات','Lyrics':'متن آهنگ','Repost':'بازنشر','Radio':'رادیو','Save offline':'ذخیره آفلاین',
+  // profile / settings
+  'Edit Profile':'ویرایش پروفایل','Link Invite':'لینک دعوت','Theme':'پوسته','Language':'زبان',
+  'Quality':'کیفیت','Autoplay':'پخش خودکار','Equalizer':'اکولایزر','Crossfade':'محو تدریجی',
+  'Gapless Playback':'پخش بدون وقفه','Sleep Timer':'تایمر خواب','Account':'حساب',
+  'Total Coins':'مجموع سکه','Tracks Played':'ترک‌های پخش‌شده','Recently Played':'اخیراً پخش‌شده',
+  'Badges':'نشان‌ها','Balance':'موجودی','Withdraw':'برداشت','Amount':'مبلغ',
+  // local
+  'Local':'محلی','Online':'آنلاین','Cached':'ذخیره‌شده','Save for offline':'ذخیره برای آفلاین',
+  'Submit Track':'ارسال ترک','Artist Dashboard':'داشبورد آرتیست',
+  // feed
+  'All':'همه','Now Playing':'در حال پخش',
+  // misc
+  'Get Started':'شروع کن','Continue':'ادامه','Login':'ورود','Sign Up':'ثبت‌نام','Logout':'خروج',
+  'Track Name':'نام ترک','Genre':'ژانر','Duration':'مدت','Description':'توضیحات','Release Date':'تاریخ انتشار',
+};
+// reverse map FA→EN
+const I18N_REV={};Object.keys(I18N).forEach(k=>I18N_REV[I18N[k]]=k);
+
+function getLang(){return localStorage.getItem('vibe_lang')||'en';}
+function setLang(lang){
+  localStorage.setItem('vibe_lang',lang);
+  applyLang(lang);
+  document.getElementById('lang-check-en').style.display=lang==='en'?'':'none';
+  document.getElementById('lang-check-fa').style.display=lang==='fa'?'':'none';
+  toast(lang==='fa'?'✅ زبان به فارسی تغییر کرد':'✅ Language set to English');
+}
+function applyLang(lang){
+  const root=document.querySelector('.app')||document.body;
+  if(lang==='fa'){
+    document.documentElement.setAttribute('lang','fa');
+    document.documentElement.setAttribute('dir','rtl');
+    translateDOM(I18N);
+  }else{
+    document.documentElement.setAttribute('lang','en');
+    document.documentElement.setAttribute('dir','ltr');
+    translateDOM(I18N_REV);
+  }
+}
+// Walk text nodes and swap known phrases
+function translateDOM(dict){
+  const walk=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null);
+  const nodes=[];let n;
+  while(n=walk.nextNode())nodes.push(n);
+  nodes.forEach(node=>{
+    const txt=node.textContent.trim();
+    if(dict[txt])node.textContent=node.textContent.replace(txt,dict[txt]);
+  });
+  // placeholders
+  document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{
+    const p=el.placeholder.trim();if(dict[p])el.placeholder=dict[p];
+  });
+}
 
 // ════════════════════════════════════════════════════
 //  MINI-PLAYER BUTTON HELPERS (lyrics/repost/radio/comments)
@@ -5437,30 +5521,33 @@ function cmtSeekTo(sec){
   doSeek(p);
   toast('⏩ '+fmtT(sec));
 }
-// Flash comment bubble when playback reaches its timestamp
-let _lastFlashedComment=-1;
+// Flash comment when playback reaches its timestamp (SoundCloud-style, floats above progress bar)
+let _flashedComments=new Set();
 function checkCommentFlash(curSec){
   if(!CUR.id)return;
   const arr=getComments(CUR.id);
+  const cur=Math.floor(curSec);
   arr.forEach(c=>{
-    if(Math.abs((c.at||0)-Math.floor(curSec))===0&&_lastFlashedComment!==c.id){
-      _lastFlashedComment=c.id;
+    const at=c.at||0;
+    if(cur===at&&!_flashedComments.has(c.id)){
+      _flashedComments.add(c.id);
       showCommentBubble(c);
-      setTimeout(()=>{if(_lastFlashedComment===c.id)_lastFlashedComment=-1;},2000);
+      setTimeout(()=>_flashedComments.delete(c.id),3000);
     }
   });
 }
 function showCommentBubble(c){
+  // floats just above the mini-player progress bar, animates up
   let bub=document.getElementById('cmt-flash');
   if(!bub){
     bub=document.createElement('div');bub.id='cmt-flash';
-    bub.style.cssText='position:fixed;bottom:130px;left:50%;transform:translateX(-50%);max-width:300px;background:rgba(20,20,35,.96);border:.5px solid var(--pu);border-radius:14px;padding:9px 14px;z-index:40;display:flex;align-items:center;gap:9px;box-shadow:0 6px 24px rgba(124,58,237,.3);animation:cmtPop .3s ease';
     document.body.appendChild(bub);
   }
-  bub.innerHTML=`<div style="width:26px;height:26px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">${c.avatar}</div><div style="min-width:0"><div style="font-size:10px;color:var(--pu);font-weight:600">${esc(c.user)}</div><div style="font-size:12px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(c.text)}</div></div>`;
-  bub.style.display='flex';bub.style.opacity='1';
-  clearTimeout(bub._t);
-  bub._t=setTimeout(()=>{bub.style.opacity='0';setTimeout(()=>{if(bub)bub.style.display='none';},300);},2400);
+  const dur=CUR.dur||1;
+  const leftPct=Math.max(8,Math.min(92,((c.at||0)/dur)*100));
+  bub.style.cssText=`position:fixed;bottom:118px;left:50%;transform:translateX(-50%);max-width:280px;background:rgba(20,20,35,.97);border:1px solid var(--pu);border-radius:16px;padding:8px 13px;z-index:45;display:flex;align-items:center;gap:8px;box-shadow:0 6px 28px rgba(124,58,237,.4);pointer-events:none;animation:cmtFloat 3s ease forwards`;
+  bub.innerHTML=`<div style="width:24px;height:24px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">${c.avatar}</div><div style="min-width:0"><div style="font-size:9px;color:var(--pu);font-weight:700">${esc(c.user)}</div><div style="font-size:12px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px">${esc(c.text)}</div></div>`;
+  bub.style.display='flex';
 }
 function openComments(tid){
   const t=OT.find(x=>x.id===tid)||{title:'Track',artist:''};
@@ -5700,6 +5787,11 @@ let _crossfadeStarted=false;
   // init UI
   updHdr();updateMissions();updProfile();updateStats();updateBadge();updateNotifBadge();updProfMenu();updProfileForRole();
   loadVolume();
+  // apply saved language
+  const _lng=getLang();
+  document.getElementById('lang-check-en').style.display=_lng==='en'?'':'none';
+  document.getElementById('lang-check-fa').style.display=_lng==='fa'?'':'none';
+  if(_lng==='fa')setTimeout(()=>applyLang('fa'),300);
   if(ONLINE)buildFeed();else syncOnline();
   setInterval(save,30000);
   setInterval(()=>{if(CUR.id&&CUR.playing)updWave(CUR.id,CUR.progress);},500);
